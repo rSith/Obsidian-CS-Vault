@@ -11,10 +11,14 @@
             "id": "533a330df30f8cd7",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "03. Self_Thought/Prompt Engineering/Practical Prompt Engineering.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Practical Prompt Engineering"
             }
           }
         ]
@@ -157,6 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "03. Self_Thought/Prompt Engineering/Practical Prompt Engineering.md",
                 "followCursor": true,
                 "showSearch": false,
                 "searchQuery": ""
@@ -194,8 +199,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "95925c9241fc185b",
+  "active": "533a330df30f8cd7",
   "lastOpenFiles": [
+    "03. Self_Thought/Prompt Engineering/Practical Prompt Engineering.md",
+    "03. Self_Thought/Prompt Engineering",
     "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/Untitled.base",
     "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/01. Introduction.md",
     "Untitled",
@@ -216,7 +223,6 @@
     "02. CS_Uni 1/04. CMIS 3142 - Computational Methods",
     "02. CS_Uni 1/02. CMIS 3224 - Web Designing and e-commerce",
     "02. CS_Uni 1/01. CMIS 3114 - Data Communication & Comp. Networks",
-    "02. CS_Uni 1",
     "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/02. The Physical layer.md",
     "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/03. The Medium Access sub-layer.md",
     "Welcome.md",
