@@ -4,21 +4,41 @@
     "type": "split",
     "children": [
       {
-        "id": "66511f6e6f9ed56e",
+        "id": "ca453b0db5a3298f",
         "type": "tabs",
         "children": [
           {
-            "id": "533a330df30f8cd7",
+            "id": "0473836cd203a8d9",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01. Things To Do/Tasks To Do.md",
+                "file": "Attachment/all-notes/Standard Prompting.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Tasks To Do"
+              "title": "Standard Prompting"
+            }
+          }
+        ]
+      },
+      {
+        "id": "8a725cb2f6c973e3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f6c337984fbddf6b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Core_Prompting_Techniques.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Core_Prompting_Techniques"
             }
           }
         ]
@@ -83,7 +103,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -161,7 +182,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "01. Things To Do/Tasks To Do.md",
+                "file": "03. Self_Thought/Prompt Engineering/Practical Prompt Engineering.md",
                 "followCursor": true,
                 "showSearch": false,
                 "searchQuery": ""
@@ -199,32 +220,43 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "533a330df30f8cd7",
+  "active": "0473836cd203a8d9",
   "lastOpenFiles": [
-    "01. Things To Do/Untitled.base",
-    "01. Things To Do/Tasks To Do.md",
-    "03. Self_Thought/Prompt Engineering/Practical Prompt Engineering.md",
-    "01. Things To Do/New folder",
+    "Core_Prompting_Techniques.md",
+    "Attachment/all-notes/Standard Prompting.md",
+    "03. Self_Thought/Coding with AI/01. Prompt Engineering/Core Prompting Techniques.md",
+    "03. Self_Thought/Coding with AI/01. Prompt Engineering/Practical Prompt Engineering.md",
     "README.md",
-    "03. Self_Thought/Prompt Engineering",
-    "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/Untitled.base",
+    "03. Self_Thought/Coding with AI/01. Prompt Engineering/How do LLMs Actually Works.md",
+    "Attachment/all-notes/test.md",
+    "Attachment/all-notes/Untitled 1.md",
+    "Attachment/all-notes/Untitled.md",
+    "Attachment/images/NotebookLM Mind Map.png",
+    "Attachment/all-notes/LLMs.md",
+    "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/00. Course Summary.md",
+    "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/The Data Link Layer.md",
+    "Attachment/all-notes",
+    "Attachment/images",
+    "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/sub-notes",
+    "03. Self_Thought/Coding with AI/01. Prompt Engineering/sub-notes",
+    "Attachment/all-notes/LSTM.md",
+    "Attachment/all-notes/RNN.md",
+    "03. Self_Thought/Coding with AI",
+    "01. Things To Do/Tasks To Do.md",
+    "01. Things To Do/Untitled.base",
+    "01. Things To Do/New folder",
+    "03. Self_Thought/Coding with AI/01. Prompt Engineering",
+    "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/sub-notes/Untitled.base",
     "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/01. Introduction.md",
     "Untitled",
     "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/01.01 Introduction Q&A.md",
-    "Attachment/NotebookLM Mind Map.png",
-    "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/Untitled",
-    "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/00. Course Summary.md",
     "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/NotebookLM Mind Map.png",
     "Untitled/images.md",
-    "Attachment",
     "02. CS_Uni 1/01. CMIS 3114 - Data Communication & Comp. Networks/NotebookLM Mind Map.png",
     "02. CS_Uni 1/01. CMIS 3114 - Data Communication & Comp. Networks/03. The Medium Access sub-layer.md",
     "02. CS_Uni 1/01. CMIS 3114 - Data Communication & Comp. Networks/01. Introduction.md",
     "02. CS_Uni 1/01. CMIS 3114 - Data Communication & Comp. Networks/02. The Physical layer.md",
     "02. CS_Uni 1/01. CMIS 3114 - Data Communication & Comp. Networks/00. Course Summary.md",
-    "02. CS_Uni 1/03. CMIS 3134 - Computer Architecture & Compiler",
-    "02. CS_Uni 1/05. CMIS 3153 - Advanced Database Systems",
-    "02. CS_Uni 1/04. CMIS 3142 - Computational Methods",
     "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/02. The Physical layer.md",
     "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/03. The Medium Access sub-layer.md",
     "Welcome.md",

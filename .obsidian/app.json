@@ -1,5 +1,13 @@
 {
-  "newFileLocation": "current",
-  "attachmentFolderPath": "Attachment",
-  "alwaysUpdateLinks": true
+  "newFileLocation": "folder",
+  "attachmentFolderPath": "Attachment/images",
+  "alwaysUpdateLinks": true,
+  "pdfExportSettings": {
+    "includeName": true,
+    "pageSize": "A4",
+    "landscape": false,
+    "margin": "2",
+    "downscalePercent": 51
+  },
+  "newFileFolderPath": "Attachment/all-notes"
 }
