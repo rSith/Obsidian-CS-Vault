@@ -199,8 +199,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "0b09aa595b698eed",
+  "active": "9683b8de1ddd9a8a",
   "lastOpenFiles": [
+    "03. Self_Thought/AI Terminology - The Big Picture.md",
+    "Attachment/all-notes/LLMs.md",
+    "03. Self_Thought/Coding with AI/01. Prompt Engineering/How do LLMs Actually Works.md",
+    "Attachment/images/Pasted image 20260822205606.png",
+    "Attachment/images/BigPicture.png",
     "03. Self_Thought/Artificial Intelligence/Artificial Intelligence.md",
     "03. Self_Thought/Machine Learning/Machine Learning.md",
     "03. Self_Thought/Artificial Intelligence",
@@ -212,12 +217,10 @@
     "Core_Prompting_Techniques.md",
     "03. Self_Thought/Coding with AI/01. Prompt Engineering/Practical Prompt Engineering.md",
     "README.md",
-    "03. Self_Thought/Coding with AI/01. Prompt Engineering/How do LLMs Actually Works.md",
     "Attachment/all-notes/test.md",
     "Attachment/all-notes/Untitled 1.md",
     "Attachment/all-notes/Untitled.md",
     "Attachment/images/NotebookLM Mind Map.png",
-    "Attachment/all-notes/LLMs.md",
     "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/00. Course Summary.md",
     "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/The Data Link Layer.md",
     "Attachment/all-notes",
@@ -237,8 +240,6 @@
     "02. CS_Uni 1/01. CMIS 3114 - Data Communication & Comp. Networks/03. The Medium Access sub-layer.md",
     "02. CS_Uni 1/01. CMIS 3114 - Data Communication & Comp. Networks/01. Introduction.md",
     "02. CS_Uni 1/01. CMIS 3114 - Data Communication & Comp. Networks/02. The Physical layer.md",
-    "02. CS_Uni 1/01. CMIS 3114 - Data Communication & Comp. Networks/00. Course Summary.md",
-    "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/02. The Physical layer.md",
-    "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/03. The Medium Access sub-layer.md"
+    "02. CS_Uni 1/01. CMIS 3114 - Data Communication & Comp. Networks/00. Course Summary.md"
   ]
 }

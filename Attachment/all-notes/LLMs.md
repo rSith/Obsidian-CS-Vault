@@ -47,7 +47,7 @@ This is why you can sometimes get different answers to the same question.
 
 ## The Transformer and Self-Attention
 
-A major breakthrough happened in 2017 with the **[[Transformer architecture]]**.
+A major breakthrough happened in 2017 with the **[[Transformer]] Architecture**.
 
 Before Transformers, architectures such as **[[RNN]]**(Recurrent Neural Network) and **[[LSTM]]** had more difficulty handling relationships between words that were far apart in a long sentence.
 
