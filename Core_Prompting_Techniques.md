@@ -20,17 +20,7 @@ Nothing fancy — but it's the foundation every other prompting technique builds
 
 #### Example
 
-```
-Create a prompt library application that lets users save and delete prompts.
-Users should be able to:
-- Enter a title and content for their prompt
-- Save it to localStorage
-- See all their saved prompts displayed on the page
-- Delete prompts they no longer need
-Make it look clean and professional with HTML, CSS, and JavaScript.
-```
-
-⚠️ Watch out: with an unstructured prompt like this, the assistant often adds features you didn't ask for and makes a lot of assumptions — introducing more randomness than you want, especially for code generation.
+⚠️ Watch out: 
 
 ---
 
