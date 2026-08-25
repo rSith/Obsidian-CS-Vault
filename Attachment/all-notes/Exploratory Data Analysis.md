@@ -33,6 +33,7 @@ Importance:
 
 ## Steps for Performing Exploratory Data Analysis 
 >[!important] Tools
+>- Numerical Operations : [[NumPy]]
 >- Data Manipulation : [[Pandas]]
 >- Data Visualization : [[Matplotlib]], [[Seaborn]], [[Plotly]]
 
@@ -54,6 +55,8 @@ Importance:
 - Look for errors, invalid values or unusual data points.
 ---
 ### Step 03: Handling Missing Data
+> Identify and handle missing values properly to avoid incorrect results.
+
 
 ### Step 04: Exploring Data Characteristics
 ### Step 05: Performing Data Transformation
