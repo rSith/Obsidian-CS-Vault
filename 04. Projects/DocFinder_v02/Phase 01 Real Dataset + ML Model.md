@@ -22,3 +22,12 @@
 - The complete web application and ML service should be containerized using Docker and hosted publicly on a cloud platform.
 ----
 ### Step 02: Data Collection
+#### Step 1.1 — Set up the Python environment
+>[!important] Goal
+>Create a clean, isolated Python environment for developing DocFinder's Machine Learning System.
+>- **Dependency Management**: Use `venv` to safely manage libraries
+>- **ML Development**: The environment supports data cleaning, feature engineering, model training, model comparison, and prediction.
+>- .
+>- .
+
+

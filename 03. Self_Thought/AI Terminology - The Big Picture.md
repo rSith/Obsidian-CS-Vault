@@ -9,6 +9,7 @@
 - Planning
 ---
 ## [[Machine Learning]]
+
 > A **way of building AI systems** that learn patterns from data instead of relying entirely on explicitly programmed rules.
 
 - Instead of programming, we give the model thousand of houses with their characteristics and prices. It learns the relationship itself.

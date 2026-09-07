@@ -4,35 +4,31 @@
     "type": "split",
     "children": [
       {
-        "id": "c152e509fefb6c29",
+        "id": "cd6b601be1addf56",
         "type": "tabs",
         "children": [
           {
-            "id": "68c3908cfc374061",
+            "id": "a0eddb73983bc226",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "04. Projects/DocFinder_v02/Phase 01 Real Dataset + ML Model.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Phase 01 Real Dataset + ML Model"
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
             }
           },
           {
-            "id": "c552e36b6bd15f57",
+            "id": "af00b429b0229907",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "04. Projects/DocFinder_v02/DocFinder_Upgrade_Roadmap.md",
+                "file": "Attachment/all-notes/Regression.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "DocFinder_Upgrade_Roadmap"
+              "title": "Regression"
             }
           }
         ],
@@ -98,8 +94,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -215,48 +210,52 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c552e36b6bd15f57",
+  "active": "af00b429b0229907",
   "lastOpenFiles": [
-    "04. Projects/DocFinder_v02/Phase 01 Real Dataset + ML Model.md",
+    "Attachment/all-notes/Simple Linear Regression.md",
+    "Attachment/all-notes/Regression.md",
+    "Attachment/all-notes/Supervised Learning.md",
     "03. Self_Thought/Machine Learning/Machine Learning.md",
+    "02. CS_Uni/03. CMIS 3134 - Computer Architecture & Compiler/Past paper Questions.md",
+    "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/02. The Physical layer.md",
+    "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/03. The Medium Access sub-layer.md",
+    "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/00. Course Summary.md",
+    "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/01. Introduction.md",
+    "02. CS_Uni/03. CMIS 3134 - Computer Architecture & Compiler/00. Course Summary.md",
+    "03. Self_Thought/AI Terminology - The Big Picture.md",
+    "Attachment/all-notes/this is a page.md",
+    "Attachment/all-notes/Classification.md",
+    "02. CS_Uni/03. CMIS 3134 - Computer Architecture & Compiler/Untitled.md",
+    "Attachment/all-notes/Few-Shot Prompting.md",
+    "Attachment/all-notes/Linear Regression.md",
+    "03. Self_Thought/Coding with AI/01. Prompt Engineering/Core Prompting Techniques.md",
+    "Attachment/all-notes/One-Shot Prompting.md",
+    "Attachment/all-notes/Zero-Shot Prompting.md",
+    "03. Self_Thought/What I am learning...md",
+    "Attachment/all-notes/Untitled 2.base",
+    "Attachment/all-notes/Untitled.md",
+    "Attachment/all-notes/Standard Prompting.md",
+    "03. Self_Thought/Coding with AI/01. Prompt Engineering/How do LLMs Actually Works.md",
+    "03. Self_Thought/Coding with AI/01. Prompt Engineering/Practical Prompt Engineering.md",
     "04. Projects/DocFinder_v02/DocFinder_Upgrade_Roadmap.md",
-    "Attachment/all-notes/Exploratory Data Analysis.md",
+    "04. Projects/Machine Leaning in Production/Machine Learning in Production.md",
+    "Attachment/images/Pasted image 20260904132141.png",
+    "04. Projects/Machine Leaning in Production",
+    "Attachment/images/Pasted image 20260904120424.png",
+    "Attachment/images/Pasted image 20260904115845.png",
+    "Attachment/all-notes/Untitled.base",
+    "Attachment/images/Pasted image 20260903183539.png",
     "04. Projects/DocFinder_v02",
     "04. Projects",
-    "Attachment/all-notes/Machine Learning Pipeline.md",
-    "03. Self_Thought/AI Terminology - The Big Picture.md",
-    "Attachment/all-notes/LLMs.md",
-    "03. Self_Thought/Coding with AI/01. Prompt Engineering/How do LLMs Actually Works.md",
     "Attachment/images/Pasted image 20260822205606.png",
     "Attachment/images/BigPicture.png",
-    "03. Self_Thought/Artificial Intelligence/Artificial Intelligence.md",
     "03. Self_Thought/Artificial Intelligence",
-    "Attachment/all-notes/Untitled.base",
     "Attachment/all-notes/Untitled 1.base",
-    "03. Self_Thought/Coding with AI/01. Prompt Engineering/Core Prompting Techniques.md",
     "03. Self_Thought/Machine Learning",
-    "Attachment/all-notes/Standard Prompting.md",
-    "Core_Prompting_Techniques.md",
-    "03. Self_Thought/Coding with AI/01. Prompt Engineering/Practical Prompt Engineering.md",
-    "README.md",
-    "Attachment/all-notes/test.md",
-    "Attachment/all-notes/Untitled 1.md",
-    "Attachment/all-notes/Untitled.md",
     "Attachment/images/NotebookLM Mind Map.png",
-    "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/00. Course Summary.md",
-    "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/The Data Link Layer.md",
     "Attachment/all-notes",
     "Attachment/images",
-    "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/sub-notes",
-    "03. Self_Thought/Coding with AI/01. Prompt Engineering/sub-notes",
-    "Attachment/all-notes/LSTM.md",
-    "Attachment/all-notes/RNN.md",
-    "01. Things To Do/Tasks To Do.md",
-    "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/01. Introduction.md",
-    "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/01.01 Introduction Q&A.md",
     "02. CS_Uni/01. CMIS 3114 - Data Communication & Comp. Networks/NotebookLM Mind Map.png",
-    "Untitled/images.md",
-    "02. CS_Uni 1/01. CMIS 3114 - Data Communication & Comp. Networks/NotebookLM Mind Map.png",
-    "02. CS_Uni 1/01. CMIS 3114 - Data Communication & Comp. Networks/03. The Medium Access sub-layer.md"
+    "02. CS_Uni 1/01. CMIS 3114 - Data Communication & Comp. Networks/NotebookLM Mind Map.png"
   ]
 }
