@@ -1,0 +1,5 @@
+{
+  "autoSaveInterval": 15,
+  "autoPullOnBoot": true,
+  "autoCommitMessage": "vault backup: {{date}}"
+}

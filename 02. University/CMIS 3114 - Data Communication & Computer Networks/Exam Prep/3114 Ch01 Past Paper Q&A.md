@@ -1,0 +1,429 @@
+---
+type: exam-prep
+course: CMIS 3114
+status: done
+tags: [networking, exam-prep]
+---
+> [!info] Exam prep · [[CMIS 3114 Course Home]] · My notes: [[3114-01 Introduction]] · All chapters: [[3114 Topic Map & Past Papers]]
+
+# CMIS 3114 Chapter 01 Exam Preparation Study Guide
+
+This document synthesizes past paper questions from Academic Years 2018/19 to 2022/23 for CMIS 3114 – Data Communication and Computer Networks, specifically focusing on Chapter 01: Introduction.
+
+## 1. Network Fundamentals
+
+### Definition and General Concepts
+
+|   |   |   |
+|---|---|---|
+|Academic Year|Question Number|Question Description|
+|2019/20|Q1 (a)|Define what is a computer network and how it has become a part of the daily life.|
+|2020/21|Q1 (a)|Define what is a computer network and discuss its advantages and disadvantages.|
+|2021/22|Q1 (a)|Define the term “Computer Network”. Describe the 4 reasons as to why Computer Networks are required.|
+|2022/23|Q1 (a)|Describe four (4) reasons why Computer Networks are required.|
+
+### Communication Protocols
+
+|   |   |   |
+|---|---|---|
+|Academic Year|Question Number|Question Description|
+|2018/19|Q2 (a)|Describe the role of protocols in computer networks.|
+|2019/20|Q3 (a)|Describe what is a network protocol and why they are needed in computer networks.|
+|2020/21|Q3 (a)|Define what is a network protocol and why they are designed with a layered approach.|
+|2021/22|Q3 (a)|Define what is a network protocol and why they are needed in computer networks.|
+|2022/23|Q3 (a)|Describe the need for network protocols and why multiple protocols are used in a computer network.|
+
+## 2. Uses of Networks
+
+### Network Models (Client-Server, P2P, and Distributed Systems)
+
+|   |   |   |
+|---|---|---|
+|Academic Year|Question Number|Question Description|
+|2018/19|Q1 (b)|Describe the differences between Distributed systems and client-server systems.|
+|2019/20|Q1 (b)|Compare and contrast between Peer-to-Peer and Client-Server network models.|
+|2019/20|Q2 (d)|Describe, step-by-step, the interactions between two computers using connection oriented services in a Client-Server setting.|
+|2020/21|Q1 (b)|Describe what is a Distributed System and its advantages and disadvantages giving an example.|
+|2020/21|Q1 (c) ii|Write short notes on Peer-to-peer networks describing their benefits and issues.|
+|2021/22|Q1 (c) i|Write short notes on Distributed systems describing their benefits and issues.|
+|2021/22|Q2 (d)|Client-Server system is a popular network model. Describe, step-by-step, the interactions between a client and a server that uses connection oriented service.|
+|2022/23|Q1 (b)|What are the differences and similarities between Peer-to-Peer and Client-Server network models?|
+|2022/23|Q1 (c) i|Write short notes on Distributed systems describing their benefits and issues.|
+
+### Mobile Computing and IoT
+
+|   |   |   |
+|---|---|---|
+|Academic Year|Question Number|Question Description|
+|2018/19|Q2 (d)|Describe how mobile computing would support emergency healthcare using an example.|
+|2019/20|Q1 (c) i|Write short notes on Mobile computing describing benefits and issues.|
+|2019/20|Q1 (c) ii|Write short notes on Internet of Things (IoT) describing benefits and issues.|
+|2020/21|Q1 (c) i|Write short notes on Mobile computing describing benefits and issues.|
+|2020/21|Q2 (d)|Describe how mobile computing would support an online business using an example.|
+|2021/22|Q1 (b)|What is mobile computing? Describe a usage scenario.|
+|2021/22|Q1 (c) ii|Write short notes on Internet of Things describing benefits and issues.|
+|2022/23|Q1 (c) ii|Write short notes on Smart Home describing benefits and issues.|
+|2022/23|Q2 (d)|Mobile Ad hoc Networks (MANET) have a highly adaptable nature. Describe a usage scenario of a MANET, listing the advantages and disadvantages.|
+
+### Social and Economic Issues
+
+|   |   |   |
+|---|---|---|
+|Academic Year|Question Number|Question Description|
+|2018/19|Q1 (a)|Describe how computer networks support daily life in a pandemic situation.|
+|2019/20|Q1 (d)|Sri Lanka is currently facing an economic crisis. Using Three examples, explain how computer networks can be utilized to restore the economy in Sri Lanka.|
+|2020/21|Q1 (d)|“In this information age, the security of data is critical”. Describe this sentence considering the security of computer networks.|
+|2021/22|Q1 (d)|“Misinformation distribution through computer networks must be controlled”. Describe this sentence considering the various social aspects.|
+|2022/23|Q1 (d)|“Immerging Artificial Intelligence trend has a significant impact on computer networks”. Describe this sentence considering the various social and technical aspects.|
+
+## 3. Network Models
+
+### Layering Principles
+
+|   |   |   |
+|---|---|---|
+|Academic Year|Question Number|Question Description|
+|2018/19|Q3 (a)|Explain why network protocols are designed with a layered approach.|
+|2018/19|Q3 (b)|What are the impacts on the operations at layers k − 1 and k + 1 when: (i) The algorithms used at layer k is changed. (ii) The service provided by layer k is changed.|
+|2019/20|Q3 (b)|List two reasons for using layered protocols. Describe one possible disadvantage of using layered protocols.|
+|2021/22|Q3 (b)|List reasons for using layered protocols? Describe one possible disadvantage of using layered protocols.|
+
+### Reference Models (OSI and TCP/IP)
+
+|   |   |   |
+|---|---|---|
+|Academic Year|Question Number|Question Description|
+|2019/20|Q3 (d)|Contrast the OSI reference model with the TCP/IP reference model using a diagram to show the correspondence between relevant protocol layers in the two models.|
+|2020/21|Q3 (c)|A host is communicating with another host via two routers in between them. Consider that the hosts and the routers are using the ISO reference model. Draw a diagram clearly indicating the physical and virtual communication between the layers of the above four components.|
+|2021/22|Q3 (d)|Consider that in the scenario in part “c” [message travel through 5 layers], the addressing is done in layer 2. A host is communicating with another host via two routers in between them. Draw a diagram clearly indicating the physical and virtual communication between the layers of the above four components.|
+|2022/23|Q3 (c)|Compare and differentiate the OSI and the TCP/IP reference models, using a diagram to illustrate the relationship and correspondence between their respective protocol layers.|
+
+### Encapsulation and Data Flow
+
+|   |   |   |
+|---|---|---|
+|Academic Year|Question Number|Question Description|
+|2018/19|Q3 (c)|Describe how a message from a sender machine would travel through the multiple layers to a receiver machine assuming that the protocol consists of five layers. Write any reasonable assumptions made regarding the limitations of each layer.|
+|2020/21|Q3 (d)|Describe how a message would travel from one host to the other through the routers in the network described in part 'c'.|
+|2021/22|Q3 (c)|Using a diagram, describe how a message from a sender machine would travel through the multiple layers to a receiver machine assuming that the protocol consists of five layers. Write any reasonable assumptions made regarding the limitations of each layers.|
+
+## 4. Network Hardware and Design
+
+### Network Design and Diagrams
+
+|   |   |   |
+|---|---|---|
+|Academic Year|Question Number|Question Description|
+|2018/19|Q1 (c)|Draw a network diagram for Kuliyapitiya premises providing internet to four faculties (FAS, FBSF, FoT, FoM) where FoM is 6km away. FAS has four departments (CMIS, IM, MATHS, ELTN) and CMIS has a lab. Clearly mark connections and media types with justification.|
+
+## 5. Classification of Networks
+
+### Geographical Coverage
+
+|   |   |   |
+|---|---|---|
+|Academic Year|Question Number|Question Description|
+|2019/20|Q2 (a)|Classify computer networks according to the geographical coverage.|
+|2021/22|Q2 (a)|Classify computer networks according to the geographical coverage.|
+
+### Transmission Technology
+
+|   |   |   |
+|---|---|---|
+|Academic Year|Question Number|Question Description|
+|2020/21|Q2 (a)|Classify computer networks according to the transmission technology.|
+|2022/23|Q2 (a)|Classify computer networks according to the transmission technology.|
+
+### Network Topologies
+
+|   |   |   |
+|---|---|---|
+|Academic Year|Question Number|Question Description|
+|2018/19|Q2 (b)|Identify suitable topologies for: (i) Connecting major cities for a backbone network. (ii) Computer laboratory with 100 computers. Explain your answer.|
+|2019/20|Q2 (b)|Compare and contrast: (i) Star topology. (ii) Partial Mesh topology.|
+|2020/21|Q2 (b)|Describe three network topologies using diagrams. Also mention a suitable usage for each topology.|
+|2021/22|Q2 (b)|Compare and contrast Star topology and Partial Mesh topology, also mention a suitable usage for each.|
+|2022/23|Q2 (b)|Draw diagrams of Ring topology and Partial Mesh topology. Mention a suitable device and media used in each. Also write a suitable usage for each topology.|
+
+## 6. Network Software Architecture
+
+### Protocol Design Issues
+
+|   |   |   |
+|---|---|---|
+|Academic Year|Question Number|Question Description|
+|2020/21|Q3 (b)|List and describe four design issues of protocol layers.|
+
+## 7. Wireless and Internet
+
+### General Wireless Concepts
+
+|   |   |   |
+|---|---|---|
+|Academic Year|Question Number|Question Description|
+|2018/19|Q2 (c)|Discuss the advantages/disadvantages of using wireless networks.|
+|2020/21|Q2 (c)|List the advantages and disadvantages of using a Wireless LAN.|
+|2022/23|Q2 (c)|Compare Wi-Fi and Li-Fi communication, discussing the advantages and their disadvantages.|
+
+### Internet and Public Networks
+
+|   |   |   |
+|---|---|---|
+|Academic Year|Question Number|Question Description|
+|2019/20|Q2 (c)|Compare the Telephone network and the Internet, discussing the similarities and their differences.|
+|2021/22|Q2 (c)|Compare the Telephone network and the Internet, discussing the similarities and their differences.|
+
+---
+# CMIS 3114 – Chapter 01 (Introduction) Past Paper Question Index
+
+**Source papers analyzed:** Academic Years 2018/19, 2019/20, 2020/21, 2021/22, 2022/23 (5 papers, all questions reviewed)
+
+**How to read the references:** `Year – Qn(part)` → e.g. `2021/22 – Q1(c)ii` means Question 1, sub-part (c), item ii, on the 2021/22 paper.
+
+**Note on scope:** Questions 4 onward in every paper move into physical-layer transmission (modulation, Nyquist/Shannon calculations), data-link error control (CRC, Hamming, parity), routing/sink-trees, and IP subnetting. These belong to later chapters, so they're **excluded** here even where a topic word (e.g. "wireless media") technically overlaps — flagged separately below where relevant.
+
+---
+
+## 1. Network Fundamentals
+
+### Definition of a Computer Network
+
+- 2019/20 – Q1(a): Define a computer network and how it has become part of daily life
+- 2020/21 – Q1(a): Define a computer network and discuss its advantages and disadvantages
+- 2021/22 – Q1(a): Define "Computer Network"; describe 4 reasons why computer networks are required
+- 2022/23 – Q1(a): Describe four (4) reasons why Computer Networks are required
+
+### Network Components (Hosts, Communication Devices, Transmission Links)
+
+- 2018/19 – Q1(c): Design a secure network diagram for a multi-faculty scenario (Kuliyapitiya) — naming components, connections, and media with justification
+
+### Data, Messages and Packets
+
+- _No direct question found in the 5 papers._
+
+### Communication Model (Source / Network / Destination)
+
+- 2019/20 – Q2(c): Compare the Telephone network and the Internet (similarities/differences)
+- 2021/22 – Q2(c): Compare the Telephone network and the Internet (similarities/differences)
+
+### Network Performance (Bandwidth, Delay, Throughput, Reliability, Congestion)
+
+- _No conceptual question found._ (Numeric bandwidth/Nyquist/Shannon-type calculations appear in Q3(d)/Q4 of several papers, but these test physical-layer signal theory, not the Chapter 1 "network performance" concepts, so they're excluded.)
+
+### Communication Protocols
+
+- 2018/19 – Q2(a): Describe the role of protocols in computer networks
+- 2019/20 – Q3(a): Describe what a network protocol is and why they are needed
+- 2020/21 – Q3(a): Define network protocol and why designed with a layered approach
+- 2021/22 – Q3(a): Define network protocol and why they are needed
+- 2022/23 – Q3(a): Describe the need for network protocols and why multiple protocols are used
+
+---
+
+## 2. Uses of Networks
+
+### General reasons / everyday-life uses
+
+- 2018/19 – Q1(a): How computer networks support daily life in a pandemic
+- 2019/20 – Q1(d): 3 examples of how networks can help restore Sri Lanka's economy
+- 2021/22 – Q1(a): 4 reasons why computer networks are required
+- 2022/23 – Q1(a): 4 reasons why Computer Networks are required
+
+### Client-Server Model (Client, Server, Request/Response)
+
+- 2018/19 – Q1(b): Differences between Distributed Systems and Client-Server systems
+- 2019/20 – Q1(b): Compare/contrast Peer-to-Peer vs Client-Server models
+- 2019/20 – Q2(d): Step-by-step client-server interaction using connection-oriented service
+- 2020/21 – Q1(b): Distributed System — advantages/disadvantages with example
+- 2021/22 – Q2(d): Step-by-step client-server interaction using connection-oriented service
+- 2022/23 – Q1(b): Differences/similarities between Peer-to-Peer and Client-Server models
+
+### Peer-to-Peer (P2P) Model
+
+- 2019/20 – Q1(b): P2P vs Client-Server comparison
+- 2020/21 – Q1(c)ii: Short note on Peer-to-peer networks
+- 2022/23 – Q1(b): P2P vs Client-Server comparison
+
+### Electronic Commerce
+
+- 2020/21 – Q2(d): Describe how mobile computing supports an online business (e-commerce angle)
+
+### Internet of Things (IoT)
+
+- 2019/20 – Q1(c)ii: Short note on Internet of Things
+- 2020/21 – Q8(b)iii _(optional short note, "any three of four")_: Use of IoT techniques for Smart Cars
+- 2021/22 – Q1(c)ii: Short note on Internet of Things
+- 2022/23 – Q1(c)ii: Short note on Smart Home (IoT application)
+
+### Mobile Users / Mobile Communication
+
+- 2018/19 – Q2(d): How mobile computing supports emergency healthcare
+- 2020/21 – Q1(c)i: Short note on Mobile computing
+- 2020/21 – Q2(d): How mobile computing supports an online business
+- 2021/22 – Q1(b): What is mobile computing; describe a usage scenario
+
+### Resource Sharing / Remote Access / Online Collaboration
+
+- _No direct standalone question found_ (touched only indirectly inside general "reasons for networks" answers)
+
+### Social Issues (Privacy, Security, Identity Theft, Copyright)
+
+- 2020/21 – Q1(d): "In this information age, the security of data is critical" — discuss w.r.t. network security
+- 2021/22 – Q1(d): "Misinformation distribution through computer networks must be controlled" — social aspects
+- 2022/23 – Q1(d): "Emerging AI trend has significant impact on computer networks" — social & technical aspects
+
+### Distributed Systems _(related to Client-Server/P2P discussion, not separately listed in your syllabus but recurring in papers)_
+
+- 2018/19 – Q1(b); 2020/21 – Q1(b); 2021/22 – Q1(c)i; 2022/23 – Q1(c)i
+
+---
+
+## 3. Network Models
+
+### Network Layering & Advantages of Layering
+
+- 2018/19 – Q3(a): Why network protocols are designed with a layered approach
+- 2019/20 – Q3(b): Two reasons for layered protocols; one disadvantage
+- 2020/21 – Q3(a): Why layered approach is used
+- 2020/21 – Q3(b): Four design issues of protocol layers
+- 2021/22 – Q3(b): Reasons for layered protocols; one disadvantage
+- 2022/23 – Q3(a): Need for protocols and why multiple protocols are used
+
+### Layer / Service / Interface / Protocol (conceptual distinction)
+
+- 2018/19 – Q3(b): Impact on layers k−1 and k+1 when (i) the algorithm at layer k changes, (ii) the service at layer k changes
+
+### Protocol Hierarchy / Protocol Stack, Peer Entities, Encapsulation & Decapsulation
+
+- 2018/19 – Q3(c): How a message travels through 5 layers from sender to receiver (with assumptions)
+- 2020/21 – Q3(d): How a message travels from host to host through routers (per the diagram in Q3c)
+- 2021/22 – Q3(c): Diagram — message traveling through 5 layers, sender to receiver
+- 2021/22 – Q3(d): Addressing at layer 2; diagram of physical/virtual communication between layers of host–router–router–host
+
+### OSI Reference Model
+
+- 2020/21 – Q3(c): Host communicating via two routers using the ISO/OSI model — diagram of physical & virtual communication
+- 2021/22 – Q3(d): Same style OSI layer diagram (host–router–router–host)
+
+### TCP/IP Reference Model (incl. TCP, UDP)
+
+- 2019/20 – Q3(c): Compare and contrast TCP and UDP
+- 2022/23 – Q3(b): State similarities and differences of TCP and UDP
+
+### OSI vs TCP/IP
+
+- 2019/20 – Q3(d): Contrast OSI vs TCP/IP reference models using a diagram
+- 2022/23 – Q3(c): Compare/differentiate OSI and TCP/IP models using a diagram
+
+### Five-Layer Hybrid Model
+
+- _No question explicitly names this model_ (papers examine OSI 7-layer and TCP/IP 4-layer only)
+
+---
+
+## 4. Network Hardware
+
+### Hosts, Switches, Routers, Media — network design/diagram tasks
+
+- 2018/19 – Q1(c): Draw a secure network diagram for a 4-faculty scenario, naming components, connections, and media
+- 2019/20 – Q8(a): Most suitable topology for a university-faculty network scenario
+- 2019/20 – Q8(b): Draw a network diagram showing connections/devices for the same scenario
+- 2022/23 – Q8(a): Most suitable topology for an office network scenario
+- 2022/23 – Q8(b): Draw a network diagram showing connections/devices for the same scenario
+
+### Transmission Media (Wired / Wireless) — general/comparative treatment
+
+- 2022/23 – Q2(c): Compare Wi-Fi and Li-Fi communication (advantages/disadvantages) _(Note: detailed physical construction of twisted pair/coax/fiber, e.g. 2019/20 Q4(a) and 2021/22 Q4(a), is excluded here as it belongs to the physical-layer/transmission chapter rather than "Introduction.")_
+
+---
+
+## 5. Classification of Networks
+
+### By Geographic Coverage (BAN/PAN/LAN/MAN/WAN)
+
+- 2019/20 – Q2(a): Classify computer networks according to geographical coverage
+- 2021/22 – Q2(a): Classify computer networks according to geographical coverage
+
+### By Transmission Technology (Broadcast vs Point-to-Point)
+
+- 2020/21 – Q2(a): Classify computer networks according to transmission technology
+- 2022/23 – Q2(a): Classify computer networks according to transmission technology
+
+### By Network Topology (Bus/Star/Ring/Mesh/Tree)
+
+- 2018/19 – Q2(b): Identify suitable topology for (i) a backbone network connecting cities, (ii) a 100-computer lab
+- 2019/20 – Q2(b): Compare/contrast Star topology vs Partial Mesh topology
+- 2020/21 – Q2(b): Describe three network topologies with diagrams + suitable usage for each
+- 2021/22 – Q2(b): Compare/contrast Star topology vs Partial Mesh topology
+- 2022/23 – Q2(b): Draw diagrams of Ring topology and Partial Mesh topology, with suitable device/media and usage
+
+### Packet Switching (Store-and-Forward)
+
+- 2021/22 – Q8(a): Describe the store-and-forward packet switching mechanism
+
+### Unicast / Broadcast / Multicast Addressing
+
+- _No direct question found._
+
+### Dedicated Links / Shared Medium / Switched Point-to-Point
+
+- _No direct standalone question found_ (touched implicitly within topology questions above).
+
+---
+
+## 6. Network Software Architecture
+
+### Network Design Issues (Addressing, Error Control, QoS, Flow Control, Routing)
+
+- 2020/21 – Q3(b): List and describe four design issues of protocol layers
+
+_(Most "network software architecture" ground is otherwise covered by the Layering/OSI/TCP-IP questions already listed in Section 3 above — protocol stacks, services, and interfaces are examined together with layering, not as a separate question block.)_
+
+---
+
+## 7. Wireless and Internet
+
+### Wireless Networks — general advantages/challenges
+
+- 2018/19 – Q2(c): Discuss advantages/disadvantages of using wireless networks
+- 2020/21 – Q2(c): Advantages/disadvantages of using a Wireless LAN
+
+### Wireless LAN (Wi-Fi) / Emerging wireless tech
+
+- 2022/23 – Q2(c): Compare Wi-Fi and Li-Fi communication
+
+### Wireless WAN / Cellular (4G/5G) — _optional sub-question_
+
+- 2020/21 – Q8(b)i _(answer any three of four short notes)_: Wi-Fi vs WiMAX vs 4G
+
+### Mobile Ad-hoc Networks (MANET) — extension of wireless networking
+
+- 2022/23 – Q2(d): MANET usage scenario, advantages and disadvantages
+
+### Internet as a Network of Networks / Internet Architecture
+
+- 2019/20 – Q2(c): Compare the Telephone network and the Internet
+- 2021/22 – Q2(c): Compare the Telephone network and the Internet
+
+---
+
+## Summary: Topics never directly examined (2018/19–2022/23)
+
+These appear in your syllabus but had **no matching question** in any of the 5 papers — worth covering from lecture notes/textbook since they can't be "past-paper practiced":
+
+- Data, Messages, and Packets (as a standalone definition question)
+- Network Performance conceptually (Bandwidth/Delay/Throughput/Reliability/Congestion as definitions, not calculations)
+- Resource Sharing, Remote Access, Online Collaboration (as standalone questions)
+- Five-Layer Hybrid Model (named explicitly)
+- Unicast/Broadcast/Multicast addressing classification
+- Dedicated link vs Shared medium vs Switched point-to-point (as a standalone classification question)
+
+## Quick pattern to notice
+
+Across all 5 years, **Q1–Q3 are almost entirely Chapter 1 territory**:
+
+- **Q1** → network definition, reasons/uses, client-server/P2P/distributed systems, short notes (mobile/IoT/P2P/smart home), social issues
+- **Q2** → classification (geographic or transmission-technology, alternating by year), topology comparison, wireless LAN/telephone-vs-internet, mobile computing use-case
+- **Q3** → protocols, layering rationale, OSI/TCP-IP model, TCP vs UDP
+
+If a new paper follows the same setter's pattern, Q1–Q3 are your highest-yield practice targets for Chapter 1.

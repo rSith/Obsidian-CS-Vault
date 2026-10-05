@@ -1,0 +1,80 @@
+filters:
+  and:
+    - file.ext == "md"
+    - not:
+        - file.inFolder("Templates")
+views:
+  - type: table
+    name: Still to finish
+    filters:
+      or:
+        - status == "stub"
+        - status == "draft"
+    groupBy:
+      property: course
+      direction: ASC
+    order:
+      - file.name
+      - type
+      - status
+      - priority
+      - file.mtime
+    sort:
+      - property: priority
+        direction: DESC
+      - property: file.mtime
+        direction: ASC
+  - type: table
+    name: Recently edited
+    order:
+      - file.name
+      - file.folder
+      - status
+      - file.mtime
+    sort:
+      - property: file.mtime
+        direction: DESC
+    limit: 15
+  - type: table
+    name: University
+    filters:
+      and:
+        - file.inFolder("02. University")
+    groupBy:
+      property: course
+      direction: ASC
+    order:
+      - file.name
+      - type
+      - status
+      - priority
+  - type: table
+    name: Concepts
+    filters:
+      and:
+        - file.inFolder("04. Concepts")
+    groupBy:
+      property: file.folder
+      direction: ASC
+    order:
+      - file.name
+      - status
+      - tags
+  - type: table
+    name: Projects
+    filters:
+      and:
+        - type == "project"
+    order:
+      - file.name
+      - stage
+      - course
+      - file.mtime
+  - type: table
+    name: Inbox
+    filters:
+      and:
+        - file.inFolder("01. Inbox")
+    order:
+      - file.name
+      - file.ctime

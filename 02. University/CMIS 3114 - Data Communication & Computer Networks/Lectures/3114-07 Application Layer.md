@@ -1,0 +1,32 @@
+---
+type: lecture
+course: CMIS 3114
+lecture: 7
+status: stub
+tags: [networking]
+aliases: [Application Layer]
+---
+# The Application Layer
+> [!info] CMIS 3114 · Chapter 7
+> [[CMIS 3114 Course Home]] · Exam prep: [[3114 Topic Map & Past Papers|Topic map]]
+> ← [[3114-06 Transport Layer]] | [[3114-08 Network Design & Programming Practical]] →
+
+> [!warning] No lecture notes for this chapter yet
+> Add the topic outline here once the slides are released.
+
+## Topic checklist
+- [ ] 
+
+## Notes
+*Work through the checklist above. Write each topic in your own words, then tick it off.*
+
+
+## Key definitions
+> [!note] Term
+>
+
+## Summary (in my own words)
+
+
+## Open questions
+- [ ]
