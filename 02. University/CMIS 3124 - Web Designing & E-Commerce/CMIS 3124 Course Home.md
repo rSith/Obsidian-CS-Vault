@@ -20,6 +20,7 @@ tags: [web]
 -
 
 ## Notes
+- [[00. Course Overview]] (full study notes: lessons, past papers, exam revision)
 - [[HTML Basics]]
 
 ## Progress
