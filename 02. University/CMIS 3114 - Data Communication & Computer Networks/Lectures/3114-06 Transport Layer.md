@@ -11,6 +11,9 @@ aliases: [Transport Layer]
 > [[CMIS 3114 Course Home]] · Exam prep: [[3114 Topic Map & Past Papers|Topic map]]
 > ← [[3114-05 Network Layer]] | [[3114-07 Application Layer]] →
 
+> [!tip] Full study notes
+> This chapter is written up in [[06.00 Transport Layer]] (concept notes, summary and past-paper answers). Course map: [[00. CMIS 3114 Course Overview]]
+
 > [!warning] No lecture notes for this chapter yet
 > Add the topic outline here once the slides are released.
 

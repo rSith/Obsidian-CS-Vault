@@ -11,6 +11,9 @@ aliases: [Introduction to Computer Networks]
 > [[CMIS 3114 Course Home]] · Exam prep: [[3114 Topic Map & Past Papers#Ch1 — Introduction|Topic map]] · [[3114 Ch01 Past Paper Q&A|Chapter 1 Q&A]]
 > [[3114-02 Physical Layer]] →
 
+> [!tip] Full study notes
+> This chapter is written up in [[01.00 Introduction]] (concept notes, summary and past-paper answers). Course map: [[00. CMIS 3114 Course Overview]]
+
 > [!tip]- Exam focus — how often each topic appeared (6 papers, 2018/19–2023/24)
 > - **6/6** — Protocol definition / need
 > - **6/6** — Topologies

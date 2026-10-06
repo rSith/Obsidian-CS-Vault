@@ -29,6 +29,9 @@ tags: [networking]
 - [[3114 Topic Map & Past Papers]] — every past-paper question (2018/19–2023/24) mapped to a lecture topic
 - [[3114 Ch01 Past Paper Q&A]] — Chapter 1 questions grouped by topic
 
+## Full study notes
+- [[00. CMIS 3114 Course Overview]]: complete knowledge base (lessons for every chapter, lesson summaries, past-paper answers by topic, exam revision sheets)
+
 > [!tip] From your exam analysis
 > - Four topics appear in **every** paper: protocol definition, topologies, definition/uses of networks, and a **subnetting** calculation → [[3114-01 Introduction]], [[3114-05 Network Layer]]
 > - Ch1 carries ~37% of the marks, Ch2 ~24%.

@@ -11,6 +11,9 @@ aliases: [Physical Layer]
 > [[CMIS 3114 Course Home]] · Exam prep: [[3114 Topic Map & Past Papers#Ch2 — The Physical Layer|Topic map]]
 > ← [[3114-01 Introduction]] | [[3114-03 Data Link Layer]] →
 
+> [!tip] Full study notes
+> This chapter is written up in [[02.00 Physical Layer]] (concept notes, summary and past-paper answers). Course map: [[00. CMIS 3114 Course Overview]]
+
 > [!tip]- Exam focus — how often each topic appeared (6 papers, 2018/19–2023/24)
 > - **5/6** — Multiplexing (FDM/TDM/WDM/OFDM)
 > - **5/6** — Transmission media construction

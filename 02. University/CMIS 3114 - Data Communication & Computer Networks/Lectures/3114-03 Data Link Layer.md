@@ -11,6 +11,9 @@ aliases: [Data Link Layer]
 > [[CMIS 3114 Course Home]] · Exam prep: [[3114 Topic Map & Past Papers#Ch3-L1 — Data Link Layer (Lecture 1)|Topic map]]
 > ← [[3114-02 Physical Layer]] | [[3114-04 MAC Sub-layer]] →
 
+> [!tip] Full study notes
+> This chapter is written up in [[03.00 Data Link Layer]] (concept notes, summary and past-paper answers). Course map: [[00. CMIS 3114 Course Overview]]
+
 > [!tip]- Exam focus — how often each topic appeared (6 papers, 2018/19–2023/24)
 > - **5/6** — DLL functions / services to NL
 > - **3/6** — Byte stuffing

@@ -11,6 +11,9 @@ aliases: [MAC Sublayer, Medium Access Control]
 > [[CMIS 3114 Course Home]] · Exam prep: [[3114 Topic Map & Past Papers#Ch4 — The MAC Sublayer|Topic map]]
 > ← [[3114-03 Data Link Layer]] | [[3114-05 Network Layer]] →
 
+> [!tip] Full study notes
+> This chapter is written up in [[04.00 MAC Sublayer]] (concept notes, summary and past-paper answers). Course map: [[00. CMIS 3114 Course Overview]]
+
 > [!tip]- Exam focus — how often each topic appeared (6 papers, 2018/19–2023/24)
 > - **5/6** — ALOHA vs CSMA variants
 > - **4/6** — Hidden/exposed terminals + MACA

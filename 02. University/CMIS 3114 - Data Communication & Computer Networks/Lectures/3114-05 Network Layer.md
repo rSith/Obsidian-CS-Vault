@@ -11,6 +11,9 @@ aliases: [Network Layer]
 > [[CMIS 3114 Course Home]] · Exam prep: [[3114 Topic Map & Past Papers#Ch5-L1 — Network Layer (Lecture 1)|Topic map]]
 > ← [[3114-04 MAC Sub-layer]] | [[3114-06 Transport Layer]] →
 
+> [!tip] Full study notes
+> This chapter is written up in [[05.00 Network Layer]] (concept notes, summary and past-paper answers). Course map: [[00. CMIS 3114 Course Overview]]
+
 > [!tip]- Exam focus — how often each topic appeared (6 papers, 2018/19–2023/24)
 > - **6/6** — Subnetting / IP allocation
 > - **4/6** — Sink tree

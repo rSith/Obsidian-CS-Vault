@@ -11,6 +11,9 @@ aliases: [Application Layer]
 > [[CMIS 3114 Course Home]] · Exam prep: [[3114 Topic Map & Past Papers|Topic map]]
 > ← [[3114-06 Transport Layer]] | [[3114-08 Network Design & Programming Practical]] →
 
+> [!tip] Full study notes
+> This chapter is written up in [[07.00 Application Layer]] (concept notes, summary and past-paper answers). Course map: [[00. CMIS 3114 Course Overview]]
+
 > [!warning] No lecture notes for this chapter yet
 > Add the topic outline here once the slides are released.
 
