@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/02. Web Architecture and Development/02.06 Client-Server and Three-Tier Architecture.md",
+                "file": "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/02. Web Architecture and Development/02.05 Sessions and Cookies.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "02.06 Client-Server and Three-Tier Architecture"
+              "title": "02.05 Sessions and Cookies"
             }
           }
         ],
@@ -98,7 +98,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -217,6 +218,7 @@
   },
   "active": "ca96879ee69c3137",
   "lastOpenFiles": [
+    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/02. Web Architecture and Development/02.06 Client-Server and Three-Tier Architecture.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/Past Papers/PP 02 - Web Architecture and Development.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/Past Papers/PP 00 - HTML and CSS Foundations.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/Exam Revision/High Priority Topics.md",
@@ -242,7 +244,6 @@
     "02. University/CMIS 3124 - Web Designing & E-Commerce/Past Papers/PP 05 - HCI in Web Design.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/Past Papers/PP 04 - Web Design Principles.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/Past Papers/PP 03 - Web Engineering.md",
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/Past Papers/PP 01 - Evolution of the Web.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/Past Papers",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/Exam Revision",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/15. Future Trends",
