@@ -93,7 +93,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -212,6 +213,9 @@
   },
   "active": "4262c94399dc2af6",
   "lastOpenFiles": [
+    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.03 Design Goals, Quality and Design Actions.md",
+    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/02. Web Architecture and Development/02.06 Client-Server and Three-Tier Architecture.md",
+    "02. University/CMIS 3114 - Data Communication & Computer Networks/01. Lessons/02. Physical Layer/02.00 Physical Layer.md",
     "00. Home.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Exam Revision/3114 Final Revision Summary.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Exam Revision/3114 High Priority Topics.md",
@@ -239,9 +243,6 @@
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/02. Physical Layer/PP 02.1 - Transmission Media and Satellites.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/02. Physical Layer",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.6 - Reference Models, TCP and UDP.md",
-    "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.5 - Protocols, Layering and Services.md",
-    "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.4 - Classification and Topologies.md",
-    "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.3 - Social and Technical Essays.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Exam Revision",
