@@ -25,12 +25,14 @@
             "id": "ca96879ee69c3137",
             "type": "leaf",
             "state": {
-              "type": "release-notes",
+              "type": "markdown",
               "state": {
-                "currentVersion": "1.14.4"
+                "file": "02. University/CMIS 3124 - Web Designing & E-Commerce/CMIS 3124 Course Home.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-book-up",
-              "title": "Release Notes 1.14.4"
+              "icon": "lucide-file",
+              "title": "CMIS 3124 Course Home"
             }
           }
         ],
@@ -213,8 +215,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "ca96879ee69c3137",
+  "active": "0b09aa595b698eed",
   "lastOpenFiles": [
+    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/01. Evolution of the Web/01.00 Evolution of the Web.md",
+    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/01. Evolution of the Web",
+    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/CMIS 3124 Course Home.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/HTML Basics.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/CMIS 3114 Course Home.md",
@@ -250,14 +255,11 @@
     "01. Old_Vault/Attachment/images/Pasted image 20260822205606.png",
     "01. Old_Vault/Attachment/images/NotebookLM Mind Map.png",
     "01. Old_Vault/Attachment/images/BigPicture.png",
-    "01. Old_Vault/04. Projects/Machine Leaning in Production/Machine Learning in Production.md",
     "01. Old_Vault/03. Self_Thought/Coding with AI/01. Prompt Engineering",
     "01. Old_Vault/Attachment/all-notes",
     "01. Old_Vault/Attachment/images",
     "01. Old_Vault/04. Projects/Machine Leaning in Production",
     "01. Old_Vault/04. Projects/DocFinder_v02",
-    "01. Old_Vault/03. Self_Thought/Machine Learning",
-    "01. Old_Vault/03. Self_Thought/GitHub Foundation",
     "01.Old_Vault/Attachment/images/Pasted image 20260904120424.png",
     "01.Old_Vault/Attachment/images/Pasted image 20260904132141.png",
     "01.Old_Vault/Attachment/images/Pasted image 20260903183539.png"
