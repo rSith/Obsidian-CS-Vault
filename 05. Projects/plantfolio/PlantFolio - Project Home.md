@@ -63,7 +63,7 @@ Each stage links the lesson to study; each week links its progress note.
 ## Related notes
 General concepts and web theory are explained once, elsewhere in the vault. The project notes link to them and do not repeat them.
 - **Course:** [[00. Course Overview]] (CMIS 3124, Web Designing and E-Commerce)
-- **Concepts:** [[Neural Network]] · [[Deep Learning]] · [[Classification]] · [[Model Evaluation]]
+- **Concepts:** [[Neural Network]] · [[Deep Learning]] · [[04. Concepts/Machine Learning/Classification|Classification]] · [[Model Evaluation]]
 - **Other project:** [[00. Dengue Early-Warning Overview]], whose lessons on Git, Flask, SQL and JavaScript are reused here
 
 ## Log

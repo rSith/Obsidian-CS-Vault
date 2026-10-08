@@ -11,6 +11,9 @@ tags: [project, web]
 > [!abstract] Week goal
 > The member's own features work from the database: collections, plants with photos, the health story and care reminders.
 
+> [!warning] Before CORE-17: switch on the GD extension
+> On 8 Oct 2026 this computer's `C:\xampp\php\php.ini` had `;extension=gd`, so PHP's image library was not loaded. Resizing uploads needs it. Remove the semicolon, restart Apache, and add the step to the README for the team. See [[04.02 Secure File Uploads in PHP]].
+
 ## Tasks
 Replace one mock array at a time with a query function that returns the same shape, then delete it from `mock-data.php`.
 
