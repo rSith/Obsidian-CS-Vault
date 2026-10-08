@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "05. Projects/dengue-early-warning/01. Lessons/04. Modelling/04.03 Regularisation - Ridge and Lasso.md",
+                "file": "05. Projects/dengue-early-warning/Phase 09 - Documentation and Portfolio.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "04.03 Regularisation - Ridge and Lasso"
+              "title": "Phase 09 - Documentation and Portfolio"
             }
           }
         ]
@@ -202,17 +202,23 @@
   },
   "active": "ca96879ee69c3137",
   "lastOpenFiles": [
+    "05. Projects/dengue-early-warning/Phase 08 - Automation and MLOps.md",
+    "05. Projects/dengue-early-warning/Phase 07 - Dashboard.md",
+    "05. Projects/dengue-early-warning/Phase 06 - Database and Flask API.md",
+    "05. Projects/dengue-early-warning/Phase 05 - Evaluation and Alerts.md",
+    "05. Projects/plantfolio/PlantFolio - Project Home.md",
+    "05. Projects/plantfolio/PlantFolio - Project Home.md.tmp.16508.b07ca146ec49",
+    "05. Projects/dengue-early-warning/Phase 04 - Modelling.md",
+    "05. Projects/dengue-early-warning/01. Lessons/04. Modelling/04.03 Regularisation - Ridge and Lasso.md",
     "05. Projects/dengue-early-warning/01. Lessons/04. Modelling/04.02 Forecasting Baselines - Persistence and Seasonal.md",
     "05. Projects/dengue-early-warning/01. Lessons/04. Modelling/04.05 Poisson Regression for Counts.md",
     "05. Projects/dengue-early-warning/01. Lessons/02. Cleaning and EDA/02.04 Cross-Correlation and Lag Analysis.md",
     "05. Projects/dengue-early-warning/01. Lessons/02. Cleaning and EDA/02.03 Time-Series Basics - Trend, Seasonality and Autocorrelation.md",
     "05. Projects/dengue-early-warning/01. Lessons/01. Data Collection/01.05 Dates and Epidemiological Weeks.md",
-    "05. Projects/plantfolio/PlantFolio - Project Home.md",
     "05. Projects/plantfolio",
     "05. Projects/dengue-early-warning/01. Lessons/06. Database and Flask API/06.04 Flask Routing and JSON APIs.md",
     "05. Projects/dengue-early-warning/01. Lessons/06. Database and Flask API/06.01 Relational Schema Design and Normalisation.md",
     "05. Projects/dengue-early-warning/01. Lessons/06. Database and Flask API/06.00 Database and Flask API.md",
-    "05. Projects/dengue-early-warning/Phase 08 - Automation and MLOps.md",
     "05. Projects/dengue-early-warning/Phase 09 - Documentation and Portfolio.md",
     "05. Projects/dengue-early-warning/01. Lessons/08. Automation and MLOps/08.03 Docker and Docker Compose.md.tmp.16508.84278cd561dc",
     "05. Projects/dengue-early-warning/01. Lessons/09. Documentation and Portfolio/09.99 Summary - Documentation and Portfolio.md",
@@ -222,12 +228,7 @@
     "05. Projects/dengue-early-warning/Dengue Early-Warning - Project Home.md.tmp.16508.7587e65e941c",
     "05. Projects/dengue-early-warning/Phase 09 - Documentation and Portfolio.md.tmp.16508.05101fae57f6",
     "05. Projects/dengue-early-warning/Phase 08 - Automation and MLOps.md.tmp.16508.a1245735ab0e",
-    "05. Projects/dengue-early-warning/Phase 07 - Dashboard.md",
-    "05. Projects/dengue-early-warning/Phase 06 - Database and Flask API.md",
     "05. Projects/dengue-early-warning/Phase 06 - Database and Flask API.md.tmp.16508.09aceb9795a3",
-    "05. Projects/dengue-early-warning/Phase 05 - Evaluation and Alerts.md",
-    "05. Projects/dengue-early-warning/Phase 05 - Evaluation and Alerts.md.tmp.16508.b45ebc338da1",
-    "05. Projects/dengue-early-warning/Phase 04 - Modelling.md",
     "05. Projects/dengue-early-warning/Phase 03 - Feature Engineering.md",
     "05. Projects/dengue-early-warning/Phase 02 - Cleaning and EDA.md",
     "05. Projects/dengue-early-warning/Phase 01 - Data Collection.md",
@@ -236,8 +237,6 @@
     "05. Projects/dengue-early-warning/01. Lessons/09. Documentation and Portfolio/09.03 Presenting and Storytelling.md",
     "05. Projects/dengue-early-warning/01. Lessons/09. Documentation and Portfolio/09.02 Architecture Diagrams.md",
     "05. Projects/dengue-early-warning/01. Lessons/09. Documentation and Portfolio/09.01 Technical and Scientific Writing.md",
-    "05. Projects/dengue-early-warning/01. Lessons/09. Documentation and Portfolio/09.00 Documentation and Portfolio.md",
-    "05. Projects/dengue-early-warning/01. Lessons/08. Automation and MLOps/08.99 Summary - Automation and MLOps.md",
     "01. Old_Vault/Attachment/images/Pasted image 20260904132141.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904120424.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904115845.png",
