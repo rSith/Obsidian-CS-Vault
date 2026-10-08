@@ -6,6 +6,7 @@ tags: [project, ml]
 ---
 # Phase 00 — Setup and Domain Knowledge
 > [!info] [[Dengue Early-Warning - Project Home]] · Roadmap weeks 1–2, target finish 2026-10-25
+> **Study notes:** [[00.00 Setup and Domain Knowledge]] · **Revision:** [[00.99 Summary - Setup and Domain Knowledge]]
 
 > [!abstract] Phase goal
 > A clean project workspace and enough understanding of dengue to make sensible modelling choices later.
@@ -144,13 +145,14 @@ Also added `.env.example`, which lists the settings the project needs without re
 
 ---
 ## Next steps
-- [ ] Create the virtual environment and install the packages:
+- [ ] Create the virtual environment and install the packages → [[00.02 Python Virtual Environments]]
   ```powershell
   python -m venv .venv
   .venv\Scripts\Activate.ps1
   pip install -r requirements.txt
   ```
-- [ ] Make the first commit, create the GitHub repository `dengue-early-warning` and push
-- [ ] Read about dengue transmission and Sri Lanka's two monsoon seasons; write notes on at least 3 papers in `docs/literature.md`
+- [ ] Make the first commit, create the GitHub repository `dengue-early-warning` and push → [[00.01 Git Branching and Commit Messages]]
+- [ ] Read about dengue transmission and Sri Lanka's two monsoon seasons → [[00.03 Dengue Transmission and the Mosquito Life Cycle]] · [[00.04 Dengue in Sri Lanka - Seasonality and Burden]]
+- [ ] Write notes on at least 3 papers in `docs/literature.md` → [[00.05 Reading Research Papers]]
 - [ ] Write the problem statement in `docs/problem-statement.md`
-- [ ] Decide the two open points in Step 0.1
+- [ ] Decide the two open points in Step 0.1 → [[01.06 Reporting Delay and Data Availability]]
