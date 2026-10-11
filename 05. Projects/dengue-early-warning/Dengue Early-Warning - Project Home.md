@@ -45,3 +45,4 @@ General concepts are explained once, in `04. Concepts`. The project notes link t
 - 2026-10-08: roadmap reviewed and data sources checked; project folder, local Git repository and these notes created. Planned start 2026-10-12.
 - 2026-10-08: study notes written for all ten phases (`01. Lessons`), with an overview map and a progress note for each phase.
 - 2026-10-11: virtual environment `.venv` created and the seven Phase 0 packages installed; three activation path mistakes and their fixes recorded in Phase 00, Step 0.5.
+- 2026-10-11: all six data sources inspected by hand (Phase 01, Step 1.1). Found that the WER is 8 weeks behind, not 7, and that the reporting week changed from Saturday–Friday to Monday–Sunday in 2026.

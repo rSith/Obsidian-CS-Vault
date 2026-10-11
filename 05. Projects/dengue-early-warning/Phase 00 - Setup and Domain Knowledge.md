@@ -33,6 +33,9 @@ tags: [project, ml]
 **Why this matters**
 The roadmap predicts 4 weeks ahead using "cases 1, 2, 3 and 4 weeks ago". If the newest published week is 7 weeks old, those numbers do not exist on the day the forecast is made. A model tested on history can use them, because the history file is complete, but the live system cannot. The test would then report an accuracy the real system can never reach.
 
+> [!warning] Corrected on 2026-10-11
+> Two facts above were wrong. The newest WER issue reports 10–16 Aug, which is 8 weeks behind, and the 2026 weeks run Monday to Sunday (Saturday to Friday holds up to 2025). The details are in [[Phase 01 - Data Collection]], Step 1.1.
+
 **Still open**
 - Which source feeds the live system (WER or the Dengue Control Unit updates).
 - Whether to revise the roadmap for the reporting delay and to collect all districts from the start.
