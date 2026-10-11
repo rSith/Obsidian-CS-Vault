@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "05. Projects/dengue-early-warning/01. Lessons/00. Setup and Domain Knowledge/00.02 Python Virtual Environments.md",
+                "file": "05. Projects/dengue-early-warning/01. Lessons/00. Setup and Domain Knowledge/00.04 Dengue in Sri Lanka - Seasonality and Burden.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "00.02 Python Virtual Environments"
+              "title": "00.04 Dengue in Sri Lanka - Seasonality and Burden"
             }
           }
         ]
@@ -202,6 +202,15 @@
   },
   "active": "f897435ffee443e8",
   "lastOpenFiles": [
+    "05. Projects/dengue-early-warning/01. Lessons/00. Setup and Domain Knowledge/00.03 Dengue Transmission and the Mosquito Life Cycle.md",
+    "05. Projects/dengue-early-warning/Dengue Early-Warning - Project Home.md.tmp.32064.6d27d08ae4ed",
+    "05. Projects/dengue-early-warning/Phase 00 - Setup and Domain Knowledge.md.tmp.32064.bd9ae54a1c41",
+    "05. Projects/dengue-early-warning/Phase 00 - Setup and Domain Knowledge.md.tmp.32064.133c219b1299",
+    "05. Projects/dengue-early-warning/01. Lessons/00. Setup and Domain Knowledge/00.02 Python Virtual Environments.md",
+    "05. Projects/dengue-early-warning/Phase 00 - Setup and Domain Knowledge.md.tmp.32064.0f9e819b6e54",
+    "05. Projects/dengue-early-warning/01. Lessons/00. Setup and Domain Knowledge/00.02 Python Virtual Environments.md.tmp.32064.2107000ccd5f",
+    "05. Projects/dengue-early-warning/01. Lessons/00. Setup and Domain Knowledge/00.02 Python Virtual Environments.md.tmp.32064.477ae01e272a",
+    "05. Projects/dengue-early-warning/01. Lessons/00. Setup and Domain Knowledge/00.02 Python Virtual Environments.md.tmp.32064.20eabf74a039",
     "05. Projects/dengue-early-warning/01. Lessons/00. Setup and Domain Knowledge/00.01 Git Branching and Commit Messages.md",
     "05. Projects/dengue-early-warning/01. Lessons/00. Setup and Domain Knowledge/00.00 Setup and Domain Knowledge.md",
     "05. Projects/dengue-early-warning/00. Dengue Early-Warning Overview.md",
@@ -219,25 +228,16 @@
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 09 - Core Features and Gate 1.md.tmp.16508.be464cf8d0a4",
     "05. Projects/plantfolio/01. Lessons/02. Interactivity and Responsive Design/02.01 Progressive Enhancement and Script Organisation.md.tmp.16508.7ffb2e4c2327",
     "05. Projects/plantfolio/01. Lessons/01. Building Pages/01.04 Rendering States - Empty, Owner and Visitor Views.md.tmp.16508.5dedf2f8f932",
-    "05. Projects/plantfolio/01. Lessons/00. Project Foundations/00.05 CSS Custom Properties and Design Tokens.md.tmp.16508.6c47518f8d15",
     "05. Projects/plantfolio/00. PlantFolio Overview.md",
-    "05. Projects/plantfolio/00. PlantFolio Overview.md.tmp.16508.8fec5e276fb8",
     "05. Projects/plantfolio/01. Lessons/06. Testing and Delivery/06.99 Summary - Testing and Delivery.md",
-    "05. Projects/plantfolio/01. Lessons/06. Testing and Delivery/06.99 Summary - Testing and Delivery.md.tmp.16508.1491efe0bf58",
     "05. Projects/plantfolio/01. Lessons/06. Testing and Delivery/06.03 Production Configuration and Release.md",
-    "05. Projects/plantfolio/01. Lessons/06. Testing and Delivery/06.03 Production Configuration and Release.md.tmp.16508.72ca7d53db9c",
     "05. Projects/plantfolio/01. Lessons/06. Testing and Delivery/06.02 Security Review of a PHP Application.md",
-    "05. Projects/plantfolio/01. Lessons/06. Testing and Delivery/06.02 Security Review of a PHP Application.md.tmp.16508.dd83e08dcaaa",
     "05. Projects/plantfolio/01. Lessons/06. Testing and Delivery/06.01 Test Cases, Journeys and Regression Testing.md",
-    "05. Projects/plantfolio/01. Lessons/06. Testing and Delivery/06.01 Test Cases, Journeys and Regression Testing.md.tmp.16508.08b550225e8e",
     "05. Projects/plantfolio/01. Lessons/06. Testing and Delivery/06.00 Testing and Delivery.md",
-    "05. Projects/plantfolio/01. Lessons/06. Testing and Delivery",
     "05. Projects/plantfolio/01. Lessons/05. Machine Learning Service/05.99 Summary - Machine Learning Service.md",
     "05. Projects/plantfolio/01. Lessons/05. Machine Learning Service/05.07 Confidence Thresholds and Honest AI Results.md",
     "05. Projects/plantfolio/01. Lessons/05. Machine Learning Service/05.06 Evaluating an Image Classifier.md",
     "05. Projects/plantfolio/01. Lessons/05. Machine Learning Service/05.05 Image Datasets - Splits, Augmentation and Domain Shift.md",
-    "05. Projects/plantfolio/01. Lessons/05. Machine Learning Service/05.04 Transfer Learning with MobileNetV2.md",
-    "05. Projects/plantfolio/01. Lessons/05. Machine Learning Service/05.03 Convolutional Neural Networks.md",
     "01. Old_Vault/Attachment/images/Pasted image 20260904132141.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904120424.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904115845.png",

@@ -144,8 +144,61 @@ Also added `.env.example`, which lists the settings the project needs without re
 > - `requirements.txt` is the recipe; `.venv/` is the result. Commit the recipe, never the result.
 
 ---
+## Step 0.5 — Create and activate the virtual environment
+> [!important] Goal
+> Give the project its own Python packages, installed from `requirements.txt`.
+
+**What was done (2026-10-11)**
+- Checked first: the project had no `.venv` folder, even though the setup commands assume one.
+- Ran `python -m venv .venv`. It created the environment with Python 3.13.2 and only `pip` inside.
+- Activation failed three times (see Problems and fixes), then worked from the project root.
+- Ran `pip install -r requirements.txt` to install the seven Phase 0 packages.
+
+**Checked:** all seven packages are in `.venv` and import without errors (pandas 3.0.6, numpy 2.5.4, scikit-learn 1.9.1, matplotlib 3.11.2, seaborn 0.13.2, requests 2.34.2, jupyter 1.1.1), and `pip check` reports no broken requirements. The roadmap's rebuild test (delete `.venv`, recreate it, install again) has not been done yet, so the "Done when" item stays open.
+
+**Why this way**
+- **A virtual environment** keeps this project's package versions separate from every other project on the computer → [[00.02 Python Virtual Environments]].
+- **Activate before installing.** Activation makes `pip` mean the copy inside `.venv`. Without it, the packages go into the global Python and the project's environment stays empty.
+- **`requirements.txt` was written before the environment existed** (Step 0.4). That is one of two normal ways of working, not a rule. It fits here because the roadmap already names the packages for each phase. The other way is to add a line to the file each time a package is installed.
+
+```powershell
+python -m venv .venv                # create, once
+.venv\Scripts\Activate.ps1          # activate, in every new terminal, from the project root
+pip install -r requirements.txt     # install what the file lists
+Get-Content requirements.txt        # print the file in the terminal
+```
+
+**Problems and fixes**
+All three activation attempts gave the same error: `The module '.venv' could not be loaded`. The environment was fine each time. The path typed did not exist:
+
+| Typed | Mistake | Fix |
+|---|---|---|
+| `.venv\Scripts\Activate.psl` | Extension ends in the letter `l` | `.ps1`, ending in the digit one |
+| `.venv\Scripts\Activte.ps1` | `Activte` is missing an `a` | `Activate` |
+| `.venv\Scripts\Activate.ps1` after `cd .venv` | Spelled correctly, but run from inside `.venv`, so it pointed to `.venv\.venv\Scripts\...` | `cd ..` back to the project root first |
+
+The error message is misleading. When PowerShell cannot find a file at a path such as `.venv\Scripts\...`, it guesses that `.venv` is the name of a module and reports that the module could not be loaded. It means "file not found".
+
+> [!tip] What to remember
+> - "The module '.venv' could not be loaded" means the path is wrong. Check the spelling and which folder the terminal is in.
+> - Type `.venv\Scripts\Act` and press `Tab`. PowerShell completes the file name, so it cannot be misspelled.
+> - The prompt starts with `(.venv)` when the environment is active. Run `pip install` only then.
+> - Do not run `pip freeze > requirements.txt` in this project. It overwrites the file, which removes the phase comments and adds every sub-dependency.
+
+**Check yourself**
+1. You are inside the `.venv` folder and type `.venv\Scripts\Activate.ps1`. Why does it fail?
+2. PowerShell says "The module '.venv' could not be loaded". What does that really mean?
+3. Does `requirements.txt` have to be written before any code?
+
+> [!success]- Answers
+> 1. The path is relative to the current folder, so PowerShell looks for `.venv\.venv\Scripts\Activate.ps1`, which does not exist. Go back to the project root with `cd ..`.
+> 2. The file at that path was not found. PowerShell then guessed that `.venv` was a module name. Fix the spelling or the current folder.
+> 3. No. It can be written first when the packages are already known, or built up by adding each package when it is installed. Either way it must list every package the project uses.
+
+---
 ## Next steps
-- [ ] Create the virtual environment and install the packages → [[00.02 Python Virtual Environments]]
+- [x] Create the virtual environment and install the packages → [[00.02 Python Virtual Environments]] (done 2026-10-11, Step 0.5)
+- [ ] Rebuild the environment once to prove `requirements.txt` is complete → section 5 of [[00.02 Python Virtual Environments]]
   ```powershell
   python -m venv .venv
   .venv\Scripts\Activate.ps1
