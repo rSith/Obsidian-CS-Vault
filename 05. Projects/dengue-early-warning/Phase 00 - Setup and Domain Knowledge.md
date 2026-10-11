@@ -199,6 +199,47 @@ The error message is misleading. When PowerShell cannot find a file at a path su
 > 3. No. It can be written first when the packages are already known, or built up by adding each package when it is installed. Either way it must list every package the project uses.
 
 ---
+## Step 0.6 — First commit
+> [!important] Goal
+> Save the project setup as the first point in the Git history, before any collector code is written.
+
+**What was done (2026-10-11)**
+- Listed what Git would add, before adding anything.
+- Fixed a misplaced folder (see Problems and fixes).
+- Staged everything and made the first commit, `b329938`, on `main`: 33 files, with no PDF, no `.env` and no `.venv` among them.
+- The GitHub repository is not created yet, so nothing is pushed.
+
+```powershell
+git ls-files --others --exclude-standard   # what "git add ." would add
+git check-ignore -v data/raw/wer/file.pdf  # which .gitignore line ignores a file
+git add .
+git commit -m "Set up project structure and document data sources"
+git ls-files | Select-String "pdf"         # after: prints nothing, so no PDF is tracked
+```
+
+**Why this way**
+- **Look before `git add .`.** It stages every file that is not ignored. Listing them first is the only way to catch a file that should not be there.
+- **Commit before writing collectors.** If the collector work goes wrong, there is a clean state to return to.
+
+**Problems and fixes**
+The two WER PDFs were meant to go to `data/raw/wer/`, but they had been moved to a new folder `raw/wer/` at the project root. The ignore rule is `data/raw/*`, so it did not cover `raw/`, and both PDFs were in the list of files to be added. They were moved to `data/raw/wer/` and the empty `raw/` folder was removed. `git check-ignore` then confirmed they are ignored.
+
+Git also printed `LF will be replaced by CRLF` for every text file. That is a notice about line endings on Windows, not an error.
+
+> [!tip] What to remember
+> - An ignore rule matches a path. `data/raw/*` says nothing about `raw/`.
+> - Run `git ls-files --others --exclude-standard` before the first `git add .` in any project.
+> - The 2019 WER asks for approval before its data is published, so a committed PDF would have had to be removed from the history before pushing.
+
+**Check yourself**
+1. `.gitignore` contains `data/raw/*`. Is `raw/wer/report.pdf` ignored?
+2. Which command shows the files `git add .` is about to stage?
+
+> [!success]- Answers
+> 1. No. The rule matches only paths that start with `data/raw/`. A `raw/` folder at the project root is a different path.
+> 2. `git ls-files --others --exclude-standard`, or `git status` for a shorter view by folder.
+
+---
 ## Next steps
 - [x] Create the virtual environment and install the packages → [[00.02 Python Virtual Environments]] (done 2026-10-11, Step 0.5)
 - [ ] Rebuild the environment once to prove `requirements.txt` is complete → section 5 of [[00.02 Python Virtual Environments]]
@@ -207,8 +248,8 @@ The error message is misleading. When PowerShell cannot find a file at a path su
   .venv\Scripts\Activate.ps1
   pip install -r requirements.txt
   ```
-- [ ] Make the first commit, create the GitHub repository `dengue-early-warning` and push → [[00.01 Git Branching and Commit Messages]]
+- [ ] Make the first commit, create the GitHub repository `dengue-early-warning` and push → [[00.01 Git Branching and Commit Messages]] (first commit made 2026-10-11, Step 0.6; GitHub repository and push still open)
 - [ ] Read about dengue transmission and Sri Lanka's two monsoon seasons → [[00.03 Dengue Transmission and the Mosquito Life Cycle]] · [[00.04 Dengue in Sri Lanka - Seasonality and Burden]]
 - [ ] Write notes on at least 3 papers in `docs/literature.md` → [[00.05 Reading Research Papers]]
 - [ ] Write the problem statement in `docs/problem-statement.md`
-- [ ] Decide the two open points in Step 0.1 → [[01.06 Reporting Delay and Data Availability]]
+- [x] Decide the two open points in Step 0.1 → [[01.06 Reporting Delay and Data Availability]] (decided 2026-10-11, see [[Phase 01 - Data Collection]], Step 1.1)

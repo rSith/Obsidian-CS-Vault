@@ -22,9 +22,9 @@ tags: [project, ml]
 > [!warning] Carried over from the Phase 0 data check
 > These are not in the roadmap. They came out of checking the real sources, and they affect Phase 3.
 > - [ ] Measure how late each case source publishes → [[01.06 Reporting Delay and Data Availability]]
-> - [ ] Choose the source that will feed the live system
-> - [ ] Decide whether to collect all districts now (every report already lists all of them)
-> - [ ] Decide how the 26 reporting units map to 25 districts (Kalmunai and Ampara)
+> - [x] Choose the source that will feed the live system (decided 2026-10-11: Dengue Control Unit update, WER as fallback)
+> - [x] Decide whether to collect all districts now (decided 2026-10-11: yes, all 26 units)
+> - [x] Decide how the 26 reporting units map to 25 districts (decided 2026-10-11: keep 26 in the raw file, add Kalmunai to Ampara in Phase 2)
 > - [ ] Confirm the week definition used in the reports → [[01.05 Dates and Epidemiological Weeks]]
 
 ## Done when
@@ -80,7 +80,7 @@ The first inspection also answered "does the layout change between years?" with 
 - **Record the same five facts for every source.** A fixed list makes sources comparable and shows gaps, such as the missing licence on the Dengue Control Unit site.
 - **Save two issues that are years apart.** One file cannot show whether a layout is stable.
 
-**Proposed decisions (not confirmed yet)**
+**Decisions (confirmed 2026-10-11)**
 - History: `denguedatahub` for Dec 2006 to May 2026, after spot-checking some weeks against WER PDFs.
 - From May 2026 onwards: parse WER PDFs (weeks 21 to 33 so far).
 - Live system: Dengue Control Unit update first because it is 4 weeks faster, WER as the fallback.
