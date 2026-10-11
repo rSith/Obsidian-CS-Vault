@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "05. Projects/dengue-early-warning/00. Dengue Early-Warning Overview.md",
-                "mode": "source",
+                "file": "05. Projects/dengue-early-warning/01. Lessons/00. Setup and Domain Knowledge/00.00 Setup and Domain Knowledge.md",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "00. Dengue Early-Warning Overview"
+              "title": "00.00 Setup and Domain Knowledge"
             }
           }
         ]
@@ -186,7 +186,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -202,6 +203,8 @@
   },
   "active": "f897435ffee443e8",
   "lastOpenFiles": [
+    "05. Projects/dengue-early-warning/00. Dengue Early-Warning Overview.md",
+    "05. Projects/dengue-early-warning/Dengue Early-Warning - Project Home.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.00 Web Engineering.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/04. Web Design Principles/04.00 Web Design Principles.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/05. HCI in Web Design/05.00 HCI in Web Design.md",
@@ -236,8 +239,6 @@
     "05. Projects/plantfolio/01. Lessons/05. Machine Learning Service/05.03 Convolutional Neural Networks.md",
     "05. Projects/plantfolio/01. Lessons/05. Machine Learning Service/05.02 Serving a Keras Model with Flask.md",
     "05. Projects/plantfolio/01. Lessons/05. Machine Learning Service/05.01 Calling the ML Service from PHP with cURL.md",
-    "05. Projects/plantfolio/01. Lessons/05. Machine Learning Service/05.00 Machine Learning Service.md",
-    "05. Projects/plantfolio/01. Lessons/04. Core Features/04.99 Summary - Core Features.md",
     "01. Old_Vault/Attachment/images/Pasted image 20260904132141.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904120424.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904115845.png",
