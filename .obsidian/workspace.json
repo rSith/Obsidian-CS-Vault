@@ -13,15 +13,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "05. Projects/dengue-early-warning/01. Lessons/00. Setup and Domain Knowledge/00.04 Dengue in Sri Lanka - Seasonality and Burden.md",
+                "file": "05. Projects/dengue-early-warning/Phase 01 - Data Collection.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "00.04 Dengue in Sri Lanka - Seasonality and Burden"
+              "title": "Phase 01 - Data Collection"
+            }
+          },
+          {
+            "id": "dca39f5f7be1c139",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "05. Projects/dengue-early-warning/01. Lessons/01. Data Collection/01.00 Data Collection.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "01.00 Data Collection"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -200,8 +215,14 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "f897435ffee443e8",
+  "active": "dca39f5f7be1c139",
   "lastOpenFiles": [
+    "05. Projects/dengue-early-warning/Phase 01 - Data Collection.md",
+    "05. Projects/dengue-early-warning/01. Lessons/01. Data Collection/01.00 Data Collection.md",
+    "05. Projects/dengue-early-warning/00. Dengue Early-Warning Overview.md",
+    "05. Projects/dengue-early-warning/01. Lessons/00. Setup and Domain Knowledge/00.99 Summary - Setup and Domain Knowledge.md",
+    "05. Projects/dengue-early-warning/01. Lessons/00. Setup and Domain Knowledge/00.05 Reading Research Papers.md",
+    "05. Projects/dengue-early-warning/01. Lessons/00. Setup and Domain Knowledge/00.04 Dengue in Sri Lanka - Seasonality and Burden.md",
     "05. Projects/dengue-early-warning/01. Lessons/00. Setup and Domain Knowledge/00.03 Dengue Transmission and the Mosquito Life Cycle.md",
     "05. Projects/dengue-early-warning/Dengue Early-Warning - Project Home.md.tmp.32064.6d27d08ae4ed",
     "05. Projects/dengue-early-warning/Phase 00 - Setup and Domain Knowledge.md.tmp.32064.bd9ae54a1c41",
@@ -213,7 +234,6 @@
     "05. Projects/dengue-early-warning/01. Lessons/00. Setup and Domain Knowledge/00.02 Python Virtual Environments.md.tmp.32064.20eabf74a039",
     "05. Projects/dengue-early-warning/01. Lessons/00. Setup and Domain Knowledge/00.01 Git Branching and Commit Messages.md",
     "05. Projects/dengue-early-warning/01. Lessons/00. Setup and Domain Knowledge/00.00 Setup and Domain Knowledge.md",
-    "05. Projects/dengue-early-warning/00. Dengue Early-Warning Overview.md",
     "05. Projects/dengue-early-warning/Dengue Early-Warning - Project Home.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.00 Web Engineering.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/04. Web Design Principles/04.00 Web Design Principles.md",
@@ -233,11 +253,6 @@
     "05. Projects/plantfolio/01. Lessons/06. Testing and Delivery/06.03 Production Configuration and Release.md",
     "05. Projects/plantfolio/01. Lessons/06. Testing and Delivery/06.02 Security Review of a PHP Application.md",
     "05. Projects/plantfolio/01. Lessons/06. Testing and Delivery/06.01 Test Cases, Journeys and Regression Testing.md",
-    "05. Projects/plantfolio/01. Lessons/06. Testing and Delivery/06.00 Testing and Delivery.md",
-    "05. Projects/plantfolio/01. Lessons/05. Machine Learning Service/05.99 Summary - Machine Learning Service.md",
-    "05. Projects/plantfolio/01. Lessons/05. Machine Learning Service/05.07 Confidence Thresholds and Honest AI Results.md",
-    "05. Projects/plantfolio/01. Lessons/05. Machine Learning Service/05.06 Evaluating an Image Classifier.md",
-    "05. Projects/plantfolio/01. Lessons/05. Machine Learning Service/05.05 Image Datasets - Splits, Augmentation and Domain Shift.md",
     "01. Old_Vault/Attachment/images/Pasted image 20260904132141.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904120424.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904115845.png",
