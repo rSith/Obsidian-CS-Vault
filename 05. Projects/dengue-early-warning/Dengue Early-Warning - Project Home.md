@@ -1,7 +1,7 @@
 ---
 type: project
 stage: planning
-repo:
+repo: https://github.com/rSith/dengue-early-warning
 tags: [project, ml, web]
 ---
 # Dengue Early-Warning
@@ -9,7 +9,7 @@ tags: [project, ml, web]
 > Forecast weekly dengue cases for each Sri Lankan district 4 to 8 weeks ahead from rainfall, temperature, humidity and recent case counts, and raise a **Normal / Watch / Warning** alert when a district is heading for an unusually high count. Results are shown on a district map dashboard.
 
 ## Where things live
-- **Code:** `Code Vault/Projects/Machine Learning-Projects/dengue-early-warning` (local Git repository, not on GitHub yet)
+- **Code:** `Code Vault/Projects/Machine Learning-Projects/dengue-early-warning` (local Git repository, on GitHub as `rSith/dengue-early-warning` since 2026-10-11)
 - **Roadmap:** `Code Vault/Projects/Machine Learning-Projects/Dengue Outbreak Early-Warning System — Project Roadmap.md` (outside this vault, so it cannot be linked)
 - **Notes:** this folder. Start at [[00. Dengue Early-Warning Overview]], the map of every note.
   - **Phase notes** (below) record progress: the plan, the checklist and a work log of what was done.
@@ -47,3 +47,6 @@ General concepts are explained once, in `04. Concepts`. The project notes link t
 - 2026-10-11: virtual environment `.venv` created and the seven Phase 0 packages installed; three activation path mistakes and their fixes recorded in Phase 00, Step 0.5.
 - 2026-10-11: all six data sources inspected by hand (Phase 01, Step 1.1). Found that the WER is 8 weeks behind, not 7, and that the reporting week changed from Saturday–Friday to Monday–Sunday in 2026.
 - 2026-10-11: the five source decisions confirmed (Phase 01, Step 1.1) and the first commit made, `b329938` (Phase 00, Step 0.6). Not pushed; the GitHub repository does not exist yet.
+- 2026-10-11: district coordinates table `data/reference/districts.csv` created, 26 units mapped to 25 districts with the main town as the weather point (Phase 01, Step 1.2).
+- 2026-10-11: GitHub repository `rSith/dengue-early-warning` created and the first commit pushed (Phase 00, Step 0.7).
+- 2026-10-11: weather collector `src/collect_weather.py` written and first run made: 388 of 546 files saved before Open-Meteo's rate limit stopped it (Phase 01, Step 1.3, in progress). New lesson note [[01.07 Resumable Downloads - Caching and Rate Limits]].

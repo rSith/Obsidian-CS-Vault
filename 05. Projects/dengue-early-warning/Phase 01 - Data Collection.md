@@ -102,3 +102,99 @@ The first inspection also answered "does the layout change between years?" with 
 > 1. The issue reports the week before its own date, 10–16 August. From 16 August to 11 October is 56 days, which is 8 weeks.
 > 2. `W-FRI` makes Saturday-to-Friday weeks. That matches the reports up to 2025, but the 2026 reports use Monday-to-Sunday weeks. From 2026 the weather weeks would cover different days from the case weeks.
 > 3. The new diseases were added on the right. Dengue is still the first pair of numbers, so its position counted from the name did not move.
+
+---
+## Step 1.2 — District coordinates table
+> [!important] Goal
+> One small table that gives every reporting unit a name, the district it belongs to and a point on the map. The weather collector needs the points; every later merge needs the names.
+
+**What was done (2026-10-11)**
+- Created `data/reference/districts.csv` with 26 rows and four columns: `unit`, `district`, `latitude`, `longitude`.
+- The rows are in the order of the WER table and use the spelling of the 2026 WER.
+- Looked up each point with the Open-Meteo geocoding API and took the first result inside Sri Lanka.
+- Recorded the columns in the data dictionary in `docs/data.md`.
+
+**Checked:** pandas reads 26 rows, 26 different units and 25 different districts. Kalmunai is the only row where `unit` and `district` differ. Latitudes run from 5.95 to 9.67 and longitudes from 79.83 to 81.83, which is inside Sri Lanka. Git does not ignore the file.
+
+**Why this way**
+- **The point is the main town, not the centre of the district.** Dengue spreads where people live. In a large district such as Anuradhapura or Monaragala the middle of the map is thinly populated land far from the town, and its rainfall is not the rainfall the patients lived in.
+- **Two name columns.** `unit` is what the health reports use (26 values). `district` is what the map and the population table use (25 values). Keeping both in one table means the Kalmunai decision is written down once, as data, and Phase 2 can add Kalmunai to Ampara with a `groupby("district")`.
+- **A new folder, `data/reference/`.** The table is made by hand and no script can recreate it, so it has to be committed. `data/raw/` and `data/processed/` are both ignored by Git, so it could not go there.
+- **Four decimal places.** That is about 11 metres, far finer than the weather grid, which is several kilometres wide. More digits would add nothing.
+
+```text
+https://geocoding-api.open-meteo.com/v1/search?name=Kalmunai&count=5&countryCode=LK
+```
+
+**Problems and fixes**
+A place name is not unique. The search returned three places called Kalmunai (in Ampara, Kilinochchi and Puttalam districts), three called Gampaha and two called Badulla. The first result was the right one each time, because results are ordered by population, but each one was checked against the district name in the result before it was used.
+
+> [!tip] What to remember
+> - Always pass `countryCode=LK` and read the district of the result. The same town name exists in several districts.
+> - A lookup table made by hand belongs in Git. Data that a script downloads does not.
+> - The weather for a unit is the weather at one point. It stands in for the whole district, which is an approximation to mention in the report.
+
+**Check yourself**
+1. Why is the main town a better weather point than the geometric centre of a district?
+2. The table has 26 rows but only 25 different values in `district`. Why?
+3. Why is this file committed when the files in `data/raw/` are not?
+
+> [!success]- Answers
+> 1. Cases happen where people live. The centre of a large district can be forest or farmland with different rainfall from the town where most patients are.
+> 2. Kalmunai is a health reporting unit inside Ampara district, so its `district` value is Ampara, the same as the Ampara row.
+> 3. It was made by hand, so no script can rebuild it. Raw downloads can be fetched again by the collector, so they stay out of Git.
+
+---
+## Step 1.3 — Weather collector (in progress)
+> [!important] Goal
+> A script that downloads daily rainfall, temperature and humidity for all 26 units from 2006 to today, and can be run again at any time without downloading the same thing twice.
+
+**What was done (2026-10-11)**
+- Chose Open-Meteo over NASA POWER (decision in Step 1.1).
+- **Explored in a notebook first**, `notebooks/01_weather.ipynb`: one request for Colombo, 2024, then the reply turned into a table. No missing values in any of the five variables.
+- **Wrote `src/collect_weather.py`** in two parts: a download part that saves one raw JSON file per unit and year in `data/raw/weather/`, and a build part that reads those files into `data/processed/weather_daily.csv`.
+- **First full run:** started 20:56 and stopped at 21:09 with a `429` error, after saving 388 of 546 files (18 units complete, and Puttalam up to 2015).
+- **Still to do:** run it again to fetch the remaining 158 files, check the finished table, add the columns to the data dictionary.
+
+**Why this way**
+- **Notebook for exploring, `.py` file for the real code.** In a notebook the reply stays in memory, so it can be examined cell by cell without calling the API again. But a notebook cannot be imported by the weekly pipeline or tested with pytest, so the collector lives in `src/`.
+- **One file per unit and year.** If a request fails, only one year is lost, and a finished year never has to be fetched again.
+- **Download and build are separate.** A mistake in the table code is fixed and re-run without using the network.
+- **Start in 2006.** Cases start in late December 2006, and Phase 2 looks at rainfall up to 16 weeks earlier, so the weather has to begin before the cases do.
+- **The current year is always downloaded again.** It is still growing, and its last 5 days are provisional values that Open-Meteo replaces later.
+- The whole script is explained part by part in [[01.07 Resumable Downloads - Caching and Rate Limits]].
+
+```python
+r = requests.get(URL, params=params, timeout=60)
+r.raise_for_status()                    # an error reply becomes a Python error
+df = pd.DataFrame(r.json()["daily"])    # (366, 6) for Colombo 2024
+```
+
+```powershell
+python -m src.collect_weather           # from the project root, with .venv active
+```
+
+**Problems and fixes**
+
+| Problem | Cause | Fix |
+|---|---|---|
+| VS Code asked which kernel to use for the notebook | A notebook needs a Python to run its cells | Choose **Python Environments...**, then `.venv (Python 3.13.2)`. The global Python does not have `pandas` or `requests`. |
+| `df.shape` printed nothing | A notebook shows only the value of the **last line** of a cell | Use `print(df.shape)`, or give it its own cell |
+| `429 Too Many Requests` at request 388 | Open-Meteo's hourly limit. A long request counts as several calls: about 13 for one year of five variables, by estimate from this run. | Wait about an hour and run the same command again. The 370 finished past-year files are skipped. |
+| The module docstring disappeared from the top of the file | It was overwritten while pasting the code | Put back above the imports |
+
+> [!tip] What to remember
+> - `raise_for_status()` did its job: without it, the script would have saved 158 error messages as if they were weather files.
+> - A `429` is not a bug. The request was fine; the server asked for a pause.
+> - Save each reply the moment it arrives. That is what made the failed run cost only waiting time.
+> - The cache knows only the unit and the year. After changing the variables or a coordinate, delete the old files.
+
+**Check yourself**
+1. The first run failed at file 388. Why does the second run not start again at Colombo 2006?
+2. Why is `Colombo_2026.json` downloaded on every run, while `Colombo_2024.json` is downloaded once?
+3. You add wind speed to `DAILY` and run the script. The new column is missing for almost every year. Why?
+
+> [!success]- Answers
+> 1. Each reply was saved as its own file as soon as it arrived. Before every request the script checks for the file, finds it, and skips the request.
+> 2. 2024 is over and its numbers are final. 2026 gets a new day every day, and its newest days are provisional.
+> 3. The files for past years already exist, so the script did not ask the server again. The saved files hold the old list of variables. Delete `data/raw/weather/` and download again.

@@ -12,7 +12,7 @@ tags: [project, ml]
 > A clean project workspace and enough understanding of dengue to make sensible modelling choices later.
 
 ## Done when
-- [ ] Repository created with folder structure, README and `.gitignore` (local repository done; GitHub repository not created yet)
+- [x] Repository created with folder structure, README and `.gitignore` (local repository done; GitHub repository created and pushed 2026-10-11, Step 0.7)
 - [ ] Virtual environment works from `requirements.txt`
 - [ ] Notes from at least 3 papers saved in `docs/literature.md`
 - [ ] Problem statement written
@@ -240,6 +240,45 @@ Git also printed `LF will be replaced by CRLF` for every text file. That is a no
 > 2. `git ls-files --others --exclude-standard`, or `git status` for a shorter view by folder.
 
 ---
+## Step 0.7 — GitHub repository and first push
+> [!important] Goal
+> Put the local repository on GitHub, so the work has a backup and a public home later.
+
+**What was done (2026-10-11)**
+- The GitHub command-line tool (`gh`) is not installed on this computer, so the repository was created on the website at `github.com/new`, as `rSith/dengue-early-warning`.
+- README, `.gitignore` and licence were left unticked on the form.
+- Connected the local repository and pushed.
+
+**Checked:** `git status -sb` shows `## main...origin/main` with nothing ahead or behind, and `git branch -r` lists `origin/main`. Commit `b329938` is on GitHub.
+
+```powershell
+git remote add origin https://github.com/rSith/dengue-early-warning.git
+git remote -v            # check the URL
+git push -u origin main  # -u links local main to origin/main
+git status -sb           # check: main...origin/main
+```
+
+**Why this way**
+- **An empty repository on GitHub.** The local repository already has a first commit. If GitHub makes its own first commit (a README), the two histories do not match and the push is rejected.
+- **`-u` on the first push.** It records that local `main` follows `origin/main`. After that, plain `git push` and `git pull` know where to go.
+
+**Problems and fixes**
+The form showed a red banner, "Something went wrong!", with no reason, even though the name was marked as available. This is GitHub's general failure message: the request to create the repository failed, usually because the login session expired, a browser extension blocked it, or GitHub had a short outage. The things to try are: check whether the repository was created anyway, reload the page with `Ctrl+F5` and try again, sign out and in, or use a private window.
+
+> [!tip] What to remember
+> - Create the GitHub repository **empty** when the project already exists locally.
+> - The commit is authored with the email in `git config user.email`. It appears on the GitHub profile only if that email is added to the account.
+> - `CLAUDE.md` and `docs/data/inspected_data.md` are in the repository. Tidy them before making it public.
+
+**Check yourself**
+1. Why leave "Add a README" unticked when the project already has commits?
+2. What does `-u` do in `git push -u origin main`?
+
+> [!success]- Answers
+> 1. GitHub would create a commit that the local repository does not have. The histories would differ and the first push would be rejected.
+> 2. It links local `main` to `origin/main`, so later `git push` and `git pull` need no extra arguments.
+
+---
 ## Next steps
 - [x] Create the virtual environment and install the packages → [[00.02 Python Virtual Environments]] (done 2026-10-11, Step 0.5)
 - [ ] Rebuild the environment once to prove `requirements.txt` is complete → section 5 of [[00.02 Python Virtual Environments]]
@@ -248,7 +287,7 @@ Git also printed `LF will be replaced by CRLF` for every text file. That is a no
   .venv\Scripts\Activate.ps1
   pip install -r requirements.txt
   ```
-- [ ] Make the first commit, create the GitHub repository `dengue-early-warning` and push → [[00.01 Git Branching and Commit Messages]] (first commit made 2026-10-11, Step 0.6; GitHub repository and push still open)
+- [x] Make the first commit, create the GitHub repository `dengue-early-warning` and push → [[00.01 Git Branching and Commit Messages]] (first commit made 2026-10-11, Step 0.6; repository created and pushed the same day, Step 0.7)
 - [ ] Read about dengue transmission and Sri Lanka's two monsoon seasons → [[00.03 Dengue Transmission and the Mosquito Life Cycle]] · [[00.04 Dengue in Sri Lanka - Seasonality and Burden]]
 - [ ] Write notes on at least 3 papers in `docs/literature.md` → [[00.05 Reading Research Papers]]
 - [ ] Write the problem statement in `docs/problem-statement.md`
