@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.2 - Mobile Computing, IoT and Wireless.md",
+                "file": "02. University/CMIS 3114 - Data Communication & Computer Networks/01. Lessons/01. Introduction/01.20 IoT, Smart Homes and Emerging Topics.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "PP 01.2 - Mobile Computing, IoT and Wireless"
+              "title": "01.20 IoT, Smart Homes and Emerging Topics"
             }
           }
         ],
@@ -218,6 +218,7 @@
   },
   "active": "dca39f5f7be1c139",
   "lastOpenFiles": [
+    "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.2 - Mobile Computing, IoT and Wireless.md",
     "desktop.ini",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.1 - Networks, Uses and Distributed Systems.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/01. Lessons/01. Introduction/01.04 Client-Server and Peer-to-Peer Models.md",
@@ -237,7 +238,6 @@
     "05. Projects/dengue-early-warning/Phase 01 - Data Collection.md.tmp.7712.6121149b5dec",
     "05. Projects/dengue-early-warning/Phase 01 - Data Collection.md.tmp.7712.a1866f2a1f96",
     "05. Projects/dengue-early-warning/Dengue Early-Warning - Project Home.md.tmp.7712.08cff5172fca",
-    "05. Projects/dengue-early-warning/01. Lessons/01. Data Collection/01.99 Summary - Data Collection.md.tmp.7712.fd57a3edb2dd",
     "05. Projects/dengue-early-warning/Phase 01 - Data Collection.md",
     "05. Projects/dengue-early-warning/00. Dengue Early-Warning Overview.md",
     "05. Projects/dengue-early-warning/01. Lessons/00. Setup and Domain Knowledge/00.99 Summary - Setup and Domain Knowledge.md",
