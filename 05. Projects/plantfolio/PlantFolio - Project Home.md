@@ -71,3 +71,4 @@ General concepts and web theory are explained once, elsewhere in the vault. The 
 - 2026-10-08: notes set up in the vault: overview map, a progress note per roadmap week, and lessons for every stage.
 - 2026-10-13: CORE-06 UI built (commit `2b75f83`): shared header, footer and phone bottom bar; `index.php` shows the frame. Left in week 1: move the style guide onto the frame.
 - 2026-10-13: extra page `about.php` built (commit `037a4cc`) for the footer links: About, Community guidelines, Contact. Contact details are samples until week 16.
+- 2026-10-13: style guide moved onto the shared frame (commit `1090305`); both week 1 "done when" checks pass by screenshot. Next: push, pull request, then week 2.

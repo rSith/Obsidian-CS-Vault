@@ -20,12 +20,12 @@ Status as found in the repository on 8 Oct 2026. "UI built" means the code exist
 - [x] **CORE-04** `variables.css`: palette, health colours, fonts, spacing, radii. *UI built.*
 - [x] **CORE-05** `components.css` and `partials/`: buttons, form controls, badges, status chips, confidence meter, plant card, listing card, toast. *UI built.*
 - [x] **CORE-06** `header.php` (public and logged-in), mobile bottom bar, `footer.php`, active-page highlight. *UI built on 13 Oct 2026 (step 1.8).* → [[01.01 Page Skeleton - Header, Footer and Navigation]]
-- [x] `public/styleguide.php`: gallery of every component
+- [x] `public/styleguide.php`: gallery of every component. *Moved onto the shared header and footer on 13 Oct 2026 (step 1.10).*
 
 **In parallel, due for MS-1.** None of these files exists in the repository yet: `docs/architecture.md` (DES-09), `docs/api-contract.md` (DES-10), `docs/conventions.md` (DES-11), `docs/security-checklist.md` (DES-12), `database/erd.png` (DES-06), `database/data-dictionary.md` (DES-08), `database/species.csv` (DES-13). The ERD, schema reconciliation, data dictionary and species data should finish by the end of week 2, because mock data uses their column names.
 
 ## Done when
-- [ ] The style guide shows every component from wireframe p7 correctly at 375 px and 1024 px
+- [x] The style guide shows every component from wireframe p7 correctly at 375 px and 1024 px. *Checked on 13 Oct 2026 with screenshots of the whole page at both widths, as a member. Still to check by hand: hover, keyboard focus and a real phone.*
 - [x] A blank page shows the header, bottom bar and footer. *Checked on 13 Oct 2026 with screenshots of `index.php` at 375, 768, 1024 and 1280 px. Still to check by hand: hover, keyboard focus and a real phone.*
 
 ## Learn this week
@@ -382,10 +382,57 @@ Lessons: [[01.01 Page Skeleton - Header, Footer and Navigation]] · [[01.05 Drop
 Lessons: [[01.01 Page Skeleton - Header, Footer and Navigation]] · [[02.03 URL Structure and Domains]]
 
 ---
+### Step 1.10 — The style guide moves onto the frame
+> [!important] Goal (MOD-01, no task ID of its own)
+> Make the style guide a normal page that uses `header.php` and `footer.php`, then run the week's "done when" check.
+
+**What was done (2026-10-13, branch `feature/scaffold-ui`, commit `1090305`)**
+- `public/styleguide.php`: its own `<head>`, `<body>` and `<main>` tags were deleted. It now includes the header and footer and wraps its content in `<div class="container page">`.
+- `public/assets/css/styleguide.css` (new): the page's own layout rules, the `sg-` classes, which used to sit in a `<style>` block.
+- `includes/header.php`: an optional variable `$page_css`. A page names one extra stylesheet and the header adds the `<link>`.
+- A new gallery section, "Icon buttons and dropdown menu", for the two components made in step 1.8.
+- The whole page was compared with wireframe p7 at 375 px and 1024 px.
+
+**Why this way**
+- **Every page uses the frame.** The style guide was the last page with its own copy of the font and stylesheet links. A change to the frame now shows there too.
+- **`$page_css` keeps page-only rules out of the shared files.** Only the style guide downloads `styleguide.css`. The file is deleted together with the page before release.
+- **The gallery uses `$sample_member`, not `$current_user`.** With `?guest`, `$current_user` is `null`, and the page printed nine PHP warnings. The samples now take the owner columns of a mock listing row instead.
+- **The top navigation of wireframe p7 is not a sample any more.** It is the real header at the top of the page.
+
+```php
+$page_title = 'Style guide';
+$page_css   = 'styleguide.css';   // this page's own layout rules, loaded by header.php
+```
+```php
+<?php if (!empty($page_css)): ?>
+  <link rel="stylesheet" href="<?= e(url('assets/css/' . $page_css)) ?>">
+<?php endif; ?>
+```
+
+**Problems and fixes**
+- **Nine PHP warnings with `?guest`**, because the gallery read `$current_user['username']` and other keys from `null`. Fixed with `$sample_member`, as described above.
+- **The code sample `?guest` broke across two lines** on a phone. Fixed with `white-space: nowrap` on `.sg-code`.
+- **Not fixed, only noted:** at 1024 px the care rows sit in a half-width column of the gallery, so the plant name and species wrap onto three lines. The row itself is unchanged since step 1.7; on the Dashboard it gets a wider column.
+
+> [!tip] What to remember
+> - A page talks to the header through variables set **before** the include: `$page_title`, and now `$page_css`.
+> - Code that prints a value from `$current_user` must cope with a visitor, where it is `null`.
+
+**Check yourself**
+1. Why does only the style guide load `styleguide.css`?
+2. Why did the style guide break with `?guest`, and what does that teach about public pages?
+
+> [!success]- Answers
+> 1. The header prints the extra `<link>` only when the page has set `$page_css`. No other page sets it.
+> 2. `?guest` makes `$current_user` `null`, and reading a key from `null` gives a PHP warning. Every public page (Explore, Exchange, Listing, Public Profile) must check that a member is signed in before it uses `$current_user`.
+
+Lessons: [[01.01 Page Skeleton - Header, Footer and Navigation]] · [[00.06 Component CSS and the Style Guide]]
+
+---
 ## Open points
 - **`docs/credits.md` has an uncommitted change** that puts four spaces before `# Credits`. In Markdown that turns the heading into a code block. It looks accidental. *13 Oct: only the icon line of that file was committed; the four spaces were then removed, so the file matches the commit again. Closed.*
 - **Footer links have no pages.** Wireframe p4 names About, Community guidelines and Contact, but the page list has no file for them. *Closed on 13 Oct: one extra page, `about.php`, built in step 1.9. Still to do: real contact details (week 16), the team's edit of the guidelines text, and a task ID for the page.*
 - **The bell has no page either.** It links to My Exchanges, because the only notifications in the wireframes are new interests in a listing (p10).
 - **Search on phones.** Wireframe p23 shows only the bell and the avatar in the phone top bar. The search button was kept as well, because Explore is not in the bottom bar and would otherwise be unreachable on a phone.
-- **Remaining this week:** move `styleguide.php` onto the new header and footer, then the "done when" check of the style guide.
-- After that: open the UI pull request for `feature/scaffold-ui` into `develop`, as CONTRIBUTING.md describes.
+- **Both "done when" lines are met** (13 Oct), by screenshots. PLN-07 and PLN-09 above are still unticked: they are yours to confirm.
+- Next: push the branch (4 commits are local only) and open the UI pull request for `feature/scaffold-ui` into `develop`, as CONTRIBUTING.md describes.
