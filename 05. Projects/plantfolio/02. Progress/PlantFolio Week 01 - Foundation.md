@@ -338,8 +338,8 @@ Lessons: [[01.01 Page Skeleton - Header, Footer and Navigation]] · [[01.05 Drop
 
 ---
 ## Open points
-- **`docs/credits.md` has an uncommitted change** that puts four spaces before `# Credits`. In Markdown that turns the heading into a code block. It looks accidental. *13 Oct: still uncommitted; only the icon line of that file was committed.*
-- **Footer links have no pages.** Wireframe p4 names About, Community guidelines and Contact, but the page list has no file for them. They point to `#` for now.
+- **`docs/credits.md` has an uncommitted change** that puts four spaces before `# Credits`. In Markdown that turns the heading into a code block. It looks accidental. *13 Oct: only the icon line of that file was committed; the four spaces were then removed, so the file matches the commit again. Closed.*
+- **Footer links have no pages.** Wireframe p4 names About, Community guidelines and Contact, but the page list has no file for them. They point to `#` for now. *Decided on 13 Oct: one extra page, `about.php`, with three sections (About, Community guidelines, Contact). Not built yet.*
 - **The bell has no page either.** It links to My Exchanges, because the only notifications in the wireframes are new interests in a listing (p10).
 - **Search on phones.** Wireframe p23 shows only the bell and the avatar in the phone top bar. The search button was kept as well, because Explore is not in the bottom bar and would otherwise be unreachable on a phone.
 - **Remaining this week:** move `styleguide.php` onto the new header and footer, then the "done when" check of the style guide.
