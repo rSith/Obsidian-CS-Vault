@@ -29,6 +29,12 @@ views:
     name: Notes
     order:
       - file.name
-      - note.type
-      - note.status
+      - type
+      - status
+    sort:
+      - property: type
+        direction: ASC
+    columnSize:
+      file.name: 433
+
 ```
