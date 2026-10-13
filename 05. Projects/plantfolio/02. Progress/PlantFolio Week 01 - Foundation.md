@@ -337,9 +337,54 @@ $area      = current_area();
 Lessons: [[01.01 Page Skeleton - Header, Footer and Navigation]] · [[01.05 Dropdown Menus with details and summary]] · [[00.03 PHP Includes and Partials]]
 
 ---
+### Step 1.9 — About page for the footer links
+> [!important] Goal (no task ID yet)
+> Give the three footer links, and the "community guidelines" link on the sign-up form, a real page to open.
+
+**What was done (2026-10-13, branch `feature/scaffold-ui`, commit `037a4cc`). UI built.**
+- `public/about.php`: one public page with three sections, `#about`, `#guidelines` and `#contact`.
+- `includes/footer.php`: the three links now point to `about.php#about`, `about.php#guidelines` and `about.php#contact`.
+- `layout.css`: `.prose` (a narrow column for reading), `.prose-nav` and `.rule-list`.
+- `CLAUDE.md`, `docs/ROADMAP.md` and `public/README.md` list the extra page.
+
+**Why this way**
+- **One page, not three.** Wireframe p4 names three footer links, but the 15-page list has no file for them. One static page with three sections covers all of them with the least to build and explain.
+- **A link can open a page at a section.** `about.php#guidelines` loads the page and scrolls to the element with `id="guidelines"`. `scroll-padding-top` in `layout.css` stops the heading from hiding under the sticky top bar.
+- **Content is an array at the top, HTML loops below.** `$guidelines` holds the six rules. The same page pattern as everywhere else.
+- **The contact details are samples.** `hello@plantfolio.example` uses the `.example` ending, which is reserved for examples and can never be a real address. A grey notice on the page says so. The real details are added in week 16.
+- **The rule numbers are drawn by CSS.** `counter-reset`, `counter-increment` and `content: counter(rule)` number the list, so the HTML stays a plain `<ol>`.
+- **Built on the scaffold branch,** because it completes the footer of the shared frame.
+
+```php
+<ol class="rule-list">
+  <?php foreach ($guidelines as $rule): ?>
+    <li>
+      <h3><?= e($rule['title']) ?></h3>
+      <p><?= e($rule['text']) ?></p>
+    </li>
+  <?php endforeach; ?>
+</ol>
+```
+
+> [!tip] What to remember
+> - This page is **not in the wireframes**. Be ready to say why it was added: the wireframes ask for the links but give them no page.
+> - The guidelines text is a first draft. The team should read and edit it.
+> - Replace the sample contact details before submission (noted in the roadmap, week 16).
+
+**Check yourself**
+1. What does the `#guidelines` part of `about.php#guidelines` do?
+2. Why is the sample address `hello@plantfolio.example` and not something like `plantfolio@gmail.com`?
+
+> [!success]- Answers
+> 1. It is a fragment. After the page loads, the browser scrolls to the element whose `id` is `guidelines`. It is not sent to the server.
+> 2. `.example` is a reserved ending that no one can register, so a sample address can never reach a real person. An invented Gmail address might belong to someone.
+
+Lessons: [[01.01 Page Skeleton - Header, Footer and Navigation]] · [[02.03 URL Structure and Domains]]
+
+---
 ## Open points
 - **`docs/credits.md` has an uncommitted change** that puts four spaces before `# Credits`. In Markdown that turns the heading into a code block. It looks accidental. *13 Oct: only the icon line of that file was committed; the four spaces were then removed, so the file matches the commit again. Closed.*
-- **Footer links have no pages.** Wireframe p4 names About, Community guidelines and Contact, but the page list has no file for them. They point to `#` for now. *Decided on 13 Oct: one extra page, `about.php`, with three sections (About, Community guidelines, Contact). Not built yet.*
+- **Footer links have no pages.** Wireframe p4 names About, Community guidelines and Contact, but the page list has no file for them. *Closed on 13 Oct: one extra page, `about.php`, built in step 1.9. Still to do: real contact details (week 16), the team's edit of the guidelines text, and a task ID for the page.*
 - **The bell has no page either.** It links to My Exchanges, because the only notifications in the wireframes are new interests in a listing (p10).
 - **Search on phones.** Wireframe p23 shows only the bell and the avatar in the phone top bar. The search button was kept as well, because Explore is not in the bottom bar and would otherwise be unreachable on a phone.
 - **Remaining this week:** move `styleguide.php` onto the new header and footer, then the "done when" check of the style guide.
