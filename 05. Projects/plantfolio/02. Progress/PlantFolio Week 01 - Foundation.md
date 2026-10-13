@@ -14,8 +14,8 @@ tags: [project, web]
 ## Tasks
 Status as found in the repository on 8 Oct 2026. "UI built" means the code exists on the feature branch; it is not merged or reviewed yet.
 
-- [ ] **PLN-07** Dev environment: XAMPP (PHP 8+), Git, VS Code, Python 3.10+; `phpinfo()` loads. *PHP 8.2.12 and Python 3.13.2 were found on this computer; tick this once you have confirmed the rest.*
-- [ ] **PLN-09** Create `develop`, protect `main` and `develop`, set `develop` as the default branch. *`develop` exists and is the default branch on GitHub. Branch protection was not checked.*
+- [x] **PLN-07** Dev environment: XAMPP (PHP 8+), Git, VS Code, Python 3.10+; `phpinfo()` loads. *Checked on 14 Oct 2026: PHP 8.2.12, Git 2.46.0, VS Code 1.141.0, Python 3.13.2, and a `phpinfo()` page loaded through Apache.*
+- [x] **PLN-09** Create `develop`, protect `main` and `develop`, set `develop` as the default branch. *Checked on 14 Oct 2026 through the GitHub API: `develop` is the default branch; the ruleset `protect-main-and-develop` is active on both branches (pull request required, no force push, no deletion). Required approvals are 0 until teammates are added.*
 - [x] `config/config.php`, `includes/helpers.php` with `e()`, first `includes/mock-data.php` (MOD-01)
 - [x] **CORE-04** `variables.css`: palette, health colours, fonts, spacing, radii. *UI built.*
 - [x] **CORE-05** `components.css` and `partials/`: buttons, form controls, badges, status chips, confidence meter, plant card, listing card, toast. *UI built.*
@@ -435,4 +435,4 @@ Lessons: [[01.01 Page Skeleton - Header, Footer and Navigation]] · [[00.06 Comp
 - **The bell has no page either.** It links to My Exchanges, because the only notifications in the wireframes are new interests in a listing (p10).
 - **Search on phones.** Wireframe p23 shows only the bell and the avatar in the phone top bar. The search button was kept as well, because Explore is not in the bottom bar and would otherwise be unreachable on a phone.
 - **Both "done when" lines are met** (13 Oct), by screenshots. PLN-07 and PLN-09 above are still unticked: they are yours to confirm.
-- Next: push the branch (4 commits are local only) and open the UI pull request for `feature/scaffold-ui` into `develop`, as CONTRIBUTING.md describes.
+- **Pull request #2 is open** (14 Oct): `feature/scaffold-ui` into `develop`, 13 commits, <https://github.com/rSith/plantfolio/pull/2>. Not merged. Still to do: add screenshots to it, update the Task Sheet, merge.
