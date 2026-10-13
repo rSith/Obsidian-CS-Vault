@@ -19,14 +19,14 @@ Status as found in the repository on 8 Oct 2026. "UI built" means the code exist
 - [x] `config/config.php`, `includes/helpers.php` with `e()`, first `includes/mock-data.php` (MOD-01)
 - [x] **CORE-04** `variables.css`: palette, health colours, fonts, spacing, radii. *UI built.*
 - [x] **CORE-05** `components.css` and `partials/`: buttons, form controls, badges, status chips, confidence meter, plant card, listing card, toast. *UI built.*
-- [ ] **CORE-06** `header.php` (public and logged-in), mobile bottom bar, `footer.php`, active-page highlight. *Not started: `includes/header.php` does not exist yet.* → [[01.01 Page Skeleton - Header, Footer and Navigation]]
+- [x] **CORE-06** `header.php` (public and logged-in), mobile bottom bar, `footer.php`, active-page highlight. *UI built on 13 Oct 2026 (step 1.8).* → [[01.01 Page Skeleton - Header, Footer and Navigation]]
 - [x] `public/styleguide.php`: gallery of every component
 
 **In parallel, due for MS-1.** None of these files exists in the repository yet: `docs/architecture.md` (DES-09), `docs/api-contract.md` (DES-10), `docs/conventions.md` (DES-11), `docs/security-checklist.md` (DES-12), `database/erd.png` (DES-06), `database/data-dictionary.md` (DES-08), `database/species.csv` (DES-13). The ERD, schema reconciliation, data dictionary and species data should finish by the end of week 2, because mock data uses their column names.
 
 ## Done when
 - [ ] The style guide shows every component from wireframe p7 correctly at 375 px and 1024 px
-- [ ] A blank page shows the header, bottom bar and footer
+- [x] A blank page shows the header, bottom bar and footer. *Checked on 13 Oct 2026 with screenshots of `index.php` at 375, 768, 1024 and 1280 px. Still to check by hand: hover, keyboard focus and a real phone.*
 
 ## Learn this week
 - CSS custom properties → [[00.05 CSS Custom Properties and Design Tokens]]
@@ -281,7 +281,66 @@ Lessons: [[00.03 PHP Includes and Partials]] · [[00.07 Mock Data Shaped Like Da
 Lessons: [[05.07 Confidence Thresholds and Honest AI Results]] · [[07.07 Dashboard UX and Accessibility]]
 
 ---
+### Step 1.8 — The page frame: header, footer and phone bottom bar
+> [!important] Goal (CORE-06)
+> Write the top and the bottom of every page once, so the fifteen pages only supply what goes between.
+
+**What was done (2026-10-13, branch `feature/scaffold-ui`, commit `2b75f83`). UI built, not wired.**
+- `includes/header.php`: the `<head>`, a skip link, the top bar in two versions (visitor and member) and the opening `<main>`.
+- `includes/footer.php`: closes `<main>`, then the footer and the phone bottom bar (Home, Garden, +, Exchange, Profile).
+- `public/assets/css/layout.css`: the frame's styles and the `.container` content column.
+- `components.css`: two new shared components, the round icon button (`.icon-btn`) and the dropdown menu (`.menu`).
+- `helpers.php`: `current_page()` and `current_area()`. `variables.css`: `--header-height`, `--bottom-bar-height`.
+- `mock-data.php`: `new_interest_count` for the bell, and the `?guest` preview switch.
+- Nine more Lucide icons, added to `docs/credits.md`.
+- `public/index.php` is now the blank page that shows the frame.
+
+**Why this way**
+- **A tag opened in one file is closed in the other.** `header.php` opens `<body>` and `<main>`; `footer.php` closes them. A page includes both and writes only its own content.
+- **One `if` chooses the header.** `$is_member = !empty($current_user);`. Mock data sets `$current_user` now; the session will set it in stage B. A visitor is `null` in both stages, so the header does not change.
+- **`?guest` is a preview switch.** It sets `$current_user = null` in `mock-data.php`, so any page can be checked as a visitor. It lives in the mock file and disappears with it.
+- **The highlight follows the area, not the file.** `current_area()` holds the sitemap of wireframe p4 in one array. "My Garden" stays lit on `plant.php` and `plant-form.php`. The link whose own file is open also gets `aria-current="page"`, which a screen reader announces.
+- **Menus are `<details>` elements,** so they open without JavaScript. They share `name="site-menu"`, so only one is open at a time. → [[01.05 Dropdown Menus with details and summary]]
+- **Mobile first.** The base CSS is the phone: links hidden, bottom bar shown. From 768 px the top navigation appears and the bottom bar is hidden. From 1024 px the logo name and the "Add plant" label return.
+- **`position: sticky` for the top bar, `fixed` for the bottom bar.** The footer gets extra bottom padding on phones, so the fixed bar never covers its text.
+- **`--header-height` changes inside a media query** in `variables.css`. Everything that reads the token follows, with no media query of its own.
+
+```php
+// includes/header.php — which version, and which link is lit
+$is_member = !empty($current_user);
+$area      = current_area();
+```
+```php
+<a class="nav-link<?= $link['area'] === $area ? ' is-active' : '' ?>" href="<?= e(url($link['href'])) ?>"<?= $link['href'] === current_page() ? ' aria-current="page"' : '' ?>><?= e($link['label']) ?></a>
+```
+
+**Problems and fixes**
+- **At 768 px the avatar was pushed off the right edge.** Five links, four buttons and the logo name do not fit. Fix: between 768 and 1023 px the logo shows only its mark and "Add plant" shows only its "+", and the gap between links is 12 px instead of 24 px. Both links keep their name through `aria-label`.
+- **The raised "+" button covered the last line of the footer** on a phone. Fix: the spare room was moved from `<body>` into the footer and made 16 px taller than the bar.
+- **The first headless Edge screenshot took about two minutes** and the command timed out. It finished in the background; later screenshots were fast.
+
+> [!tip] What to remember
+> - The page pattern is now: helpers → mock data → `$page_title` → `include header.php` → HTML → `include footer.php`.
+> - Wrap page content in `<div class="container page">`. A full-width coloured band goes outside the container.
+> - `sticky` scrolls with the page until it reaches the edge; `fixed` never moves.
+
+**Check yourself**
+1. How does the header know which navigation link to highlight?
+2. How does one `header.php` show two different headers, and what changes in stage B?
+3. Why is the bottom bar hidden from 768 px, and why does the footer have extra bottom padding on phones?
+
+> [!success]- Answers
+> 1. `current_page()` takes the file name from `$_SERVER['SCRIPT_NAME']`. `current_area()` looks that name up in an array of areas and returns, for example, `garden`. Each link carries its area name; the one that matches gets the class `is-active`.
+> 2. It tests `!empty($current_user)`. In stage F the mock data sets that variable (and `?guest` clears it). In stage B the session sets it. The header file itself stays the same.
+> 3. From tablet width the top bar has room for the navigation, so a second navigation would only repeat it. The bar is `position: fixed`, which takes it out of the page flow, so without the padding it would lie on top of the last content.
+
+Lessons: [[01.01 Page Skeleton - Header, Footer and Navigation]] · [[01.05 Dropdown Menus with details and summary]] · [[00.03 PHP Includes and Partials]]
+
+---
 ## Open points
-- **`docs/credits.md` has an uncommitted change** that puts four spaces before `# Credits`. In Markdown that turns the heading into a code block. It looks accidental.
-- **CORE-06** (header, footer, bottom bar) is the remaining build task of this week.
-- After CORE-06: open the UI pull request for `feature/scaffold-ui` into `develop`, as CONTRIBUTING.md describes.
+- **`docs/credits.md` has an uncommitted change** that puts four spaces before `# Credits`. In Markdown that turns the heading into a code block. It looks accidental. *13 Oct: still uncommitted; only the icon line of that file was committed.*
+- **Footer links have no pages.** Wireframe p4 names About, Community guidelines and Contact, but the page list has no file for them. They point to `#` for now.
+- **The bell has no page either.** It links to My Exchanges, because the only notifications in the wireframes are new interests in a listing (p10).
+- **Search on phones.** Wireframe p23 shows only the bell and the avatar in the phone top bar. The search button was kept as well, because Explore is not in the bottom bar and would otherwise be unreachable on a phone.
+- **Remaining this week:** move `styleguide.php` onto the new header and footer, then the "done when" check of the style guide.
+- After that: open the UI pull request for `feature/scaffold-ui` into `develop`, as CONTRIBUTING.md describes.

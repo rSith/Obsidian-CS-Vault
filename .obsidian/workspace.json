@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "05. Projects/plantfolio/02. Progress/PlantFolio Week 01 - Foundation.md",
+                "file": "05. Projects/plantfolio/01. Lessons/00. Project Foundations/00.01 How a PHP Page Is Served.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "PlantFolio Week 01 - Foundation"
+              "title": "00.01 How a PHP Page Is Served"
             }
           }
         ],
@@ -217,6 +217,16 @@
   },
   "active": "dca39f5f7be1c139",
   "lastOpenFiles": [
+    "05. Projects/plantfolio/PlantFolio - Project Home.md.tmp.2936.89bc3b2c8b4e",
+    "05. Projects/plantfolio/02. Progress/PlantFolio Week 01 - Foundation.md.tmp.2936.f0bc3a59e2b0",
+    "05. Projects/plantfolio/02. Progress/PlantFolio Week 01 - Foundation.md.tmp.2936.18faa41092d9",
+    "05. Projects/plantfolio/02. Progress/PlantFolio Week 01 - Foundation.md.tmp.2936.b84fd90a5870",
+    "05. Projects/plantfolio/00. PlantFolio Overview.md.tmp.2936.423639947610",
+    "05. Projects/plantfolio/01. Lessons/01. Building Pages/01.00 Building Pages.md.tmp.2936.c949a6024308",
+    "05. Projects/plantfolio/01. Lessons/01. Building Pages/01.05 Dropdown Menus with details and summary.md",
+    "05. Projects/plantfolio/01. Lessons/01. Building Pages/01.05 Dropdown Menus with details and summary.md.tmp.2936.77e0848cc4e8",
+    "05. Projects/plantfolio/01. Lessons/00. Project Foundations/00.00 Project Foundations.md",
+    "05. Projects/plantfolio/02. Progress/PlantFolio Week 01 - Foundation.md",
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 00 - Planning and Design.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.00 Data Storage and File Organization.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/02. Error Analysis/02.01 Accuracy, Precision and Error Measures.md",
@@ -243,16 +253,6 @@
     "02. University/CMIS 3153 - Advanced Database Systems/Past Papers/05. Distributed Database Systems/PP 05.2 - DDB Design, Fragmentation and Replication.md",
     "02. University/CMIS 3153 - Advanced Database Systems/Past Papers/05. Distributed Database Systems/PP 05.1 - DDB Concepts and Architecture.md",
     "02. University/CMIS 3153 - Advanced Database Systems/Past Papers/05. Distributed Database Systems/PP 05 - Distributed Database Systems.md",
-    "02. University/CMIS 3153 - Advanced Database Systems/Past Papers/05. Distributed Database Systems",
-    "02. University/CMIS 3153 - Advanced Database Systems/Past Papers/04. Query Optimization/PP 04.4 - Physical Plans, Indexing and Query Performance.md",
-    "02. University/CMIS 3153 - Advanced Database Systems/Past Papers/04. Query Optimization/PP 04.3 - Heuristic Optimization of Query Trees.md",
-    "02. University/CMIS 3153 - Advanced Database Systems/Past Papers/04. Query Optimization/PP 04.2 - Query Trees and Query Graphs.md",
-    "02. University/CMIS 3153 - Advanced Database Systems/Past Papers/04. Query Optimization/PP 04.1 - Logical vs Physical, Optimization Steps, CBO vs RBO.md",
-    "02. University/CMIS 3153 - Advanced Database Systems/Past Papers/04. Query Optimization",
-    "02. University/CMIS 3153 - Advanced Database Systems/Past Papers/03. Query Processing and Relational Algebra",
-    "02. University/CMIS 3153 - Advanced Database Systems/Past Papers/02. Indexing Structures",
-    "02. University/CMIS 3153 - Advanced Database Systems/Past Papers/01. Data Storage and File Organization",
-    "02. University/CMIS 3153 - Advanced Database Systems/Past Papers",
     "01. Old_Vault/Attachment/images/Pasted image 20260904132141.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904120424.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904115845.png",
