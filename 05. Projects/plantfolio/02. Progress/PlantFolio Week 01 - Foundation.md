@@ -435,4 +435,4 @@ Lessons: [[01.01 Page Skeleton - Header, Footer and Navigation]] · [[00.06 Comp
 - **The bell has no page either.** It links to My Exchanges, because the only notifications in the wireframes are new interests in a listing (p10).
 - **Search on phones.** Wireframe p23 shows only the bell and the avatar in the phone top bar. The search button was kept as well, because Explore is not in the bottom bar and would otherwise be unreachable on a phone.
 - **Both "done when" lines are met** (13 Oct), by screenshots. PLN-07 and PLN-09 above are still unticked: they are yours to confirm.
-- **Pull request #2 is open** (14 Oct): `feature/scaffold-ui` into `develop`, 13 commits, <https://github.com/rSith/plantfolio/pull/2>. Not merged. Still to do: add screenshots to it, update the Task Sheet, merge.
+- **Pull request #2 is open** (14 Oct): `feature/scaffold-ui` into `develop`, 13 commits, <https://github.com/rSith/plantfolio/pull/2>. Not merged. Still to do: add screenshots to it, update the Task Sheet, merge. *14 Oct: merged into `develop` by Ranshitha (merge commit `acd6b04`); the merged code was checked with `php -l` and by loading every page. Closed.*
