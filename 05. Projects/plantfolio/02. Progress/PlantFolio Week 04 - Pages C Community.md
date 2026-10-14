@@ -145,6 +145,100 @@ $active_filters[] = ['label' => health_label($health), 'href' => $explore_url(['
 Lessons: [[01.03 Query Strings and GET Parameters in PHP]] · [[00.03 PHP Includes and Partials]]
 
 ---
+### Step 4.2a — Fix: the header lit My Garden on other members' plants
+> [!important] Goal (CORE-21 and COM-01, review fix)
+> Ranshitha opened Thai Con from Explore and the header showed **My Garden** as the current section. Someone else's plant is part of Explore, not your garden.
+
+**What was done (2026-10-15, branch `feature/pages-ui`, commit `b75cdc1`)**
+- `includes/header.php`: `$area = $nav_area ?? current_area();`. A page may now say which section it belongs to; otherwise the file name decides, as before.
+- `public/plant.php`: `$nav_area = $is_owner ? 'garden' : 'explore';`
+- Checked: Thai Con as Nimali or as a visitor → **Explore**. Monty as Nimali → **My Garden**. My Garden, Explore and Dashboard are unchanged.
+
+**Why this way**
+- `current_area()` only knows the file name, and `plant.php` serves two kinds of plant. The owner check, which the page already does for the breadcrumb, is what tells them apart. The header now follows the breadcrumb: "My Garden › Living room › Monty" or "Explore › @kandy.jungle › Thai Con".
+- **Not where you came from.** Nimali's own Monty still lights My Garden even when she opens it from Explore. Reading the previous page (`HTTP_REFERER`) is unreliable: browsers may leave it out, and a shared link has none. "Whose plant is it?" always has an answer.
+- The `??` operator means "use `$nav_area` if the page set it, otherwise `current_area()`", so no other page had to change.
+- The phone bottom bar has no Explore button, so on a phone nothing is lit on someone else's plant. That is correct: it is not Home, Garden, Exchange or Profile.
+
+```php
+// plant.php
+$nav_area = $is_owner ? 'garden' : 'explore';
+
+// includes/header.php
+$area = $nav_area ?? current_area();
+```
+
+> [!tip] What to remember
+> - Let the data decide when the file name cannot: one page file can belong to two sections.
+> - `??` gives a default only when the variable is missing or null.
+
+**Check yourself**
+1. Why not use the address of the previous page to choose the lit link?
+2. Which link is lit when Nimali opens her own Monty from Explore, and why?
+
+> [!success]- Answers
+> 1. The browser may not send it, and a shared or typed link has none. The owner check works for every visitor.
+> 2. My Garden: it is her plant, and the breadcrumb says "My Garden › Living room › Monty". Header and breadcrumb always agree.
+
+---
+### Step 4.3 — Explore: the filter sidebar
+> [!important] Goal (COM-03, UI half)
+> The filter sidebar of p16 (element 3): species checkboxes with counts, health chips, a location list and the "Available for exchange" switch. On a phone and a tablet it folds behind a **Filters** button (p23); on a desktop it sits beside the results.
+
+**What was done (2026-10-15, branch `feature/pages-ui`, commit `5f573aa`)**
+- `public/explore.php`:
+  - **One GET form** with `species[]` checkboxes, `health` radio buttons drawn as chips (with **Any** to take the choice back), a `location` list of the towns that have public plants, and an `exchange` switch. Hidden fields carry the search, tab and sort, so **Apply filters** keeps them.
+  - **Species counts.** The plants are now filtered in two passes: every filter except species (`$before_species`), then species. The counts come from the first pass. The most common species come first; the first five are shown and the rest fold under **"+ N more"**, which opens by itself when one of them is ticked.
+  - A ticked species stays in the list even when it has 0 plants, so it can always be unticked.
+  - "Filters" with a leaf-green number showing how many filters are on, and **Clear all** at the top of the form.
+- `public/assets/css/explore.css`: the panel, the chips-as-radios, and the desktop layout, a 220 px column beside the results (`grid-template-columns: 220px minmax(0, 1fr)`).
+- `public/assets/img/icons/sliders-horizontal.svg` (Lucide 1.52.0, same version as the others) for the Filters button, and listed in `docs/credits.md`.
+- Checked: `?q=monstera` lists only the three monstera species (Swiss cheese plant 3, Swiss cheese vine 2, Thai Constellation 1). `?q=zzz&species[]=3` keeps "Snake plant 0" ticked. Ticking Aloe vera (folded) opens "+ N more". Screenshots at 1280, 768 and 375 px, with the phone panel closed and open: no sideways scroll. The People tab has no sidebar.
+
+**Why this way**
+- **Counts leave out their own filter.** If the species counts used every filter, ticking Swiss cheese plant would make every other species show 0, and you could never add a second one. That is how shop filters work. In SQL it is a second query: `GROUP BY species_id` with the same `WHERE`, minus the species condition.
+- **Radio buttons for health, checkboxes for species.** A plant has one health status, so only one makes sense at a time. A search can want several species. The real `<input>` stays in the page for the keyboard and screen readers. Only the chip after it is seen, styled with `input:checked + .chip`.
+- **One `<details>`, two behaviours.** On a phone, `<details>` gives the Filters button with no JavaScript (lesson 01.05). On a desktop the panel must always be open. A closed `<details>` hides everything except its `<summary>` inside a box called **`::details-content`**. Setting `content-visibility: visible` on that box shows the filters, and the summary is hidden.
+- **A safe fallback.** That CSS sits inside `@supports selector(::details-content)`. A browser that does not know it simply keeps the Filters button on the desktop too, so nothing is ever lost.
+
+```css
+@media (min-width: 1024px) {
+  @supports selector(::details-content) {
+    .filter-panel > summary { display: none; }                         /* no button on a desktop */
+    .filter-panel::details-content { content-visibility: visible; }   /* always open */
+  }
+}
+```
+
+```php
+// Counts: the search and the other filters count, the species filter itself does not
+foreach ($before_species as $plant) {
+    $species_counts[$plant['species_id']] = ($species_counts[$plant['species_id']] ?? 0) + 1;
+}
+```
+
+**Problems and fixes**
+- My first test printed no species names: the HTML puts the name and the count on separate lines, and `grep` reads one line at a time. Removing the line breaks first (`tr -d '\n'`) fixed the test. The page was right all along.
+
+> [!tip] What to remember
+> - A filter's counts ignore that filter itself, or the other options all drop to 0.
+> - Radio = one choice, checkbox = many. A visually hidden input plus `:checked + .chip` gives custom looks without losing the keyboard.
+> - New CSS goes inside `@supports` with a fallback that still works.
+
+**Check yourself**
+1. Why does ticking "Swiss cheese plant" not set "Swiss cheese vine" to 0?
+2. What does `name="species[]"` do that `name="species"` would not?
+3. What happens on the desktop in a browser that does not support `::details-content`?
+
+> [!success]- Answers
+> 1. The species counts come from `$before_species`, the plants after every filter except species, so ticking a species never changes the counts beside it.
+> 2. The `[]` tells PHP to collect every ticked box into an array, `$_GET['species'] = ['1', '10']`. Without it, only the last ticked box would arrive.
+> 3. The `@supports` block is skipped, so the Filters button stays and the panel opens when pressed, as on a phone.
+
+Lessons: [[01.05 Dropdown Menus with details and summary]] · [[04.04 Search, Filters and Pagination]] · [[01.03 Query Strings and GET Parameters in PHP]]
+
+---
 ## Open points
 - **Explore (P09), mock data:** Dinesh lives in **Negombo** (p16), while his snake plant listing is in Kuliyapitiya: a listing can be somewhere other than its owner's home town. *Monstera* 'Thai Constellation' has its own species row because p16 prints that name. The owners of Leafy and Holey (cut off on p16), Ruwan's counts, every member's `created_at`, the collections and the six plants after Holey are invented. All monsteras use the Monty placeholder drawing.
 - **Explore (P09), page:** "Newest" sorts by plant id (no `created_at` on `plants`). A new search drops the filters (my choice). The species chip shows the common name ("Swiss cheese plant"), where p16 shows "Monstera". The People tab is a placeholder until step 4.4. Nimali appears among the people, and her own plants among the results: p16 shows Monty, so I kept both.
+- **Explore (P09), filters:** **Apply filters** is not on p16; it is needed until week 6 applies them on every change. Health has an **Any** chip (not on p16) so a choice can be taken back without JavaScript. The species list is one row per species, not p16's groups ("Monstera", "Succulents"). "Clear all" shows both in the sidebar and beside the chips (the sidebar is hidden on a phone). p23's bottom sheet for filters waits for week 6; until then the panel opens in place.
