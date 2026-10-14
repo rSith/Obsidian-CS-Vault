@@ -5,7 +5,7 @@ status: draft
 tags: [project, web]
 ---
 # PlantFolio Week 02 — Pages A: First Impressions
-> [!info] [[PlantFolio - Project Home]] · Stage F · 12–18 Oct 2026 · Landing: module MOD-10, branch `feature/landing-ui` (PR #3, merged) · Sign up / Log in: module MOD-03, branch `feature/accounts-ui`
+> [!info] [[PlantFolio - Project Home]] · Stage F · 12–18 Oct 2026 · Landing: module MOD-10, branch `feature/landing-ui` (PR #3, merged) · Sign up / Log in: module MOD-03, branch `feature/accounts-ui` (PR #4, merged) · Dashboard: module MOD-06, branch `feature/dashboard-ui`
 > **Study notes:** [[01.00 Building Pages]] · **Revision:** [[01.99 Summary - Building Pages]]
 
 > [!abstract] Week goal
@@ -21,8 +21,8 @@ tags: [project, web]
 
 - [x] P01 Landing (`index.php`), **CORE-27**. *UI built on 14 Oct 2026 (steps 2.1–2.4), on `feature/landing-ui`, not pushed. Still to check by hand: hover, keyboard focus and a real phone. Becomes Done in stage B, when the counts are live.*
 - [x] P02 Sign up and Log in (`register.php`, `login.php`), **CORE-07, CORE-09**. *UI built on 14 Oct 2026 (steps 2.5–2.7), on `feature/accounts-ui`, not pushed. Still to check by hand: hover, keyboard focus and a real phone. Becomes Done in stage B, when sign-up and log-in work.*
-- [ ] P03 Dashboard (`dashboard.php`)
-- [ ] S1 Empty garden (`partials/empty-state.php`)
+- [x] P03 Dashboard (`dashboard.php`), **CORE-24**. *UI built on 14 Oct 2026 (steps 2.8–2.10), on `feature/dashboard-ui`, not pushed. Still to check by hand: hover, keyboard focus and a real phone. Becomes Done in stage B, with real reminders and counts.*
+- [x] S1 Empty garden (`partials/empty-state.php`), **CORE-25**. *UI built on 14 Oct 2026 (step 2.11): on the Dashboard with `?empty`; My Garden reuses it in week 3.*
 - [ ] Mark DES-05 Done: the Figma link is already in the README
 - [ ] Finish DES-06, DES-07, DES-08 and DES-13 (ERD, schema reconciliation, data dictionary, species data)
 
@@ -368,6 +368,179 @@ Lessons: [[00.05 HTML Forms]] · [[03.06 Form Handling - Validation, Redirects a
 Lessons: [[03.03 Password Hashing and Login Lockout]] · [[03.04 PHP Sessions and Login State]]
 
 ---
+### Step 2.8 — Mock data for the Dashboard, and the `?empty` switch
+> [!important] Goal (CORE-24 and CORE-25, UI half)
+> Give the Dashboard (wireframe p10) its data, and a way to preview the empty garden (state S1, p24).
+
+**What was done (2026-10-14, branch `feature/dashboard-ui`, commit `03148e7`)**
+- Pull request #4 (Sign up / Log in) merged by Ranshitha (merge commit `f8d8e0d`); `feature/dashboard-ui` cut from `develop`.
+- `includes/mock-data.php`, a new "Dashboard" section:
+  - `$mock_garden_stats`: the health breakdown 13 thriving · 3 stable · 1 needs attention · 1 sick (18 plants), and 5 tasks coming up this week.
+  - `$mock_attention`: Tommy (sick, Health Check found early blight, 92%) and Goldie (needs attention, watering 2 days overdue). Each row joins the newest `health_logs` entry, the `ml_predictions` result behind it, and the soonest reminder.
+  - `$mock_new_interests`: four `listing_interests` rows (status `new`) on Nimali's pothos listing.
+  - **`?empty`**: on a member page it empties Nimali's own rows and sets her counts to 0, so the empty-garden state can be seen.
+- Icons `calendar` and `chevron-right` added and credited.
+
+**Why this way**
+- **Counts the page cannot see.** The Dashboard shows only three reminders, but the health bar needs all 18 plants. In stage B that is a `GROUP BY health_status` query; now it is `$mock_garden_stats`.
+- **One row per plant, with its reason joined in.** "Health check found early blight (92%)" and "Watering is 2 days overdue" are both facts from other tables. Joining them into the plant row means the page only prints; it does not search.
+- **`?empty` works like `?guest`**: a preview switch in one place, so every member page can show its empty state without changing code. The Landing page ignores it, because its collage borrows Monty as a public example.
+
+```php
+if (isset($_GET['empty']) && $current_user && current_page() !== 'index.php') {
+    $current_user['plant_count'] = 0;
+    $mock_plants    = [];
+    $mock_reminders = [];
+    // …
+}
+```
+
+> [!tip] What to remember
+> - Shape a mock row like the result of the **join** the page will need, not like a single table.
+> - Every state the page can be in needs a way to see it: `?guest` for visitors, `?empty` for a new member.
+
+**Check yourself**
+1. Which SQL clause will replace `$mock_garden_stats['health_counts']`?
+2. Why does the `?empty` switch leave the Landing page alone?
+
+> [!success]- Answers
+> 1. `GROUP BY health_status` with `COUNT(*)`, for the signed-in member's plants.
+> 2. The Landing page is public. Its collage uses Monty only as a sample picture, and emptying `$mock_plants` there would break it for no reason.
+
+Lessons: [[00.07 Mock Data Shaped Like Database Rows]] · [[01.04 Rendering States - Empty, Owner and Visitor Views]]
+
+---
+### Step 2.9 — Dashboard: greeting, Today's care, Needs attention
+> [!important] Goal (CORE-24, UI half)
+> Build the main column of the Dashboard (wireframe p10, elements 1–4): answer "What do my plants need today?" and "Is anything wrong?".
+
+**What was done (2026-10-14, branch `feature/dashboard-ui`, commit `0753f45`)**
+- `public/dashboard.php` (new): **greeting** ("Good afternoon, Nimali", today's date, chips "3 care tasks due" and "2 plants need attention"), the **This week** button, **Today's care** (three `care-row` partials and "Coming up this week · 5 tasks"), and **Needs attention** (Tommy and Goldie, each with its reason and next step).
+- `public/assets/css/dashboard.css` (new): the `.panel` box, the columns, and the attention items.
+- A visitor (`dashboard.php?guest`) is redirected to `login.php`. Checked: the server answers `302` with `Location: …/login.php`.
+
+**Why this way**
+- **The greeting follows the clock**: `date('G')` gives the hour 0–23; before 12 is morning, before 18 afternoon, otherwise evening. The first name is the first word of `full_name`.
+- **The chips count the rows the page prints**, `count($mock_reminders)`, so the summary can never disagree with the list below it.
+- **The redirect is stage B's `require_login()`, early.** A page for members must not draw itself for a visitor. `header('Location: …')` must run **before any HTML** is sent, so it sits above the `include` of the header; `exit` stops the rest of the page.
+- **The reason is chosen in order of importance**: a Health Check result first, then overdue care, then the newest note. Each reason brings its own next step: View care plan, Mark watered, or Log update.
+- **The colour rule from p10**: red only for overdue, terracotta for due today. The badges from week 1 already follow it, so the Dashboard gets it for free.
+- **Functional style**: section headings in Poppins on white panels (p6 "H3"), compact rows, no decoration.
+
+```php
+if (!$current_user) {
+    header('Location: ' . url('login.php'));   // must come before any HTML is sent
+    exit;                                       // stop: nothing below may run for a visitor
+}
+$hour     = (int) date('G');
+$greeting = $hour < 12 ? 'Good morning' : ($hour < 18 ? 'Good afternoon' : 'Good evening');
+```
+
+**Problems and fixes**
+- **"Watering is overdue 2 days"**: `care_due()` returns "Overdue 2 days", which reads badly in a sentence. The page now builds "2 days overdue" itself from `days_until()`.
+- **The Sick badge was in Lora** because it sits inside the plant-name heading, which uses Lora. Fixed with `.attention-name .badge { font-family: var(--font-body); }`.
+- **`prediction_name()` needs a `type`**, which a plant row does not have. A Health Check result is always a disease, so the page passes `['type' => 'disease', 'predicted_label' => …]`.
+
+> [!tip] What to remember
+> - `header('Location: …')` only works before any output; always follow it with `exit`.
+> - A summary and its list must come from the same rows.
+
+**Check yourself**
+1. What happens if `exit` is left out after the redirect?
+2. Why does "View care plan" use a green button while "Log update" is white?
+3. Where does the red of "Overdue 2 days" come from, and why is Monty's badge not red?
+
+> [!success]- Answers
+> 1. PHP keeps running and builds the rest of the page, which tries to read `$current_user` (null) and prints warnings; the browser also receives a page it should never see.
+> 2. One primary action per area: the most useful next step for a sick plant is its care plan; logging an update is secondary.
+> 3. From `care_due()`, which returns the state `overdue` when the date is in the past, and the badge class `badge-overdue`. Monty is due today, so his state is `due`: terracotta. Red is kept for overdue only.
+
+Lessons: [[04.03 Dates, Reminders and Due Logic]] · [[01.04 Rendering States - Empty, Owner and Visitor Views]] · [[03.07 Access Control and Ownership Checks]]
+
+---
+### Step 2.10 — Dashboard: Quick actions, Garden at a glance, Exchange activity
+> [!important] Goal (CORE-24, UI half)
+> Build the side column of the Dashboard (wireframe p10, elements 5–7).
+
+**What was done (2026-10-14, branch `feature/dashboard-ui`, commit `12890f4`)**
+- **Quick actions**: four tiles, Add a plant · Identify a plant · Health check · List for exchange, from a PHP array and one `foreach`.
+- **Garden at a glance**: "18 plants in 3 collections", a health bar in four colours, and a legend with the words and numbers (Thriving 13 · Stable 3 · Needs attention 1 · Sick 1).
+- **Exchange activity**: three avatars, "**4 people are** interested in your Pothos 'Golden', 3 rooted cuttings", and View interests (to `my-exchanges.php`).
+- Layout: desktop main and side columns in a 2 : 1 grid; tablet side panels two by two; phone one column with the main sections first.
+
+**Why this way**
+- **The bar's widths are worked out in PHP**: each part is `count / total × 100` per cent, printed as an inline `style="width: …%"`. Only the numbers change; the colours stay in the CSS.
+- **Colour is never alone.** The bar is `aria-hidden="true"` because the legend under it says the same in words and numbers. A colour-blind user or a screen reader gets everything from the legend.
+- **"Needs attention" in full**, not "Attention" as on p10: the design system fixes the four status words.
+- **The sentence adapts**: one listing gives "your Pothos 'Golden' …", several give "2 of your listings". `array_unique(array_column(…, 'title'))` lists the different titles.
+- **Quick actions are links, not buttons**: each one goes to another page. A `<button>` is for an action on this page.
+
+```php
+<span class="health-bar-<?= e(str_replace('_', '-', $status)) ?>"
+      style="width: <?= e(round($count / $plant_total * 100, 1)) ?>%"></span>
+```
+
+**Problems and fixes**
+- **A Bash command broke on an apostrophe** ("Pothos 'Golden'") inside the text it was writing. Nothing was changed; the edits were made with the editor instead.
+
+> [!tip] What to remember
+> - Link for "go somewhere", button for "do something here".
+> - A chart needs a text version: here the legend.
+
+**Check yourself**
+1. How wide is the Thriving part of the bar, and how is it calculated?
+2. Why is the health bar hidden from screen readers but the legend is not?
+
+> [!success]- Answers
+> 1. 13 of 18 plants: 13 ÷ 18 × 100 ≈ 72.2 %.
+> 2. The bar only shows by colour and width what the legend says in words and numbers. Reading both would repeat the same facts; the legend is the accessible one.
+
+Lessons: [[04.05 Counts, Averages and Rating Rules in SQL]] · [[01.02 Card Grids, Images and Sticky Bars]]
+
+---
+### Step 2.11 — Empty garden (S1), and checks for the whole Dashboard
+> [!important] Goal (CORE-25, UI half)
+> Show a new member one clear next step instead of empty lists (wireframe p24, S1), then check the Dashboard in every state.
+
+**What was done (2026-10-14, branch `feature/dashboard-ui`, commit `ba6842e`)**
+- `partials/empty-state.php` (new): picture, title, one line of text, and actions. The **first action is the primary button**, any others are secondary. Styles in `components.css`, because four pages will use it.
+- `public/assets/img/empty-garden.svg` (new): a small succulent on a sage circle, drawn for the project.
+- `dashboard.php`: when `plant_count` is 0, the main column shows **"Your garden is waiting"** with **Add a plant** and **Identify from a photo**; Garden at a glance and Exchange activity are hidden; Quick actions stay.
+- The empty state was added to the style guide; `partials/README.md` now says the two auth partials are seen on `register.php`.
+- **Checks** (no code change): no horizontal scroll at 375, 768, 1024 and 1280 px, full and empty; every image has `alt`; `?guest` gets `302` to `login.php`; the other pages still have no PHP errors.
+- **Tab order** (full): This week › All reminders › Mark done ×3 › Coming up this week › Tommy › View care plan › Log update › Goldie › Mark watered › the four quick actions › My Garden › View interests.
+
+**Why this way**
+- **One partial, many pages.** p24 says the same pattern covers an empty garden, empty search results and no listings. The partial takes the words and buttons as variables, so each page passes its own.
+- **"One clear next step, plus the AI shortcut"** (p24): Add a plant is primary; Identify from a photo is secondary.
+- **Hide what would be empty.** A health bar of zero plants or "0 people are interested" says nothing useful. Quick actions stay, because they are still the ways in.
+
+```php
+<?php partial('empty-state', [
+    'title'   => 'Your garden is waiting',
+    'text'    => 'Add your first plant to start its story.',
+    'actions' => [
+        ['label' => 'Add a plant',           'href' => 'plant-form.php', 'icon' => 'plus'],
+        ['label' => 'Identify from a photo', 'href' => 'identify.php',   'icon' => 'sparkles'],
+    ],
+]); ?>
+```
+
+> [!tip] What to remember
+> - Every list needs an empty state: say what is missing and offer the next step.
+> - Pass the content into a partial; keep the layout inside it.
+
+**Check yourself**
+1. How do you see the empty Dashboard, and what does the switch change?
+2. Why does the partial make only the first action a green button?
+
+> [!success]- Answers
+> 1. Open `dashboard.php?empty`. `mock-data.php` sets Nimali's counts to 0 and empties her plants, reminders, attention list and interests, as a brand-new account would be.
+> 2. One primary action per area. The first action is the one next step the page wants; the rest are alternatives.
+
+Lessons: [[01.04 Rendering States - Empty, Owner and Visitor Views]] · [[00.03 PHP Includes and Partials]]
+
+---
 
 ## Open points
 - **Invented sample values on the Landing page:** 1,248 members, 37 open listings, the full names Amaya Madushani and Kavindi Jayawardena (`@kandy.jungle`), Amaya's plant Pip with 48 likes, Kavindi's rating 5.0 (11), and the dates of the two predictions. Swap them for the team's choices if you prefer.
@@ -376,3 +549,4 @@ Lessons: [[03.03 Password Hashing and Login Lockout]] · [[03.04 PHP Sessions an
 - **Designed without a wireframe:** the smart tools section, Fresh on the exchange, and the phone layout (p23 has no Landing screen). Compare with the Figma prototype and change anything that differs.
 - **Placeholder drawing `pip.svg`**, like the other mock pictures, to be replaced by a real photo with a `docs/credits.md` entry.
 - **Sign up / Log in (P02):** "Forgot password?" links to Contact, because no password-reset page is in the page list or the Task Sheet that I know of: decide whether to add one. The username rule (lowercase letters, numbers, dots, underscores, 3–30 characters) and the "Full name" field being required are my choices; p9 does not state them. The top bar on these two pages shows only the logo.
+- **Dashboard (P03):** "This week", "All reminders" and "Coming up this week" lead to My Garden, because no reminders page is in the page list: decide where they should go. Tommy's "Log update" goes to his plant profile until the modal exists (week 5). The legend says "Needs attention" in full where p10 writes "Attention". Mark done and Mark watered do nothing until CORE-23 (week 5 toast, stage B saving).
