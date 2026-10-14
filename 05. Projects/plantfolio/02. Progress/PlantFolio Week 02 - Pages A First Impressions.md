@@ -541,6 +541,49 @@ Lessons: [[04.05 Counts, Averages and Rating Rules in SQL]] · [[01.02 Card Grid
 Lessons: [[01.04 Rendering States - Empty, Owner and Visitor Views]] · [[00.03 PHP Includes and Partials]]
 
 ---
+### Step 2.12 — Fix: the visitor preview lasts from page to page
+> [!important] Goal (MOD-01 fix, no task ID of its own)
+> Make the PlantFolio logo behave for visitors: back to the Landing page, also from Log in and Sign up.
+
+**What was done (2026-10-14, branch `feature/visitor-preview`, commit `aeef387`)**
+- Ranshitha found it: as a visitor, the logo led back to the *member's* pages, and on Log in and Sign up it led to the Dashboard.
+- `includes/mock-data.php`: the preview choice is now kept in the **session**. `?guest` switches to visitor mode until `?member`. New helper `mock_become_visitor()`.
+- `public/login.php`, `public/register.php`: opening them switches to visitor mode, because only visitors use them.
+- `includes/README.md`: a table of the three preview switches (`?guest`, `?member`, `?empty`); the style guide mentions `?member`.
+- Tested with a cookie jar in `curl`: `?guest`, then the plain home page and About, stay visitor; `?member` returns to Nimali; after Log in or Sign up the logo points to the Landing page.
+
+**Why this way**
+- **The bug was in the preview, not in the logo.** The logo rule (visitor → Landing, member → Dashboard) was right. But `?guest` lived only in one address: the next link had no `?guest`, so the site saw Nimali again.
+- **The session is where a login lives.** `session_start()` gives each browser a cookie with a session id; `$_SESSION` is kept on the server under that id from request to request. Stage B stores the real logged-in user there, so the preview now behaves like the real thing.
+- **Log in and Sign up are visitor-only pages.** In stage B a member who opens them is sent to the Dashboard. In stage F they switch the preview to visitor mode instead.
+- The optional extra (pressing Log in switches back to member mode) was offered and declined.
+
+```php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (isset($_GET['guest']))  { $_SESSION['preview_visitor'] = true; }
+if (isset($_GET['member'])) { $_SESSION['preview_visitor'] = false; }
+if (!empty($_SESSION['preview_visitor'])) {
+    $current_user = null;
+}
+```
+
+> [!tip] What to remember
+> - A value in the address (`$_GET`) lasts one request; a value in `$_SESSION` lasts until it is changed or the session ends.
+> - `session_start()` must run before any HTML is sent, because it sends a cookie in the response headers.
+
+**Check yourself**
+1. Why did the logo of a visitor lead to the member's pages before the fix?
+2. Where is `$_SESSION` stored, and how does the server know which session belongs to which browser?
+
+> [!success]- Answers
+> 1. `?guest` was only in the current address. Clicking the logo loaded a new address without it, so `mock-data.php` treated the browser as Nimali again.
+> 2. On the server (a file, by default in PHP). The browser keeps only a cookie with the session id (`PHPSESSID`) and sends it with every request; PHP uses it to load the right `$_SESSION`.
+
+Lessons: [[03.04 PHP Sessions and Login State]] · [[01.03 Query Strings and GET Parameters in PHP]]
+
+---
 
 ## Open points
 - **Invented sample values on the Landing page:** 1,248 members, 37 open listings, the full names Amaya Madushani and Kavindi Jayawardena (`@kandy.jungle`), Amaya's plant Pip with 48 likes, Kavindi's rating 5.0 (11), and the dates of the two predictions. Swap them for the team's choices if you prefer.

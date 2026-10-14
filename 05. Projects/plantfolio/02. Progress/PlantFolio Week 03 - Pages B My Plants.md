@@ -20,7 +20,7 @@ tags: [project, web]
 | P15 Settings | CORE-26 (UI) | Section menu; Profile, Account and security, Privacy, Reminders, Delete account cards | MOD-10 |
 
 - [x] P04 My Garden (`garden.php`) — UI built 2026-10-14 (not wired)
-- [ ] P05 Plant Profile (`plant.php?id=`)
+- [x] P05 Plant Profile (`plant.php?id=`) — UI built 2026-10-14, owner and visitor views (not wired)
 - [ ] P06 Add / Edit Plant (`plant-form.php`)
 - [ ] P15 Settings (`settings.php`)
 
@@ -197,6 +197,159 @@ Lessons: [[01.03 Query Strings and GET Parameters in PHP]] · [[04.04 Search, Fi
 Lessons: [[01.05 Dropdown Menus with details and summary]] · [[02.06 Mobile Patterns - Bottom Bar, Sheets and Stacked Tables]] · [[03.05 CSRF Tokens]]
 
 ---
+> [!note] Branch housekeeping (2026-10-14)
+> Another session had made a fix on its own branch, `feature/visitor-preview` (commit `aeef387`): `?guest` now lasts from page to page until `?member`, kept in the session like a real login. The working folder was left on that branch. Ranshitha chose to switch back to `feature/pages-ui` and merge the fix in (merge commit `b6621af`, no conflicts). My Garden was re-checked afterwards.
+
+### Step 3.4 — Mock data for the Plant Profile: species guide, reminders, story, photos, likes
+> [!important] Goal (CORE-18, UI half)
+> Give the Plant Profile (wireframe p12) everything it shows about one plant: care needs, all its reminders, its dated story, its photos and its likes.
+
+**What was done (2026-10-14, branch `feature/pages-ui`, commit `5fca52f`)**
+- `includes/mock-data.php`, a new "Plant Profile" section:
+  - **`$mock_species`**: eight `plant_species` rows (light, water, humidity, notes, pet safety, default water and fertilise intervals), **keyed by id**.
+  - **`$mock_plant_reminders`**: all twelve reminders of Nimali's plants (Monty: water every 7 days, fertilise every 30).
+  - **`$mock_health_logs`**: the story, 19 entries, newest first. An entry from an AI tool has `source = 'ml'` and carries its prediction (Monty: "Species identified by AI, 91%"; Tommy: early blight, 92%).
+  - **`$mock_plant_photos`**: gallery photos (four for Monty).
+  - **`$mock_like_counts`**: likes per public plant (Monty 12).
+- Five Lucide icons: `eye`, `droplets`, `paw-print`, `image`, `clock`.
+- **Checked with a small PHP script** (no code change): every reminder keeps `next_due = last_done + interval_days`; each plant's soonest reminder and newest log are the ones already in `$mock_plants`; species names match.
+
+**Why this way**
+- **Keyed by id** (`$mock_species[1]`): the page finds a plant's species in one step, the way a `JOIN … ON plants.species_id = plant_species.id` does.
+- **Separate arrays = separate tables.** A plant has many reminders, many logs and many photos (one-to-many), so each is its own list with a `plant_id`, filtered for the plant being shown, as `WHERE plant_id = ?` will do.
+- **The data must agree with itself.** The Dashboard, My Garden and the profile now all show the same facts about Monty (water today, newest note 5 days ago). Checking it with a script catches a wrong date before a lecturer does.
+
+```php
+$mock_plant_reminders = [
+    ['id' => 11, 'plant_id' => 42, 'task' => 'water',     'interval_days' => 7,
+     'last_done' => mock_date(-7),  'next_due' => mock_date(0)],
+    ['id' => 14, 'plant_id' => 42, 'task' => 'fertilise', 'interval_days' => 30,
+     'last_done' => mock_date(-18), 'next_due' => mock_date(12)],
+    // …
+];
+```
+
+> [!tip] What to remember
+> - One-to-many relationships become separate arrays (tables) linked by `plant_id`.
+> - The same fact shown on three pages must come from data that agrees, so test the mock data too.
+
+**Check yourself**
+1. Why are the reminders not stored inside each plant's row?
+2. Where does "Water · Every 7 days" on Monty's profile come from?
+
+> [!success]- Answers
+> 1. A plant can have several reminders (water and fertilise). A row has one value per column, so the reminders go in their own table, `care_reminders`, each with the `plant_id` of its plant.
+> 2. From Monty's water reminder in `care_reminders`: `interval_days = 7`. The species guide only gives the *default* (also 7), which the member can change.
+
+Lessons: [[00.07 Mock Data Shaped Like Database Rows]] · [[03.01 MySQL Schema - Types, Keys and Foreign Key Rules]] · [[04.03 Dates, Reminders and Due Logic]]
+
+---
+### Step 3.5 — Plant Profile: the owner's view
+> [!important] Goal (CORE-18, UI half)
+> Build wireframe p12, elements 1–7, for the plant's owner: the one page that tells a plant's story.
+
+**What was done (2026-10-14, branch `feature/pages-ui`, commit `b7ed587`)**
+- `public/plant.php` (new), for `plant.php?id=42`:
+  1. **Breadcrumb**: My Garden › Living room › Monty (the collection links to `garden.php?collection=1`).
+  2. **Gallery**: the big 4:3 photo, up to four thumbnails (they open the Photos tab) and a dashed **Add** tile.
+  3. **Identity**: "Monty" in Lora at display size, *Monstera deliciosa* · Swiss cheese plant, the status badge, "Updated 5 days ago", the collection, "With you since Mar 2025".
+  4. **Actions**: **Log update** (primary), Health check (`health-check.php?plant=42`), List for exchange, and the ⋯ menu from My Garden.
+  5. **Care at a glance**: Light, Water ("Every 7 days" from the reminder), Humidity, and **Next watering**, tinted terracotta when due today and red when overdue, with *Mark watered*.
+  6. **Tabs** as links, `?tab=care`, `?tab=reminders`, `?tab=photos`: a **timeline** story (AI entries with a sparkle and the confidence), the care guide (with pet safety and the usual schedule), all reminders with last done / next dates, and a photo grid.
+  7. **Reminders card**: each reminder with Today / a date, then Public · shown in Explore and 12 likes.
+- **Not found**: a wrong id (`?id=999`, `?id=abc`, no id) answers with HTTP **404** and "Plant not found", with no PHP warnings.
+- `public/assets/css/plant.css` (new).
+
+**Why this way**
+- **A private plant answers exactly like a missing one.** If the page said "this plant is private", a stranger would learn that plant 46 exists. Same message, same 404: nothing leaks. Stage B keeps this rule with an ownership check (`$is_owner`).
+- **`http_response_code(404)`** tells the browser and search engines that the page does not exist, while we still show a friendly page.
+- **Tabs are links with `#plant-tabs`**, so the browser jumps down to the tabs after loading instead of to the top. Each tab has an address and works without JavaScript; week 5 can switch them without a reload.
+- **Owner-only parts are wrapped in `if ($is_owner)`** from the start (actions, Add tiles, Mark watered, the reminders card), so the visitor view in the next step is mostly *leaving things out*.
+- **The timeline is CSS only**: `::before` draws the line to the next entry and `::after` draws the dot. The newest dot is filled.
+
+```php
+$is_owner = $plant && $current_user && $plant['user_id'] === $current_user['id'];
+
+if (!$plant || (!$plant['is_public'] && !$is_owner)) {
+    http_response_code(404);
+    // … print "Plant not found" with the header and footer, then:
+    exit;
+}
+```
+
+**Problems and fixes**
+- **Odd gaps in "Species identified by AI: *Monstera deliciosa*"**: the line is a flex row, and in a flex row every piece of text becomes its own item with the gap between them. Wrapping the words in one `<span>` makes them one item.
+- **One photo column was wider than the others.** The dashed square Add tile stretched to the row's height (photo plus date), and being square it then grew wider. Fixed with `align-self: start` and `minmax(0, 1fr)` columns, which stay equal whatever is inside.
+
+> [!tip] What to remember
+> - Same answer for "missing" and "not yours": privacy by not leaking.
+> - `minmax(0, 1fr)` is the safe way to say "equal columns".
+> - Flex rows split text into items; wrap mixed inline text in one element.
+
+**Check yourself**
+1. What does a visitor see at `plant.php?id=46` (Vera, private), and why exactly that?
+2. Why does each tab link end in `#plant-tabs`?
+3. Where do the words "Next watering · Today" and the terracotta colour come from?
+
+> [!success]- Answers
+> 1. "Plant not found" with status 404, the same as for an id that does not exist, so nobody can learn which private plants exist.
+> 2. `#plant-tabs` is the id of the tab bar. After the new page loads, the browser scrolls to it, so the reader stays at the tabs instead of jumping back to the top.
+> 3. From Monty's water reminder: `care_due(next_due)` returns the state `due`, which becomes the class `care-tile-due` (terracotta tint), and the page prints "Today" for that state.
+
+Lessons: [[01.03 Query Strings and GET Parameters in PHP]] · [[01.04 Rendering States - Empty, Owner and Visitor Views]] · [[03.07 Access Control and Ownership Checks]] · [[01.02 Card Grids, Images and Sticky Bars]]
+
+---
+### Step 3.6 — Plant Profile: the read-only view for visitors, and checks for the whole page
+> [!important] Goal (CORE-21, UI half; the roadmap lists it in week 7)
+> p12 says "Logged in · public read": visitors see the same page read-only, with an owner card and a like button instead of edit controls.
+
+**What was done (2026-10-14, branch `feature/pages-ui`, commit `3f0e04a`)**
+- `includes/mock-data.php`: **`$mock_users`**, members as *other people* see them: public columns only (no email, no phone) plus plant count and rating. The Public Profile (P14) will reuse it.
+- `public/plant.php`, when the viewer is **not the owner**:
+  - Breadcrumb **Explore › @nimali.grows › Monty**.
+  - **Like · 12** instead of the actions; a visitor gets **Log in to like · 12**, a link to Log in.
+  - The fourth care tile shows **Pets: Not pet-safe** instead of the owner's next watering.
+  - **No Reminders tab** (`?tab=reminders` falls back to the story), no Add tiles, no "Edit care schedule".
+  - **Owner card** ("Grown by" Nimali Perera, @nimali.grows · Kurunegala, 18 plants, ★ 4.9 (23) as a trader, likes, View profile) instead of the reminders card.
+  - "With you since" becomes "Growing since".
+- **Checks** (no code change), with curl keeping one session like a browser: as a visitor, Monty and Tommy load with the owner card and no "Log update"; private Vera (46) and Pearl (49) answer **404**; after `?member`, Vera answers 200. No PHP errors in any case. Screenshots at 1280 and 375 px in both views; every tab, Goldie's red "overdue" tile, and the 404 page.
+
+**Why this way**
+- **Hide, do not disable.** A visitor cannot log Monty's health, so the button is not shown at all. A greyed-out button would only invite a click that cannot work.
+- **Reminders are private.** They are the owner's to-do list. The story and the care guide are what the plant "tells" the community.
+- **No contact details on the owner card.** The privacy rule says contact details appear only after "I'm interested" on an exchange listing, and only the fields the owner chose.
+- **`$mock_users` is not `$current_user`.** `$current_user` is *who is looking* (null for a visitor); `$mock_users[1]` is *whose plant it is*. Mixing them up would make the owner card disappear in visitor mode.
+
+```php
+if (!$is_owner) {
+    unset($tabs['reminders']);   // the tab disappears for everyone but the owner
+}
+// later: ?tab=reminders is no longer a key of $tabs, so the whitelist check falls back to 'story'
+```
+
+**Problems and fixes**
+- **A Python edit script stopped half-way**: one piece of text it searched for had different line breaks. It writes the file only at the end, so `plant.php` was untouched (only the CSS had been appended), and the script was run again with the exact text.
+- **Screenshots in visitor mode**: the headless browser forgets its session between runs, so only an address with `&guest` shows the visitor view. This is how the test tool works, not a bug in the site.
+
+> [!tip] What to remember
+> - "Who is looking" (`$current_user`) and "whose page it is" (the owner) are two different things.
+> - Removing a tab from the whitelist also blocks its URL.
+> - Show visitors only what they can use; never show private data.
+
+**Check yourself**
+1. A visitor types `plant.php?id=42&tab=reminders`. What happens, and which line of code makes it happen?
+2. Why does the visitor see "Log in to like" as a link, but a member sees a button?
+3. Where must the owner check happen in stage B, in the HTML or before it?
+
+> [!success]- Answers
+> 1. The Story tab is shown. `unset($tabs['reminders'])` removes the key, so `array_key_exists($tab, $tabs)` fails and `$tab` falls back to `'story'`.
+> 2. A visitor cannot like anything yet, so the useful step is to go to Log in (a link goes somewhere). A member can like right here (a button does something; stage B makes it a POST form).
+> 3. Before it, at the top of the page: load the plant, compare `user_id` with the session's user, and decide what to show. Hiding buttons in the HTML is only the look; the pages that *save* (Log update, Delete) must check ownership again on the server.
+
+Lessons: [[01.04 Rendering States - Empty, Owner and Visitor Views]] · [[03.07 Access Control and Ownership Checks]] · [[03.04 PHP Sessions and Login State]]
+
+---
 
 ## Open points
 - **My Garden (P04):** the first card is Tommy, not Monty as on p11, because "Recently updated" sorts by the newest health log and Tommy had a Health Check yesterday. The chips say 7 + 6 + 5 = 18 plants while the mock data holds 8, so a collection shows fewer cards than its count until stage B. New collection (button and chip) and Delete do nothing yet. **Apply** is not on p11; it is needed until week 6 submits the lists on change. Lily, Pearl and their "Peace lily" / "Mexican snowball" common names are my additions from p11's pictures.
+- **Plant Profile (P05):** the species columns `pet_safe`, `water_interval_days` and `fertilise_interval_days` are my names until DES-07/DES-13 fix them; the care texts and story notes are my samples. Every story entry shows its status badge (p12 shows it on the newest only). Monty's gallery shows the same placeholder drawing four times. **Log update**, **Mark watered** and **Like** do nothing yet (week 5 dialog, stage B saving). "Add" photo and "+ Add" reminder lead to the edit form, which is built next. The read-only view (CORE-21) was built now, not in week 7, because p12 includes it. Visitors see a "Pets" tile in place of the next watering, and no Reminders tab: my choices.
