@@ -19,7 +19,7 @@ tags: [project, web]
 | P03 Dashboard | CORE-24 (UI) | Greeting and counts, Today's care (due = terracotta, overdue = red), Needs attention, Quick actions, Garden at a glance | MOD-06 |
 | S1 Empty garden | CORE-25 (UI) | Shown on Dashboard and My Garden when the mock user has no plants | MOD-06 |
 
-- [ ] P01 Landing (`index.php`)
+- [x] P01 Landing (`index.php`), **CORE-27**. *UI built on 14 Oct 2026 (steps 2.1–2.4), on `feature/landing-ui`, not pushed. Still to check by hand: hover, keyboard focus and a real phone. Becomes Done in stage B, when the counts are live.*
 - [ ] P02 Sign up and Log in (`register.php`, `login.php`)
 - [ ] P03 Dashboard (`dashboard.php`)
 - [ ] S1 Empty garden (`partials/empty-state.php`)
@@ -151,3 +151,100 @@ $member_text = $member_count >= 100
 Lessons: [[01.01 Page Skeleton - Header, Footer and Navigation]] · [[01.02 Card Grids, Images and Sticky Bars]] · [[07.01 CSS Layout with Flexbox and Grid]]
 
 ---
+### Step 2.3 — How it works and the smart tools teaser
+> [!important] Goal (CORE-27, UI half)
+> Build wireframe p8 elements 4 and 5: three steps that mirror the product, and an introduction to the two AI tools "as helpers, not gimmicks".
+
+**What was done (2026-10-14, branch `feature/landing-ui`, commit `b6cac49`)**
+- **How it works** (`id="how-it-works"`, the target of the header link): label, the H2 *Three simple habits for happier plants*, and three cream cards on a white band: 1 · Add your plants (camera), 2 · Track their care (droplet), 3 · Share and swap (repeat). Texts from p8.
+- **Smart tools**, a sage band: *A second opinion when you need one*, the rule in words ("They suggest, you decide: nothing is saved until you press Save, and when the model is not sure, it says so"), and two cards, Plant Identifier and Health Check. Each shows a sample result with the shared `confidence-meter` partial and a link "Try …".
+- `includes/mock-data.php`: `$mock_prediction` became **`$mock_predictions`**, two `ml_predictions` rows: Sergeant's species result (Snake plant, 0.96) and Tommy's disease result (`Tomato___Early_blight`, 0.92, as in the roadmap samples).
+- `includes/helpers.php`: new **`prediction_name()`**.
+
+**Why this way**
+- **The steps are an `<ol>`**, an ordered list, because the order is the point: add, then track, then swap. A screen reader announces "list, 3 items". The numbers are printed in the titles (as on p8), so the list's own numbers are switched off with `list-style: none`.
+- **The steps live in a PHP array** and one `foreach` prints them, so all three cards share exactly the same markup.
+- **The teaser shows real-looking results, not promises.** A confidence bar with the fixed word (High) shows the AI as a helper that tells you how sure it is. That is the wireframe's "helpers, not gimmicks" and the design rule "AI suggests, the user decides".
+- **`prediction_name()`**: the ML contract (`ml-service/README.md`) returns disease classes like `Tomato___Early_blight`. People should read "Early blight". The helper is in `helpers.php` because P08 Health Check needs it too.
+- **Section colours alternate** cream → white → sage, so each part reads as its own block without extra lines or headings.
+- The links "Try Plant Identifier" are text links, not buttons: the design system allows **one primary button per area**, and the page's one is "Start your garden".
+
+```php
+function prediction_name($prediction)
+{
+    if ($prediction['type'] === 'species') {
+        return $prediction['common_name'] ?? $prediction['predicted_label'];
+    }
+    $parts = explode('___', $prediction['predicted_label']);   // ['Tomato', 'Early_blight']
+    return ucfirst(strtolower(str_replace('_', ' ', end($parts))));   // "Early blight"
+}
+```
+
+> [!tip] What to remember
+> - Use `<ol>` when order matters, `<ul>` when it does not.
+> - A model's raw class name is data; the words people read are made by a helper, in one place.
+
+**Check yourself**
+1. Why are the three steps an `<ol>` and not three `<div>`s?
+2. What does `prediction_name()` return for `Tomato___healthy`, and why does that matter?
+3. Why are "Try Plant Identifier" and "Try Health Check" links and not green buttons?
+
+> [!success]- Answers
+> 1. They are a sequence. `<ol>` tells the browser and screen readers it is an ordered list of three items; `<div>`s carry no meaning.
+> 2. "Healthy". The page can show any class the model returns without a hand-written list of names.
+> 3. One primary button per area. The Landing page's one goal is sign-up, "Start your garden"; extra filled buttons would compete with it.
+
+Lessons: [[00.06 Semantic HTML]] · [[05.07 Confidence Thresholds and Honest AI Results]]
+
+---
+### Step 2.4 — Fresh on the exchange, and the full-page check
+> [!important] Goal (CORE-27, UI half)
+> Finish the page with the section the wireframe's UX notes put below the fold, then check the whole page at every width.
+
+**What was done (2026-10-14, branch `feature/landing-ui`, commit `8bd5f36`)**
+- **Fresh on the exchange**: label, the H2 *Plants looking for a new home*, a link "See all 37 listings" (the count from `$mock_site_stats`) and the four newest listings, each printed by the `listing-card` partial from week 1.
+- Grid: 1 column on a phone, 2 on a tablet, 4 on a desktop, the breakpoints of wireframe p23.
+- **Full check**: screenshots at 375, 768 and 1280 px; page width measured at 375, 768, 1024 and 1280 px, as a visitor and as a member: no horizontal scroll anywhere, no PHP warnings.
+
+**Why this way**
+- **`array_slice($mock_listings, 0, 4)`** takes the first four rows. Because the mock array is newest first, those are the four newest, the same rows `ORDER BY created_at DESC LIMIT 4` will return in stage B.
+- **The partial is reused unchanged.** The Exchange page (P10) will print the same cards, so a fix to the card fixes both pages.
+- **"See all" is a text link**, again because "Start your garden" is the page's one primary button.
+
+```php
+// Stage B: … WHERE status = 'open' ORDER BY created_at DESC LIMIT 4. The mock array is already newest first.
+$fresh_listings = array_slice($mock_listings, 0, 4);
+```
+```php
+<?php foreach ($fresh_listings as $listing): ?>
+  <?php partial('listing-card', ['listing' => $listing]); ?>
+<?php endforeach; ?>
+```
+
+**Problems and fixes**
+- **How to test "no horizontal scroll" at a true 375 px.** A headless browser window cannot be narrower than about 500 px. A temporary HTML file loaded the page in iframes of each width and compared `scrollWidth` with `clientWidth`; equal numbers mean nothing sticks out. The file was deleted afterwards.
+
+> [!tip] What to remember
+> - `array_slice()` does in PHP what `LIMIT` does in SQL.
+> - "No horizontal scroll" can be measured: the page's `scrollWidth` must equal its `clientWidth`.
+
+**Check yourself**
+1. What will replace `array_slice($mock_listings, 0, 4)` in stage B?
+2. Why does the Landing page not have its own listing-card markup?
+3. Name the three things still to check by hand before the page is called finished.
+
+> [!success]- Answers
+> 1. A query on `exchange_listings` joined with `users`, `WHERE status = 'open' ORDER BY created_at DESC LIMIT 4`.
+> 2. It uses the shared `listing-card` partial, so the card looks and behaves the same on the Landing page and on the Exchange page, and a change happens in one file.
+> 3. Hover states, keyboard focus (Tab through the page) and a real phone.
+
+Lessons: [[01.02 Card Grids, Images and Sticky Bars]] · [[00.03 PHP Includes and Partials]]
+
+---
+
+## Open points
+- **Invented sample values on the Landing page:** 1,248 members, 37 open listings, the full names Amaya Madushani and Kavindi Jayawardena (`@kandy.jungle`), Amaya's plant Pip with 48 likes, Kavindi's rating 5.0 (11), and the dates of the two predictions. Swap them for the team's choices if you prefer.
+- **Reminder chip says "Water Monty today"**, while p8 says "Water Goldie today". In the mock data Goldie's watering is two days *overdue* (red), which would look like an alarm on a welcome page, and the chip sits under Monty's card.
+- **Members see the Landing page** until `dashboard.php` exists; the redirect is a comment at the top of `index.php` for stage B.
+- **Designed without a wireframe:** the smart tools section, Fresh on the exchange, and the phone layout (p23 has no Landing screen). Compare with the Figma prototype and change anything that differs.
+- **Placeholder drawing `pip.svg`**, like the other mock pictures, to be replaced by a real photo with a `docs/credits.md` entry.
