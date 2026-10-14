@@ -584,12 +584,61 @@ if (!empty($_SESSION['preview_visitor'])) {
 Lessons: [[03.04 PHP Sessions and Login State]] · [[01.03 Query Strings and GET Parameters in PHP]]
 
 ---
+### Step 2.13 — Fix: one visitor header on Landing, Sign up and Log in
+> [!important] Goal (CORE-27 and CORE-09 fixes, from Ranshitha's review)
+> As a visitor: Landing, Sign up and Log in show the same visitor header; the logo returns to the top of the Landing page; Exchange opens "Fresh on the exchange"; "How it works" is in the bar.
+
+**What was done (2026-10-14, branch `feature/pages-ui`, commit `081b461`)**
+- Review points from Ranshitha: on the Landing page the header was the member's (logo → Dashboard, no "How it works"); Exchange should open the Landing page's exchange section; Sign up and Log in should have the same visitor header.
+- **Cause:** the mock data starts with Nimali logged in, and the Landing page never switched to visitor mode the way Log in and Sign up do.
+- `public/index.php`: calls `mock_become_visitor()`. The "Fresh on the exchange" section got `id="fresh"`.
+- `includes/header.php`: visitor **Exchange** → `index.php#fresh`; visitor **logo** → `index.php` (top of the page); the `$simple_header` option (logo-only bar) is removed.
+- `public/login.php`, `public/register.php`: full visitor header. **New in stage F:** pressing **Log in** "logs in" as Nimali without checks and opens the Dashboard; **Create account** opens the empty Dashboard (S1). New helper `mock_log_in_and_go()` in `mock-data.php`.
+- `public/logout.php` (new): switches back to visitor mode and opens the Landing page. Stage B destroys the session instead.
+- Tested with one curl session: Landing (visitor bar: Explore | Exchange | How it works) → Dashboard redirects to Log in → POST Log in → Dashboard (member bar) → Log out → Landing → Dashboard redirects again → POST Create account → `dashboard.php?empty`. No PHP errors on any page. Screenshots of Landing and Log in at 1280 px and Sign up at 375 px.
+
+**Why this way**
+- **Landing is a visitor page.** In stage B a logged-in member who opens it is sent straight to the Dashboard, so a member never sees it. In stage F the honest equivalent is to show it as a visitor.
+- **Why Log in now "works" (mock).** Once the Landing page makes the browser a visitor, the only way back to the member pages was typing `?member`. During a demo the natural path is Landing → Log in → Dashboard, so the Log in button flips the preview back. This reverses the choice recorded in step 2.12 ("offered and declined"); it is flagged to Ranshitha to keep or remove.
+- **`header('Location: …')` before any HTML**, followed by `exit`, as on the Dashboard.
+- **A POST, then a redirect.** The form is sent with POST and the answer is a redirect to a GET page (Post/Redirect/Get), so pressing Refresh on the Dashboard never re-sends the form. Stage B keeps the same pattern.
+- **Exchange → `#fresh` for visitors**, as asked. The section's "See all listings" link still leads to the marketplace, `exchange.php`, once that page exists.
+
+```php
+// login.php, stage F
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    mock_log_in_and_go('dashboard.php');   // sets the preview to member, redirects, exits
+}
+```
+
+**Problems and fixes**
+- None in the code. Note for testing: the browser's own checks (`required`, `pattern`) still run before the form is sent, so the fields must be filled in to "log in".
+
+> [!tip] What to remember
+> - Pages for visitors only (Landing, Log in, Sign up) must never show the member bar.
+> - Post/Redirect/Get: answer a POST with a redirect, so Refresh does not send the form twice.
+
+**Check yourself**
+1. Why did the Landing page show "Dashboard" and "My Garden" to someone who had never logged in?
+2. What does Log in do in stage F, and what will it do in stage B?
+3. Why is the answer to the Log in form a redirect, not the Dashboard's HTML?
+
+> [!success]- Answers
+> 1. The mock data starts with `$current_user` = Nimali, and the Landing page did not switch to visitor mode, so the header saw a logged-in member.
+> 2. Stage F: sets `$_SESSION['preview_visitor'] = false` and redirects to the Dashboard, without checking anything. Stage B: checks the CSRF token, finds the user, `password_verify()`, `session_regenerate_id(true)`, stores the user id in the session, then redirects.
+> 3. Post/Redirect/Get: after a redirect the browser shows a normal GET page, so Refresh or Back never re-sends the password form.
+
+Lessons: [[03.04 PHP Sessions and Login State]] · [[03.06 Form Handling - Validation, Redirects and Flash Messages]]
+
+---
 
 ## Open points
 - **Invented sample values on the Landing page:** 1,248 members, 37 open listings, the full names Amaya Madushani and Kavindi Jayawardena (`@kandy.jungle`), Amaya's plant Pip with 48 likes, Kavindi's rating 5.0 (11), and the dates of the two predictions. Swap them for the team's choices if you prefer.
 - **Reminder chip says "Water Monty today"**, while p8 says "Water Goldie today". In the mock data Goldie's watering is two days *overdue* (red), which would look like an alarm on a welcome page, and the chip sits under Monty's card.
-- **Members see the Landing page** until `dashboard.php` exists; the redirect is a comment at the top of `index.php` for stage B.
+- ~~**Members see the Landing page** until `dashboard.php` exists~~ — resolved in step 2.13: the Landing page is shown as a visitor; the stage B redirect is still a comment at the top of `index.php`.
+- **Visitor Exchange link → `index.php#fresh`** (Ranshitha's choice, 2026-10-14). When `exchange.php` exists, decide whether visitors should go to the full marketplace instead. **Explore** leads to `explore.php`, which is built in week 4 (P09); until then it shows "Not Found".
+- **Mock Log in / Create account** switch to member mode (step 2.13), although step 2.12 records that idea as declined: keep or remove.
 - **Designed without a wireframe:** the smart tools section, Fresh on the exchange, and the phone layout (p23 has no Landing screen). Compare with the Figma prototype and change anything that differs.
 - **Placeholder drawing `pip.svg`**, like the other mock pictures, to be replaced by a real photo with a `docs/credits.md` entry.
-- **Sign up / Log in (P02):** "Forgot password?" links to Contact, because no password-reset page is in the page list or the Task Sheet that I know of: decide whether to add one. The username rule (lowercase letters, numbers, dots, underscores, 3–30 characters) and the "Full name" field being required are my choices; p9 does not state them. The top bar on these two pages shows only the logo.
+- **Sign up / Log in (P02):** "Forgot password?" links to Contact, because no password-reset page is in the page list or the Task Sheet that I know of: decide whether to add one. The username rule (lowercase letters, numbers, dots, underscores, 3–30 characters) and the "Full name" field being required are my choices; p9 does not state them. ~~The top bar on these two pages shows only the logo.~~ Changed in step 2.13: they now have the full visitor header (Ranshitha's review).
 - **Dashboard (P03):** "This week", "All reminders" and "Coming up this week" lead to My Garden, because no reminders page is in the page list: decide where they should go. Tommy's "Log update" goes to his plant profile until the modal exists (week 5). The legend says "Needs attention" in full where p10 writes "Attention". Mark done and Mark watered do nothing until CORE-23 (week 5 toast, stage B saving).
