@@ -1,7 +1,7 @@
 ---
 type: project-note
 project: PlantFolio
-status: draft
+status: done
 tags: [project, web]
 ---
 # PlantFolio Week 01 — Foundation

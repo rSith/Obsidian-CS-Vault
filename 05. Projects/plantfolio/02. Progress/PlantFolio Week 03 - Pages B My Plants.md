@@ -5,7 +5,7 @@ status: draft
 tags: [project, web]
 ---
 # PlantFolio Week 03 — Pages B: My Plants
-> [!info] [[PlantFolio - Project Home]] · Stage F · 19–25 Oct 2026
+> [!info] [[PlantFolio - Project Home]] · Stage F · 19–25 Oct 2026 · branch `feature/pages-ui` (commits `9e88762` … `e75070d`, local only, one pull request at the end)
 > **Study notes:** [[01.00 Building Pages]] · **Revision:** [[01.99 Summary - Building Pages]]
 
 > [!abstract] Week goal
@@ -29,11 +29,16 @@ tags: [project, web]
 - Reading `?id=` from the address → [[01.03 Query Strings and GET Parameters in PHP]]
 - Looping over rows with a partial → [[00.03 PHP Includes and Partials]]
 - Form structure → [[00.05 HTML Forms]]
+- The ⋯ plant menu → [[01.05 Dropdown Menus with details and summary]]
+- The list view as stacked rows on phones → [[02.06 Mobile Patterns - Bottom Bar, Sheets and Stacked Tables]]
+- Owner-only pages and the 404 for private plants → [[03.07 Access Control and Ownership Checks]]
+- Save, redirect and the green "Saved" message → [[03.06 Form Handling - Validation, Redirects and Flash Messages]]
+- Confidence words on the AI suggestion → [[05.07 Confidence Thresholds and Honest AI Results]]
 
 ## Checks for every page
 - [ ] Matches its wireframe page and the Figma prototype
-- [ ] Works at 375, 768 and 1024 px with no horizontal scroll and no console errors
-- [ ] All output escaped with `e()`, images have alt text, inputs have labels
+- [ ] Works at 375, 768 and 1024 px with no horizontal scroll and no console errors *(so far: screenshots at 375 and 1280 px for every page, and 768 px for My Garden and Settings; the pages have no JavaScript yet. Still to do: 768 px for P05 and P06, and a real phone.)*
+- [ ] All output escaped with `e()`, images have alt text, inputs have labels *(written that way, not yet checked page by page)*
 
 ---
 ## Work log

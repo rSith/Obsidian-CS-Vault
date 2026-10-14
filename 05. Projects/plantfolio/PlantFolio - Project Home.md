@@ -37,7 +37,7 @@ Each stage links the lesson to study; each week links its progress note.
 - [x] Week 0 → [[PlantFolio Week 00 - Planning and Design]]
 
 **Stage F · Frontend with mock data** (weeks 1–7, 5 Oct – 22 Nov) · study [[00.00 Project Foundations]], [[01.00 Building Pages]], [[02.00 Interactivity and Responsive Design]]
-- [ ] Week 1 → [[PlantFolio Week 01 - Foundation]]
+- [x] Week 1 → [[PlantFolio Week 01 - Foundation]]
 - [ ] Week 2 → [[PlantFolio Week 02 - Pages A First Impressions]]
 - [ ] Week 3 → [[PlantFolio Week 03 - Pages B My Plants]]
 - [ ] Week 4 → [[PlantFolio Week 04 - Pages C Community]]

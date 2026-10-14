@@ -19,10 +19,10 @@ tags: [project, web]
 | P03 Dashboard | CORE-24 (UI) | Greeting and counts, Today's care (due = terracotta, overdue = red), Needs attention, Quick actions, Garden at a glance | MOD-06 |
 | S1 Empty garden | CORE-25 (UI) | Shown on Dashboard and My Garden when the mock user has no plants | MOD-06 |
 
-- [x] P01 Landing (`index.php`), **CORE-27**. *UI built on 14 Oct 2026 (steps 2.1–2.4), on `feature/landing-ui`, not pushed. Still to check by hand: hover, keyboard focus and a real phone. Becomes Done in stage B, when the counts are live.*
-- [x] P02 Sign up and Log in (`register.php`, `login.php`), **CORE-07, CORE-09**. *UI built on 14 Oct 2026 (steps 2.5–2.7), on `feature/accounts-ui`, not pushed. Still to check by hand: hover, keyboard focus and a real phone. Becomes Done in stage B, when sign-up and log-in work.*
-- [x] P03 Dashboard (`dashboard.php`), **CORE-24**. *UI built on 14 Oct 2026 (steps 2.8–2.10), on `feature/dashboard-ui`, not pushed. Still to check by hand: hover, keyboard focus and a real phone. Becomes Done in stage B, with real reminders and counts.*
-- [x] S1 Empty garden (`partials/empty-state.php`), **CORE-25**. *UI built on 14 Oct 2026 (step 2.11): on the Dashboard with `?empty`; My Garden reuses it in week 3.*
+- [x] P01 Landing (`index.php`), **CORE-27**. *UI built on 14 Oct 2026 (steps 2.1–2.4), on `feature/landing-ui`, merged with PR #3. Review fixes in steps 2.13 and 2.15 (visitor header, members sent to the Dashboard) are on `feature/pages-ui`. Still to check by hand: hover, keyboard focus and a real phone. Becomes Done in stage B, when the counts are live.*
+- [x] P02 Sign up and Log in (`register.php`, `login.php`), **CORE-07, CORE-09**. *UI built on 14 Oct 2026 (steps 2.5–2.7), on `feature/accounts-ui`, merged with PR #4. Review fixes in steps 2.13 and 2.15 (visitor header, mock Log in, `logout.php`) are on `feature/pages-ui`. Still to check by hand: hover, keyboard focus and a real phone. Becomes Done in stage B, when sign-up and log-in work.*
+- [x] P03 Dashboard (`dashboard.php`), **CORE-24**. *UI built on 14 Oct 2026 (steps 2.8–2.10), on `feature/dashboard-ui`, pushed as PR #5 (open, not merged yet). Still to check by hand: hover, keyboard focus and a real phone. Becomes Done in stage B, with real reminders and counts.*
+- [x] S1 Empty garden (`partials/empty-state.php`), **CORE-25**. *UI built on 14 Oct 2026 (step 2.11): on the Dashboard with `?empty`; My Garden reuses it in week 3. Since step 2.14, Create account keeps it on every page.*
 - [ ] Mark DES-05 Done: the Figma link is already in the README
 - [ ] Finish DES-06, DES-07, DES-08 and DES-13 (ERD, schema reconciliation, data dictionary, species data)
 
