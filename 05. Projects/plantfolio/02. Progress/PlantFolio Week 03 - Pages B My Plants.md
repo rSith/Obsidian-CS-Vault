@@ -21,7 +21,7 @@ tags: [project, web]
 
 - [x] P04 My Garden (`garden.php`) — UI built 2026-10-14 (not wired)
 - [x] P05 Plant Profile (`plant.php?id=`) — UI built 2026-10-14, owner and visitor views (not wired)
-- [ ] P06 Add / Edit Plant (`plant-form.php`)
+- [x] P06 Add / Edit Plant (`plant-form.php`) — UI built 2026-10-14: add, edit (`?id=`) and AI suggestion preview (`?ai`, `?ai=unsure`) (not wired)
 - [ ] P15 Settings (`settings.php`)
 
 ## Learn this week
@@ -349,7 +349,158 @@ if (!$is_owner) {
 Lessons: [[01.04 Rendering States - Empty, Owner and Visitor Views]] · [[03.07 Access Control and Ownership Checks]] · [[03.04 PHP Sessions and Login State]]
 
 ---
+### Step 3.7 — Add a plant: the form
+> [!important] Goal (CORE-16, UI half)
+> Build wireframe p13 in add mode: a new plant in under a minute, photo first.
+
+**What was done (2026-10-14, branch `feature/pages-ui`, commit `0082fa9`)**
+- `public/plant-form.php` (new), members only (a visitor is sent to Log in):
+  1. **Photo upload**: a dashed drop area with "Add a photo of your plant", Choose photo, and "JPG or PNG, up to 5 MB".
+  2. **Suggested species** card: explains what happens once a photo is added (the real suggestion is step 3.9).
+  3. **Plant details**: Nickname, Species (a text box with a list of known species), Collection, Date acquired.
+  4. **"How is it doing right now?"**: Thriving · Stable · Needs attention · Sick, as one segmented control.
+  5. **Care reminders**: Water every 7 days and Fertilise every 30 days, each with an on/off switch and a start date.
+  6. **Who can see this plant?**: Public · shown in Explore / Private · only you.
+  7. **Sticky save bar**: "You can change everything later.", Cancel (back to My Garden) and **Save plant**.
+- `public/assets/css/plant-form.css` (new). `includes/header.php`: new option **`$hide_bottom_bar`**. `.field-optional` moved from `auth.css` to `components.css`. Icons `arrow-left` and `image-up`.
+
+**Why this way**
+- **The drop area is a `<label>`** for the hidden file input. Clicking a label activates its input, so a click anywhere on the box opens the file picker, with no JavaScript. `accept="image/jpeg,image/png"` limits the picker; `capture="environment"` offers the rear camera on a phone. The server still checks the real file type in stage B (`finfo`), because `accept` is only a hint.
+- **`enctype="multipart/form-data"`**: the only form encoding that can carry a file.
+- **`<datalist>` for the species**: typing suggests the species we know, but any name is allowed (the AI or the member may know one we do not). Stage B looks the name up and stores its `species_id`.
+- **Radio buttons inside a `<fieldset>` with a `<legend>`**: a screen reader then says "How is it doing right now?" before each choice.
+- **Every field reads from `$values`**, so the edit form in the next step only has to fill `$values` from the plant's row.
+- **No bottom bar on this page.** p23: inner pages hide the bar; here the save bar takes the bottom of a phone screen instead.
+
+```php
+<label class="dropzone" for="plant-photo"> … Choose photo </label>
+<input class="visually-hidden" type="file" id="plant-photo" name="photo"
+       accept="image/jpeg,image/png" capture="environment">
+```
+
+**Problems and fixes**
+- **A line ran through "Care reminders"**: a `<legend>` is drawn *on* its fieldset's top border. The border moved to a wrapper `<div class="form-section">`.
+- **"Needs attention" wrapped onto two lines** on a desktop, where the four choices had equal widths. From 768 px each choice is now as wide as its words (`flex: 1 1 auto`, `nowrap`); on a phone they sit two by two.
+- **On a phone the save bar collided with the round + button** of the bottom bar, then floated with the form showing underneath. Solved with `$hide_bottom_bar`, as p23 describes.
+
+> [!tip] What to remember
+> - A file input needs `method="post"` and `enctype="multipart/form-data"`.
+> - `accept` helps the user; only the server's check protects the site.
+> - Group radio buttons in a `<fieldset>` with a `<legend>`.
+
+**Check yourself**
+1. Why can a click on the whole dashed box open the file picker without JavaScript?
+2. A user renames `virus.php` to `virus.jpg`. Does `accept="image/jpeg"` stop it? What does?
+3. Why is the phone bottom bar hidden on this page only?
+
+> [!success]- Answers
+> 1. The box is the `<label>` of the file input (`for="plant-photo"`). Clicking a label does the same as clicking its input.
+> 2. No: `accept` only filters the picker, and the name can be anything. Stage B checks the file's real content with `finfo` (JPG or PNG only), limits it to 5 MB, gives it a random name and never runs it.
+> 3. The form has its own sticky save bar at the bottom of the screen. Two bars would cover each other; p23 says inner pages hide the bottom bar. Other pages are not changed.
+
+Lessons: [[02.05 Upload Preview with the File API]] · [[04.02 Secure File Uploads in PHP]] · [[01.02 Card Grids, Images and Sticky Bars]]
+
+---
+### Step 3.8 — Edit a plant: the same form, filled in
+> [!important] Goal (CORE-16, UI half)
+> p13, UX notes: "Edit mode reuses this page, pre-filled, with a Delete plant link that opens a confirmation."
+
+**What was done (2026-10-14, branch `feature/pages-ui`, commit `57e87e8`)**
+- `public/plant-form.php?id=42` → **Edit Monty**: "Back to Monty", every field filled from his row, the current photo with **Change photo**, his own reminders (water every 7 days, fertilise every 30, starting on their next due dates), and **Save changes**.
+- **Health is not on the edit form.** A note says to use **Log update** on the plant's page instead.
+- **Delete plant** (red, on the left of the save bar); on a phone only its bin shows, named "Delete plant" for screen readers.
+- A task the plant has no reminder for starts **switched off**, with the species' usual interval ready (Vera: water on, fertilise off, every 60 days).
+- **Only the owner**: `?id=999`, `?id=abc`, or a plant of someone else → 404 "Plant not found". A visitor → Log in.
+- The links from the Plant Profile now land on their fields: `#photo`, `#collection`, `#reminders`.
+- Checked: Monty, Vera, Tommy, Lily, missing ids, the add form again; no PHP errors; screenshots at 1280 and 375 px.
+
+**Why this way**
+- **One form, two jobs.** Add and edit share all the HTML. Only `$values`, the title, the Back and Cancel links, the button words and the form's `action` change. Fixing a field later fixes it in both.
+- **Health belongs in the story.** If editing the form could change Monty to "Sick", the story would have no date and no note for it. The first status comes from the add form; every later one from Log update.
+- **The ownership check happens before any HTML**, and again in stage B when saving, because the `?id=` in the address can be changed by anyone.
+
+```php
+foreach ($mock_plants as $row) {
+    if ($row['id'] === $plant_id && $row['user_id'] === $current_user['id']) {
+        $plant = $row;   // found, and it is hers
+        break;
+    }
+}
+if (!$plant) { http_response_code(404); /* "Plant not found" */ exit; }
+```
+
+**Problems and fixes**
+- **A Bash command broke on an apostrophe** ("plant's") inside the edit script. The script was saved to a file and run from there; nothing had been changed by the failed attempt.
+- **The save bar took two lines on a phone** (Delete plant, Cancel, Save changes). On a phone Delete now shows only its bin, and the bar's padding and gaps are smaller.
+
+> [!tip] What to remember
+> - Reuse one form for add and edit; fill it from a `$values` array.
+> - Check ownership on the server for every `?id=`, both when showing the form and when saving it.
+
+**Check yourself**
+1. Nimali changes the address to `plant-form.php?id=51` (Pip, Amaya's plant). What does she see, and why?
+2. Why does the edit form not offer the four health choices?
+
+> [!success]- Answers
+> 1. "Plant not found" (404). The loop only accepts a plant whose `user_id` is hers; Pip's is not, so `$plant` stays null. It is the same answer as for a plant that does not exist, so nothing is revealed.
+> 2. A health change must go in the plant's story with its date and note. That is Log update's job; a status changed silently on the edit form would leave a gap in the story.
+
+Lessons: [[04.01 CRUD in Plain PHP]] · [[03.07 Access Control and Ownership Checks]]
+
+---
+### Step 3.9 — Add a plant: the AI species suggestion
+> [!important] Goal (ML-13 UI half, roadmap week 7; built now because it is the main picture of p13)
+> Show what happens after a photo is uploaded: the AI suggests a species, the member decides (p13, elements 2–4).
+
+**What was done (2026-10-14, branch `feature/pages-ui`, commit `5c828f9`)**
+- `includes/mock-data.php`: **`$mock_species_result`**, the answer of the Flask service in the exact shape of the API contract (`model_version` + `predictions`: Monstera deliciosa 91%, Philodendron bipinnatifidum 6%, Epipremnum pinnatum 2%), plus the uploaded file's name and size. **`$mock_species_result_unsure`**: the same photo with a top result of 48%.
+- `public/plant-form.php?ai` (preview switch, add mode only):
+  - The photo shows with **Change photo** and "monty.jpg · 2.4 MB · uploaded".
+  - **Suggested species** card: the top species in a sage box with the confidence meter (**High · 91%**) and **Applied**; two alternatives with grey bars and **Use**; **None of these? Choose the species manually**.
+  - The Species field is filled, with a **✦ Filled by AI** tag and a **×** inside the field to clear it.
+  - Care reminders come from the species guide: "Suggested from the Swiss cheese plant care guide".
+- `?ai=unsure` (state **S3**): a "**Not sure.**" message, nothing filled in, all three shown only as possibilities.
+- **Use**, **×** and **Choose manually** are links (`?pick=1`, `?pick=none`); `?pick` is checked against a whitelist (`?pick=abc` falls back safely).
+- Checked every variant with curl (no PHP errors) and screenshots at 1280 and 375 px; edit mode ignores `?ai`.
+
+**Why this way**
+- **AI suggests, the member decides** (design system rule). The top result is *applied* only when it is High or Medium; it is shown, labelled and reversible, and nothing is stored until **Save plant**.
+- **Below 60% it is never an answer** (S3): the field stays empty and the member is told to choose or retake the photo. Alternatives always have grey bars, so a low number never looks like a result.
+- **The mock has the API's exact shape.** In stage M, `json_decode()` of Flask's reply gives this same array, so this page will not change.
+- **If Flask is offline, the form stays manual** (CLAUDE.md: the site must never break because of ML). The suggestion is an extra on top of a form that works without it.
+- **`(int) 'abc'` is 0**: casting first would have turned a nonsense value into "apply the top suggestion" even when the model was unsure. The text is compared against the allowed values instead.
+
+```php
+$top_level = confidence_level($top['confidence']);   // High ≥ 80 · Medium 60–79 · Not sure < 60
+$is_unsure = $top_level['key'] === 'low';
+$pick      = $_GET['pick'] ?? ($is_unsure ? 'none' : '0');   // unsure: fill nothing by default
+```
+
+**Problems and fixes**
+- **"× Clear" wrapped under the label** and pushed the Species box out of line with Nickname. The × now sits inside the field, as on p13, named "Clear the species the AI filled in" for screen readers.
+- **Green bars made 48% look like an answer** in the unsure state. Alternatives now use the grey "Not sure" colour.
+- A selector that matched nothing was caught in the script before it ran.
+
+> [!tip] What to remember
+> - The fixed confidence words: High ≥ 80 %, Medium 60–79 %, Not sure < 60 %. Below 60 % is never presented as an answer.
+> - Mock data for an external service should copy the service's JSON shape exactly.
+> - Check a choice against a whitelist *before* converting its type.
+
+**Check yourself**
+1. The model returns 55% for Monstera. What does the form do?
+2. Why are Use and × links, and what will week 7 change?
+3. What happens on this page if the Flask service is switched off in stage M?
+
+> [!success]- Answers
+> 1. 55% rounds to "Not sure": the Species field stays empty, the card shows "Not sure." with the possibilities, and the member chooses or types the species.
+> 2. Links work without JavaScript: the page reloads with `?pick=`. Week 7 adds JavaScript to apply a suggestion without reloading; the links stay as the fallback.
+> 3. `ml-client.php` times out or gets no answer, so there is no suggestion card: the form stays fully manual and the plant can still be saved.
+
+Lessons: [[05.07 Confidence Thresholds and Honest AI Results]] · [[05.01 Calling the ML Service from PHP with cURL]] · [[01.03 Query Strings and GET Parameters in PHP]]
+
+---
 
 ## Open points
 - **My Garden (P04):** the first card is Tommy, not Monty as on p11, because "Recently updated" sorts by the newest health log and Tommy had a Health Check yesterday. The chips say 7 + 6 + 5 = 18 plants while the mock data holds 8, so a collection shows fewer cards than its count until stage B. New collection (button and chip) and Delete do nothing yet. **Apply** is not on p11; it is needed until week 6 submits the lists on change. Lily, Pearl and their "Peace lily" / "Mexican snowball" common names are my additions from p11's pictures.
 - **Plant Profile (P05):** the species columns `pet_safe`, `water_interval_days` and `fertilise_interval_days` are my names until DES-07/DES-13 fix them; the care texts and story notes are my samples. Every story entry shows its status badge (p12 shows it on the newest only). Monty's gallery shows the same placeholder drawing four times. **Log update**, **Mark watered** and **Like** do nothing yet (week 5 dialog, stage B saving). "Add" photo and "+ Add" reminder lead to the edit form, which is built next. The read-only view (CORE-21) was built now, not in week 7, because p12 includes it. Visitors see a "Pets" tile in place of the next watering, and no Reminders tab: my choices.
+- **Add / Edit Plant (P06):** **Save plant** and **Save changes** send the form, but nothing is saved until stage B, and the page simply reloads. **Delete plant** does nothing until the week 5 confirmation. Health is not on the edit form (it goes through Log update): my choice, p13 does not say. The species field accepts any name (a `<datalist>`, not a fixed list): decide in stage B what happens with a species we have no guide for. `?ai` and `?ai=unsure` are preview switches until the ML service exists; the AI suggestion (ML-13) was built now, not in week 7. The phone bottom bar is hidden on this page (`$hide_bottom_bar`), as p23 says for inner pages; the other pages keep it until the week 6 responsive pass.
