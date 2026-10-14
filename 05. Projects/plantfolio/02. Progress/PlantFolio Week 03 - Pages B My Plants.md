@@ -22,7 +22,7 @@ tags: [project, web]
 - [x] P04 My Garden (`garden.php`) — UI built 2026-10-14 (not wired)
 - [x] P05 Plant Profile (`plant.php?id=`) — UI built 2026-10-14, owner and visitor views (not wired)
 - [x] P06 Add / Edit Plant (`plant-form.php`) — UI built 2026-10-14: add, edit (`?id=`) and AI suggestion preview (`?ai`, `?ai=unsure`) (not wired)
-- [ ] P15 Settings (`settings.php`)
+- [x] P15 Settings (`settings.php`) — UI built 2026-10-14: five cards, each saving on its own (not wired)
 
 ## Learn this week
 - Card grids, 4:3 images and the sticky save bar → [[01.02 Card Grids, Images and Sticky Bars]]
@@ -499,8 +499,149 @@ $pick      = $_GET['pick'] ?? ($is_unsure ? 'none' : '0');   // unsure: fill not
 Lessons: [[05.07 Confidence Thresholds and Honest AI Results]] · [[05.01 Calling the ML Service from PHP with cURL]] · [[01.03 Query Strings and GET Parameters in PHP]]
 
 ---
+### Step 3.10 — Where Save and Cancel lead
+> [!important] Goal (CORE-16, UI half; Ranshitha chose option A)
+> After Save, the demo should move on to the next page instead of reloading the form.
+
+**What was done (2026-10-14, branch `feature/pages-ui`, commit `f938a63`)**
+- Ranshitha asked where Cancel and Save lead. Cancel already worked: **add → My Garden** (p13, element 7), **edit → the plant's profile**. Save reloaded the same form, because nothing handles the POST yet.
+- Two options were offered: A, a stage F redirect without saving; B, leave it until stage B. **Ranshitha chose A.**
+- `public/plant-form.php`: on POST, **Save plant** opens **My Garden**; **Save changes** opens **the plant's profile** (`plant.php?id=42`). Nothing is saved.
+- Tested with curl: add and `?ai` → `garden.php`; `?id=42` → `plant.php?id=42`; `?id=999` → 404; a visitor → Log in; opening the form normally still shows it.
+
+**Why this way**
+- **Add → My Garden, not a profile.** A new plant has no profile until stage B gives it an id; opening Monty's page after adding "Pip" would look wrong. Stage B will open the new plant's own profile.
+- **The redirect comes after the ownership check**, so even a pretend save for someone else's plant gets "Plant not found". Security habits should be in place before the real save exists.
+- **Post/Redirect/Get again**, as with Log in: the answer to the form is a redirect, so Refresh on the next page never sends the form twice.
+- **Known side effect:** the new plant does not appear in My Garden, because nothing is saved. Say so during a demo.
+
+```php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    header('Location: ' . ($is_edit ? url('plant.php?id=' . $plant['id']) : url('garden.php')));
+    exit;
+}
+```
+
+> [!tip] What to remember
+> - Cancel is a link (it goes somewhere); Save is a submit button (it sends the form).
+> - Put access checks before any action, even a pretend one.
+
+**Check yourself**
+1. Why does Save plant (add) go to My Garden now, but to the plant's profile in stage B?
+2. What would happen without the `exit` after `header('Location: …')`?
+
+> [!success]- Answers
+> 1. In stage F nothing is saved, so the new plant has no id and no profile; My Garden is the honest place to go back to. In stage B the insert returns the new id, so the redirect can open `plant.php?id=<new id>`.
+> 2. PHP would carry on and print the whole form after the redirect header. The browser would still follow the redirect, but the server would do useless work, and any code below (for example a save) would run when it should not.
+
+Lessons: [[03.06 Form Handling - Validation, Redirects and Flash Messages]] · [[03.07 Access Control and Ownership Checks]]
+
+---
+### Step 3.11 — Settings: the page and its five cards
+> [!important] Goal (CORE-26, UI half)
+> Build wireframe p22: one place to manage the public profile, password, privacy defaults and reminder preferences.
+
+**What was done (2026-10-14, branch `feature/pages-ui`, commit `2b3b308`)**
+- `public/settings.php` (new), members only (a visitor is sent to Log in):
+  1. **Section menu**: Profile · Account and security · Privacy · Reminders · Delete account (red). Jump links to each card; a list on a phone, a column that stays in view on a desktop.
+  2. **Profile**: avatar with **Change photo**, Display name, Username (with "@" and the hint "Your old @link keeps working after a change"), Bio with "87 / 160", Town, **Save profile**.
+  3. **Account and security**: the email with **Change email** (opens a small form in place), then Current / New / Confirm new password and **Update password**.
+  4. **Privacy**: "New plants are public" and "Show approximate area on listings" switches, **Save privacy**.
+  5. **Reminders**: "Show care tasks on Dashboard" and **Email reminders**, disabled with a **Coming later** tag.
+  6. **Delete account** in a red card (the confirmation dialog comes in week 5).
+- `includes/mock-data.php`: three preference values on Nimali's users row: `new_plants_public`, `show_listing_area`, `dashboard_reminders`, **proposed columns for DES-07**.
+- `public/assets/css/settings.css` (new). `.field-row` moved from `plant-form.css` to `components.css`; every `.field` now keeps its natural height (`align-content: start`). Icon `upload`.
+- Checked: no PHP errors on Settings, the plant form, Sign up, Log in and the Dashboard after the shared CSS changes; screenshots at 1280, 768 and 375 px.
+
+**Why this way**
+- **Five forms, not one** (p22, UX notes: "each card saves on its own"). If Nimali types a new bio and a wrong password, the password error must not throw her bio away. Separate `<form>`s also mean each POST only carries one card, with a hidden `form` field saying which.
+- **Upcoming features are shown, disabled and labelled** (p22): "Email reminders · Coming later" is visible so nobody thinks it was forgotten, and disabled so nobody thinks it works.
+- **A switch is a checkbox**: an unticked checkbox is not sent at all, so stage B must read a missing value as 0.
+- **Change email in a `<details>`**: it opens in place, without JavaScript, and needs the current password, because email is how an account is recovered.
+- **`scroll-margin-top`** on each card: the menu's jump stops below the sticky top bar instead of hiding the card's title under it.
+
+```html
+<form method="post" action="settings.php#privacy">
+  <input type="hidden" name="form" value="privacy">
+  …
+</form>
+```
+
+**Problems and fixes**
+- **The Display name box was taller than the Username box** next to it: grid items stretch to the tallest neighbour, and Username has a hint under it. `align-content: start` on `.field` fixed it everywhere.
+- **A grey disabled Remove** showed when there was no photo, which looked broken. Remove now appears only when there is a photo.
+- **"Account and security" wrapped** in a 200 px menu; the column is now 220 px.
+- An `!important` was replaced with a more specific selector (`li.settings-menu-danger` beats `li + li`).
+
+> [!tip] What to remember
+> - One form per independent save.
+> - An unticked checkbox sends nothing.
+> - Show unfinished features disabled with a label; never fake them.
+
+**Check yourself**
+1. Why does Settings have five `<form>` elements instead of one?
+2. Nimali switches "New plants are public" off and saves. What does the browser send for it?
+3. Why does changing the email ask for the current password?
+
+> [!success]- Answers
+> 1. Each card saves on its own (p22): an error in one card (a wrong password) never discards what was typed in another (the bio), and each POST only carries the fields of one card.
+> 2. Nothing: an unticked checkbox is left out of the form data. Stage B reads the missing `new_plants_public` as 0.
+> 3. Email is how an account is recovered. If someone found Nimali logged in on a shared computer, the password stops them from taking the account over by changing the email.
+
+Lessons: [[00.05 HTML Forms]] · [[03.06 Form Handling - Validation, Redirects and Flash Messages]]
+
+---
+### Step 3.12 — Settings: saving each card, and the password check
+> [!important] Goal (CORE-26, UI half)
+> Make each card's button lead somewhere, like Save on the plant form (option A), and show the password error p22 draws.
+
+**What was done (2026-10-14, branch `feature/pages-ui`, commit `e75070d`)**
+- `public/settings.php`: on POST, the hidden `form` field says which card was sent (`profile`, `email`, `password`, `privacy`, `reminders`; anything else is ignored).
+- A card that passes its checks **redirects back to itself** (`settings.php?saved=privacy#privacy`) and shows a green message in that card: "Privacy saved." **Nothing is stored** until stage B.
+- The **password card is checked on the server**, as p22 shows: "**Passwords don't match**" under Confirm new password, and "Use at least 8 characters, including a number." under New password. The field gets a red border (`aria-invalid="true"`) and the message is linked to it (`aria-describedby`).
+- Tested with curl: every card's redirect; a mismatch (error shown, the password itself never printed back); a short password; an unknown form; `?saved=` with a script tag (ignored). Screenshots of the error and of a saved message.
+
+**Why this way**
+- **Post/Redirect/Get** for every successful save, so Refresh never sends a form twice; the `#privacy` in the redirect brings the member back to the card they saved.
+- **The server checks again**, although the browser already checks the length rule: anyone can switch the browser's checks off. The "don't match" rule is only checked on the server, so it is the one p22 shows.
+- **Passwords are never printed back into the form**, even after an error: a page's HTML can be cached or seen by others. The member types them again.
+- **An error lives under its field** and is linked to it, so a screen reader reads "Confirm new password, invalid, Passwords don't match" together.
+- **Only `?saved=` values on the list are shown**: the message text comes from our array, never from the address, so `?saved=<script>` prints nothing.
+
+```php
+if ($new !== $confirm) {
+    $errors['confirm_password'] = "Passwords don't match";
+}
+if (!$errors) {
+    header('Location: ' . url('settings.php?saved=' . $form . '#' . $card_of[$form]));
+    exit;
+}
+```
+
+**Problems and fixes**
+- None in the code. The Bash shell still breaks on an apostrophe ("don't") inside a command, so the edit was written as a script file first.
+
+> [!tip] What to remember
+> - Validate on the server even when the browser already does.
+> - After an error: keep the safe values, never print passwords back, put the message under its field.
+> - Text shown on the page comes from your own list, not from `$_GET`.
+
+**Check yourself**
+1. Why is the mismatch error shown by PHP, not by the browser?
+2. After the error, why are all three password boxes empty?
+3. What stops `settings.php?saved=<script>alert(1)</script>` from running a script?
+
+> [!success]- Answers
+> 1. HTML has no attribute for "must equal another field", so the browser cannot check it. The server compares the two values. (Week 6 JavaScript can also show it while typing; the server check stays.)
+> 2. Passwords are never printed back into HTML: the page could be cached, saved or seen over a shoulder. The member types them again.
+> 3. `?saved=` is only used if it is one of the keys of `$saved_messages`; the message printed is our own text, escaped with `e()`. Anything else is ignored.
+
+Lessons: [[03.06 Form Handling - Validation, Redirects and Flash Messages]] · [[03.03 Password Hashing and Login Lockout]] · [[00.04 Output Escaping in PHP]]
+
+---
 
 ## Open points
 - **My Garden (P04):** the first card is Tommy, not Monty as on p11, because "Recently updated" sorts by the newest health log and Tommy had a Health Check yesterday. The chips say 7 + 6 + 5 = 18 plants while the mock data holds 8, so a collection shows fewer cards than its count until stage B. New collection (button and chip) and Delete do nothing yet. **Apply** is not on p11; it is needed until week 6 submits the lists on change. Lily, Pearl and their "Peace lily" / "Mexican snowball" common names are my additions from p11's pictures.
 - **Plant Profile (P05):** the species columns `pet_safe`, `water_interval_days` and `fertilise_interval_days` are my names until DES-07/DES-13 fix them; the care texts and story notes are my samples. Every story entry shows its status badge (p12 shows it on the newest only). Monty's gallery shows the same placeholder drawing four times. **Log update**, **Mark watered** and **Like** do nothing yet (week 5 dialog, stage B saving). "Add" photo and "+ Add" reminder lead to the edit form, which is built next. The read-only view (CORE-21) was built now, not in week 7, because p12 includes it. Visitors see a "Pets" tile in place of the next watering, and no Reminders tab: my choices.
-- **Add / Edit Plant (P06):** **Save plant** and **Save changes** send the form, but nothing is saved until stage B, and the page simply reloads. **Delete plant** does nothing until the week 5 confirmation. Health is not on the edit form (it goes through Log update): my choice, p13 does not say. The species field accepts any name (a `<datalist>`, not a fixed list): decide in stage B what happens with a species we have no guide for. `?ai` and `?ai=unsure` are preview switches until the ML service exists; the AI suggestion (ML-13) was built now, not in week 7. The phone bottom bar is hidden on this page (`$hide_bottom_bar`), as p23 says for inner pages; the other pages keep it until the week 6 responsive pass.
+- **Add / Edit Plant (P06):** **Save plant** opens My Garden and **Save changes** opens the plant's profile (option A, step 3.10), but nothing is saved until stage B, so a new plant does not appear in My Garden yet. **Delete plant** does nothing until the week 5 confirmation. Health is not on the edit form (it goes through Log update): my choice, p13 does not say. The species field accepts any name (a `<datalist>`, not a fixed list): decide in stage B what happens with a species we have no guide for. `?ai` and `?ai=unsure` are preview switches until the ML service exists; the AI suggestion (ML-13) was built now, not in week 7. The phone bottom bar is hidden on this page (`$hide_bottom_bar`), as p23 says for inner pages; the other pages keep it until the week 6 responsive pass.
+- **Settings (P15):** the three preference values `new_plants_public`, `show_listing_area` and `dashboard_reminders` are **proposed new `users` columns** for DES-07 (names are mine). Every Save shows its green message but **stores nothing** until stage B, so the old values come back on the next visit. Change photo, Remove and Delete account do nothing yet (uploads in stage B, the dialog in week 5). "Change email" opens a small form in place, which p22 does not draw. The phone layout is one long page with the menu as a list of jump links; p22's "separate screens on mobile" waits for the week 6 responsive pass.

@@ -82,3 +82,6 @@ General concepts and web theory are explained once, elsewhere in the vault. The 
 - 2026-10-14: review fixes (`081b461` on `feature/pages-ui`): Landing, Sign up and Log in share the visitor header; visitor Exchange → Landing `#fresh`; logo → top of Landing; mock Log in / Create account / Log out so a demo can walk from Landing into the member pages.
 - 2026-10-14: review fix (`14c0d00`): after Create account the empty garden (S1) now lasts on every page (kept in the session) until Log in or `?member`.
 - 2026-10-14: CORE-16 Add / Edit Plant UI built in three commits (`0082fa9`, `57e87e8`, `5c828f9`): add form, edit mode (`?id=`), and the AI species suggestion preview (`?ai`, `?ai=unsure`, ML-13 UI). Not pushed.
+- 2026-10-14: option A chosen (`f938a63`): Save plant now opens My Garden and Save changes opens the plant's profile, without saving anything until stage B.
+- 2026-10-14: CORE-26 Settings UI built in two commits (`2b3b308`, `e75070d`): five cards that save on their own, with the password check from p22. All four week 3 pages are now UI built. Not pushed.
+- 2026-10-14: review fix (`7229d21`): opening the Landing page no longer logs the member out. A new browser starts as a visitor; Log in, Create account and Log out decide; members are sent from Landing, Log in and Sign up to the Dashboard.

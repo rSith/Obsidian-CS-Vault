@@ -672,13 +672,56 @@ if (!empty($_SESSION['preview_empty']) && $current_user && current_page() !== 'i
 Lessons: [[03.04 PHP Sessions and Login State]] · [[01.04 Rendering States - Empty, Owner and Visitor Views]]
 
 ---
+### Step 2.15 — Fix: opening the Landing page no longer logs the member out
+> [!important] Goal (CORE-09 and CORE-27 fix, from Ranshitha's review)
+> "When clicking Settings it goes to the Log in page. Why? Fix that."
+
+**What was done (2026-10-14, branch `feature/pages-ui`, commit `7229d21`)**
+- **Reproduced with curl:** a member could open Settings, but after opening the Landing page once (in any tab) Settings answered `302 → login.php`.
+- **Cause, from step 2.13:** the Landing, Log in and Sign up pages called `mock_become_visitor()`, which switched the **whole session** to visitor mode. Visiting the home page was a silent log-out for every tab.
+- `includes/mock-data.php`: the preview now behaves like a real login. A **new browser starts as a visitor**; only **Log in / Create account** (member) and **Log out** (visitor) change it; `?member` and `?guest` stay as shortcuts.
+- `public/index.php`, `login.php`, `register.php`: a **logged-in member who opens them is sent to the Dashboard**, the stage B behaviour that was a comment until now. They no longer change the session.
+- `includes/README.md`: the preview table rewritten.
+- Tested one browser session end to end: fresh → Landing 200, Settings → Log in; Log in → Settings 200, also after opening the Landing page; Log out → visitor; Create account → empty garden, Settings 200; no PHP errors as visitor or member.
+
+**Why this way**
+- **A real site never logs you out because you looked at its home page.** The bug came from a mock that did more than the real thing. The closer the mock is to stage B's behaviour, the fewer surprises when it is replaced.
+- **Starting as a visitor** is what a real first visit is, so the Landing page shows the visitor header without any switch.
+- **Members skip the visitor pages** (Landing, Log in, Sign up): they have nothing to do there. To look at the Landing page as a visitor, log out.
+
+```php
+if (!isset($_SESSION['preview_visitor'])) {
+    $_SESSION['preview_visitor'] = true;   // a new browser has not logged in yet
+}
+// index.php, login.php, register.php:
+if ($current_user) {
+    header('Location: ' . url('dashboard.php'));
+    exit;
+}
+```
+
+> [!tip] What to remember
+> - A session is shared by every tab of the same browser: changing it in one tab changes it in all of them.
+> - Make the mock behave like the real thing; mocks that do extra things create bugs the real site will not have.
+
+**Check yourself**
+1. Why did a Landing page open in another tab break Settings in the first tab?
+2. A lecturer opens `dashboard.php` in a fresh browser. What happens now, and how do they get in?
+
+> [!success]- Answers
+> 1. Both tabs share one session (one `PHPSESSID` cookie). The Landing page set `preview_visitor` to true in that session, so the next request from either tab was a visitor's, and Settings, a members-only page, sent it to Log in.
+> 2. A new browser starts as a visitor, so the Dashboard sends them to Log in. Pressing Log in (no checks in stage F) makes them Nimali and opens the Dashboard. Adding `?member` to the address does the same in one step.
+
+Lessons: [[03.04 PHP Sessions and Login State]] · [[03.07 Access Control and Ownership Checks]]
+
+---
 
 ## Open points
 - **Invented sample values on the Landing page:** 1,248 members, 37 open listings, the full names Amaya Madushani and Kavindi Jayawardena (`@kandy.jungle`), Amaya's plant Pip with 48 likes, Kavindi's rating 5.0 (11), and the dates of the two predictions. Swap them for the team's choices if you prefer.
 - **Reminder chip says "Water Monty today"**, while p8 says "Water Goldie today". In the mock data Goldie's watering is two days *overdue* (red), which would look like an alarm on a welcome page, and the chip sits under Monty's card.
 - ~~**Members see the Landing page** until `dashboard.php` exists~~ — resolved in step 2.13: the Landing page is shown as a visitor; the stage B redirect is still a comment at the top of `index.php`.
 - **Visitor Exchange link → `index.php#fresh`** (Ranshitha's choice, 2026-10-14). When `exchange.php` exists, decide whether visitors should go to the full marketplace instead. **Explore** leads to `explore.php`, which is built in week 4 (P09); until then it shows "Not Found".
-- **Mock Log in / Create account** switch to member mode (step 2.13), although step 2.12 records that idea as declined: keep or remove.
+- **Mock Log in / Create account / Log out** decide who is logged in (steps 2.13 and 2.15). Step 2.12 records the Log in idea as declined; since step 2.15 the whole preview depends on it (a new browser starts as a visitor). Keep, unless the team prefers typing `?member`.
 - **Designed without a wireframe:** the smart tools section, Fresh on the exchange, and the phone layout (p23 has no Landing screen). Compare with the Figma prototype and change anything that differs.
 - **Placeholder drawing `pip.svg`**, like the other mock pictures, to be replaced by a real photo with a `docs/credits.md` entry.
 - **Sign up / Log in (P02):** "Forgot password?" links to Contact, because no password-reset page is in the page list or the Task Sheet that I know of: decide whether to add one. The username rule (lowercase letters, numbers, dots, underscores, 3–30 characters) and the "Full name" field being required are my choices; p9 does not state them. ~~The top bar on these two pages shows only the logo.~~ Changed in step 2.13: they now have the full visitor header (Ranshitha's review).
