@@ -74,3 +74,4 @@ General concepts and web theory are explained once, elsewhere in the vault. The 
 - 2026-10-13: style guide moved onto the shared frame (commit `1090305`); both week 1 "done when" checks pass by screenshot. Next: push, pull request, then week 2.
 - 2026-10-14: branch pushed and pull request #2 opened (`feature/scaffold-ui` into `develop`); PLN-07 and PLN-09 confirmed. Week 1 is complete except for merging the pull request.
 - 2026-10-14: pull request #2 merged into `develop` (week 1 complete). CORE-27 Landing page UI built on `feature/landing-ui` in four commits (`7a40ed1` … `8bd5f36`): mock data, hero and collage, How it works and smart tools, Fresh on the exchange. Not pushed yet.
+- 2026-10-14: pull request #3 (Landing) merged. CORE-07/CORE-09 Sign up and Log in UI built on `feature/accounts-ui` in three commits (`2d37c72`, `5507fa8`, `00512dc`); both pages checked at four widths and with the keyboard. Not pushed yet.

@@ -5,7 +5,7 @@ status: draft
 tags: [project, web]
 ---
 # PlantFolio Week 02 — Pages A: First Impressions
-> [!info] [[PlantFolio - Project Home]] · Stage F · 12–18 Oct 2026 · Landing: module MOD-10, branch `feature/landing-ui`
+> [!info] [[PlantFolio - Project Home]] · Stage F · 12–18 Oct 2026 · Landing: module MOD-10, branch `feature/landing-ui` (PR #3, merged) · Sign up / Log in: module MOD-03, branch `feature/accounts-ui`
 > **Study notes:** [[01.00 Building Pages]] · **Revision:** [[01.99 Summary - Building Pages]]
 
 > [!abstract] Week goal
@@ -20,7 +20,7 @@ tags: [project, web]
 | S1 Empty garden | CORE-25 (UI) | Shown on Dashboard and My Garden when the mock user has no plants | MOD-06 |
 
 - [x] P01 Landing (`index.php`), **CORE-27**. *UI built on 14 Oct 2026 (steps 2.1–2.4), on `feature/landing-ui`, not pushed. Still to check by hand: hover, keyboard focus and a real phone. Becomes Done in stage B, when the counts are live.*
-- [ ] P02 Sign up and Log in (`register.php`, `login.php`)
+- [x] P02 Sign up and Log in (`register.php`, `login.php`), **CORE-07, CORE-09**. *UI built on 14 Oct 2026 (steps 2.5–2.7), on `feature/accounts-ui`, not pushed. Still to check by hand: hover, keyboard focus and a real phone. Becomes Done in stage B, when sign-up and log-in work.*
 - [ ] P03 Dashboard (`dashboard.php`)
 - [ ] S1 Empty garden (`partials/empty-state.php`)
 - [ ] Mark DES-05 Done: the Figma link is already in the README
@@ -241,6 +241,133 @@ $fresh_listings = array_slice($mock_listings, 0, 4);
 Lessons: [[01.02 Card Grids, Images and Sticky Bars]] · [[00.03 PHP Includes and Partials]]
 
 ---
+### Step 2.5 — Shared pieces for Sign up and Log in
+> [!important] Goal (CORE-07 and CORE-09, UI half)
+> Build what `register.php` and `login.php` share before building either page: the tabs, the community panel, the layout, and a quieter top bar.
+
+**What was done (2026-10-14, branch `feature/accounts-ui`, commit `2d37c72`)**
+- Pull request #3 (Landing) merged into `develop` by Ranshitha (merge commit `9b7db4b`); `feature/accounts-ui` cut from the updated `develop`.
+- `includes/header.php`: a new page option **`$simple_header = true`**. The top bar then shows only the logo: no navigation, no buttons, no phone bottom bar. `footer.php` now asks `$show_bottom_bar` instead of `$is_member`.
+- `partials/auth-tabs.php` (new): **Sign up · Log in** as two links, drawn like the segmented control. Expects `$active`.
+- `partials/auth-panel.php` (new): the community panel, the quote from `@kandy.jungle` (Kandy · 64 plants) and a plant picture. Expects `$member`.
+- `includes/mock-data.php`: `$mock_quote_member`, Kavindi's `users` row with `plant_count`.
+- `public/assets/css/auth.css` (new) and `.input-prefix` in `components.css` for the "@" in front of a username.
+- Checked: the home page, About and the style guide, as member and visitor, still load with no PHP errors and still show the bottom bar only to members.
+
+**Why this way**
+- **Tabs are links, not JavaScript.** The wireframe names two files, `register.php` and `login.php`. Both draw the same card, so moving between them looks like switching a tab, works without JavaScript, and each form has its own address that can be shared or bookmarked.
+- **Two partials**, because both pages show the tabs and the panel, which is the rule for making a partial. (The plan said one partial; it became two, because the tabs sit in the form column and the panel in the other column.)
+- **A quiet top bar on these pages.** p9 shows no navigation. A visitor who is signing up should not be pulled away by menu links, a common pattern on sign-up pages. The logo still leads home.
+- **The quote is page text, the member is data.** There is no testimonials table, so the sentence is written in the partial; the username, town and plant count come from a `users` row, as they will in stage B.
+- **The panel comes after the form in the HTML.** A screen reader and the Tab key meet the form first. On a desktop CSS grid places the panel on the left, as on p9, without changing that order.
+
+```php
+$simple_header   = !empty($simple_header);
+$show_bottom_bar = $is_member && !$simple_header;   // footer.php prints the phone bar when this is true
+```
+```css
+@media (min-width: 1024px) {
+  .auth-shell { grid-template-columns: 5fr 7fr; }
+  .auth-main  { grid-row: 1; grid-column: 2; }   /* first in the HTML, shown on the right */
+  .auth-panel { grid-row: 1; grid-column: 1; }
+}
+```
+
+> [!tip] What to remember
+> - HTML order is reading order for screen readers and the Tab key; CSS grid can change the **visual** order without changing it.
+> - A page talks to the header through variables set before the include: `$page_title`, `$page_css`, and now `$simple_header`.
+
+**Check yourself**
+1. Why are the Sign up and Log in tabs links between two pages instead of JavaScript tabs?
+2. What does `$show_bottom_bar` decide, and why was it added instead of using `$is_member`?
+3. Why is the community panel second in the HTML when it appears first on a desktop?
+
+> [!success]- Answers
+> 1. The wireframe names two files, each form gets its own URL, and it works without JavaScript. Because both pages share the card and the tabs, the switch still feels like a tab change.
+> 2. Whether the phone bottom bar is printed. A member on a page with the simple header should not see it, so "is a member" is no longer enough on its own.
+> 3. So the form is read and reached first by screen readers and the keyboard. Grid places it on screen; the HTML order stays logical.
+
+Lessons: [[00.03 PHP Includes and Partials]] · [[01.01 Page Skeleton - Header, Footer and Navigation]] · [[07.01 CSS Layout with Flexbox and Grid]]
+
+---
+### Step 2.6 — The Sign up page
+> [!important] Goal (CORE-07, UI half)
+> Build `register.php` (wireframe p9): the form that gets a new member registered in under a minute.
+
+**What was done (2026-10-14, branch `feature/accounts-ui`, commit `5507fa8`)**
+- `public/register.php` (new): tabs (Sign up pressed), *Create your garden*, and the fields **Full name**, **Username** (with "@" in front), **Email**, **Password** (empty four-step meter and the one rule), **Location (optional)** with the reason it is asked, the **guidelines checkbox**, and one full-width **Create account** button. Then "Already have a garden? Log in" and the community panel.
+- Fields are empty, with grey example text (placeholders) from the wireframe's sample: Nimali Perera, nimali.grows, Kurunegala.
+- Checked by screenshot at 375 and 1280 px; no PHP errors as visitor or member.
+
+**Why this way**
+- **Every input has a `<label for>`** that matches its `id`. Clicking the label focuses the field, and a screen reader reads the label when the field is reached. A placeholder is only an example; it disappears on typing, so it can never replace a label.
+- **`name` attributes match the `users` columns** (`full_name`, `username`, `email`, `location`). In stage B, `$_POST['full_name']` goes straight into the column of the same name.
+- **`autocomplete` hints** (`name`, `username`, `email`, `new-password`, `address-level2`) let the browser fill in details and offer to save a strong password. `new-password` tells it this is a *new* password, not a log-in.
+- **The browser checks the basics today**: `required`, `type="email"`, `minlength="8"`, and `pattern`. Week 6 adds friendlier inline messages; stage B checks everything again on the server, because anything in the browser can be switched off.
+- **`aria-describedby`** links a field to its hint, so a screen reader reads "At least 8 characters, including a number" when the password field is reached.
+- **The guidelines link opens in a new tab** (`target="_blank" rel="noopener"`), so reading them never loses what was typed. A hidden "(opens in a new tab)" warns screen-reader users.
+- **No show-password eye yet.** A button that does nothing is worse than none; it comes with the week-6 JavaScript, together with the live meter and the live username check.
+
+```php
+<label class="field-label" for="password">Password</label>
+<input class="input" type="password" id="password" name="password"
+       autocomplete="new-password" minlength="8" pattern="(?=.*\d).{8,}" required aria-describedby="password-hint">
+<span class="field-hint" id="password-hint">At least 8 characters, including a number.</span>
+```
+
+> [!tip] What to remember
+> - Label + `for`/`id`, `name` = database column, `autocomplete`, `aria-describedby` for hints.
+> - Browser checks help the user; only the server's checks protect the database.
+
+**Check yourself**
+1. Why is a placeholder not enough without a label?
+2. What does `pattern="(?=.*\d).{8,}"` require?
+3. Why will the server check the form again in stage B when the browser already checks it?
+
+> [!success]- Answers
+> 1. It disappears as soon as the user types, it is often too faint to read, and screen readers may not announce it. The label stays visible and is always read.
+> 2. At least 8 characters (`.{8,}`), at least one of which is a digit (`(?=.*\d)` looks ahead for a digit without using up characters).
+> 3. Browser checks can be skipped (switching off JavaScript or `required` in DevTools, or sending the request with another tool). The server is the only place the rules cannot be bypassed.
+
+Lessons: [[00.05 HTML Forms]] · [[03.06 Form Handling - Validation, Redirects and Flash Messages]]
+
+---
+### Step 2.7 — The Log in page, and checks for both pages
+> [!important] Goal (CORE-09, UI half)
+> Build `login.php` (p9, state B), then check Sign up and Log in together at every width and with the keyboard.
+
+**What was done (2026-10-14, branch `feature/accounts-ui`, commit `00512dc`)**
+- `public/login.php` (new): the same card with **Log in** pressed, *Welcome back*, **Email or username**, **Password**, **Remember me**, **Forgot password?**, one full-width **Log in** button, and "New to PlantFolio? Create your garden".
+- **Checks, both pages** (no code change, so no commit): no horizontal scroll at 375, 768, 1024 and 1280 px, as visitor and member; every input has a label; screenshots at 375, 768 and 1280 px.
+- **Tab order, Sign up:** Skip to content › logo › Sign up › Log in › Full name › Username › Email › Password › Location › checkbox › community guidelines › Create account › Log in › footer links. **Log in:** … › Email or username › Password › Remember me › Forgot password? › Log in › Create your garden › footer links. The community panel has nothing to focus, so it adds no stops.
+
+**Why this way**
+- **One field for "Email or username"**, as on p9. People forget which one they used; stage B looks the value up in both columns.
+- **`autocomplete="current-password"`** here, `new-password` on Sign up: the browser offers the saved password on Log in and suggests a new strong one on Sign up.
+- **No error message is drawn yet.** In stage B every failure shows the same words, "Email or password is incorrect", so the page never reveals whether an account exists. The rule is written as a comment at the top of the file.
+- **"Forgot password?" goes to Contact** (`about.php#contact`). There is no reset page in the page list; see Open points.
+
+```php
+// Stage B: … find the user by email or username, password_verify(),
+//   session_regenerate_id(true), then go to the Dashboard. Every failure shows the same message,
+//   "Email or password is incorrect", and 5 failures lock the account for 15 minutes (CORE-12).
+```
+
+> [!tip] What to remember
+> - One generic log-in error: it never says *which* part was wrong.
+> - Test the Tab order: it should follow the page top to bottom, with no invisible stops.
+
+**Check yourself**
+1. Why does Log in say "Email or password is incorrect" instead of "No account with that email"?
+2. Why is `autocomplete` different on the two password fields?
+
+> [!success]- Answers
+> 1. A specific message tells an attacker which emails have accounts (account enumeration). One message for every failure gives nothing away.
+> 2. `current-password` asks the browser to fill in the saved password; `new-password` asks it to suggest and save a new one.
+
+Lessons: [[03.03 Password Hashing and Login Lockout]] · [[03.04 PHP Sessions and Login State]]
+
+---
 
 ## Open points
 - **Invented sample values on the Landing page:** 1,248 members, 37 open listings, the full names Amaya Madushani and Kavindi Jayawardena (`@kandy.jungle`), Amaya's plant Pip with 48 likes, Kavindi's rating 5.0 (11), and the dates of the two predictions. Swap them for the team's choices if you prefer.
@@ -248,3 +375,4 @@ Lessons: [[01.02 Card Grids, Images and Sticky Bars]] · [[00.03 PHP Includes an
 - **Members see the Landing page** until `dashboard.php` exists; the redirect is a comment at the top of `index.php` for stage B.
 - **Designed without a wireframe:** the smart tools section, Fresh on the exchange, and the phone layout (p23 has no Landing screen). Compare with the Figma prototype and change anything that differs.
 - **Placeholder drawing `pip.svg`**, like the other mock pictures, to be replaced by a real photo with a `docs/credits.md` entry.
+- **Sign up / Log in (P02):** "Forgot password?" links to Contact, because no password-reset page is in the page list or the Task Sheet that I know of: decide whether to add one. The username rule (lowercase letters, numbers, dots, underscores, 3–30 characters) and the "Full name" field being required are my choices; p9 does not state them. The top bar on these two pages shows only the logo.
