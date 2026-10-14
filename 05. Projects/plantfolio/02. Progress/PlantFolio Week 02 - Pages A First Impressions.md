@@ -631,6 +631,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 Lessons: [[03.04 PHP Sessions and Login State]] · [[03.06 Form Handling - Validation, Redirects and Flash Messages]]
 
 ---
+### Step 2.14 — Fix: a new account stays empty on every page
+> [!important] Goal (CORE-25 fix, from Ranshitha's review)
+> After Create account, every page must show the new member's empty garden: the Dashboard stays empty, My Garden is an empty garden, not only the first page.
+
+**What was done (2026-10-14, branch `feature/pages-ui`, commit `14c0d00`)**
+- Review point: after Create account the Dashboard was empty, but clicking Dashboard or My Garden showed Nimali's 18 plants again.
+- **Cause:** `?empty` lived only in one address (`dashboard.php?empty`); the next link had no `?empty`. The same bug `?guest` had in step 2.12.
+- `includes/mock-data.php`: `?empty` now sets **`$_SESSION['preview_empty']`**, kept from page to page. **Create account** turns it on (`mock_log_in_and_go('dashboard.php', true)`); **Log in** and **`?member`** turn it off; visitor mode clears it.
+- The empty preview now also clears her reminders, story, photos and likes, her exchange listing, and the counts on her public profile.
+- `includes/README.md`: the `?empty` row of the preview table updated.
+- Tested with one curl session: Create account → Dashboard, My Garden (grid and list), Dashboard again: all "Your garden is waiting", no bell dot; `plant.php?id=42` → "Plant not found"; Log in → 8 plants again; `?empty` → 0; `?member` → 8. No PHP errors.
+
+**Why this way**
+- **One place decides, every page obeys.** The pages already knew how to draw the empty state; only the *data* was wrong. Fixing `mock-data.php` fixed every page at once, including pages not built yet.
+- **A new account really has nothing.** In stage B, every query for a new user returns zero rows, on every page. The preview now matches that: no plants, no listings, no likes.
+
+```php
+if (isset($_GET['empty'])) {
+    $_SESSION['preview_empty'] = true;
+}
+if (!empty($_SESSION['preview_empty']) && $current_user && current_page() !== 'index.php') {
+    $mock_plants = [];
+    // … every other row that belongs to her
+}
+```
+
+> [!tip] What to remember
+> - If a state must last across pages, it belongs in `$_SESSION`, not in `$_GET`.
+> - Fix data problems where the data comes from, not page by page.
+
+**Check yourself**
+1. Why did My Garden show 18 plants right after Create account?
+2. In stage B, what will make a new member's pages empty, now that `?empty` will be deleted?
+
+> [!success]- Answers
+> 1. The empty switch was `?empty` in the address. The My Garden link has no `?empty`, so the mock data was full again.
+> 2. Nothing special: the queries ask for rows `WHERE user_id = ?` of the new user, and there are none yet. The pages' empty states (S1) then show automatically.
+
+Lessons: [[03.04 PHP Sessions and Login State]] · [[01.04 Rendering States - Empty, Owner and Visitor Views]]
+
+---
 
 ## Open points
 - **Invented sample values on the Landing page:** 1,248 members, 37 open listings, the full names Amaya Madushani and Kavindi Jayawardena (`@kandy.jungle`), Amaya's plant Pip with 48 likes, Kavindi's rating 5.0 (11), and the dates of the two predictions. Swap them for the team's choices if you prefer.
