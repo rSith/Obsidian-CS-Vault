@@ -9,5 +9,7 @@
     "margin": "2",
     "downscalePercent": 100
   },
-  "newFileFolderPath": "Attachment/all-notes"
+  "newFileFolderPath": "Attachment/all-notes",
+  "readableLineLength": true,
+  "strictLineBreaks": false
 }
