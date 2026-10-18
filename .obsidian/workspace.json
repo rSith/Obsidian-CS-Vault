@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.00 Web Engineering.md",
+                "file": "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.01 Web Engineering vs Software Engineering.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "03.00 Web Engineering"
+              "title": "03.01 Web Engineering vs Software Engineering"
             }
           }
         ],
@@ -218,6 +218,7 @@
   },
   "active": "d8cf3356a5b86371",
   "lastOpenFiles": [
+    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.00 Web Engineering.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/04. Web Design Principles/04.99 Summary - Web Design Principles.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/04. Web Design Principles/04.04 Functional and Usable Design.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/04. Web Design Principles/04.03 Graphics and Typography.md",
@@ -253,7 +254,6 @@
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 01 - Foundation.md",
     "05. Projects/plantfolio/01. Lessons/01. Building Pages/01.01 Page Skeleton - Header, Footer and Navigation.md",
     "05. Projects/plantfolio/01. Lessons/01. Building Pages/01.05 Dropdown Menus with details and summary.md",
-    "05. Projects/plantfolio/01. Lessons/00. Project Foundations/00.01 How a PHP Page Is Served.md",
     "01. Old_Vault/Attachment/images/Pasted image 20260904132141.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904120424.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904115845.png",
