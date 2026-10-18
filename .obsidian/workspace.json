@@ -35,7 +35,8 @@
               "title": "03.03 Design Goals, Quality and Design Actions"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -97,7 +98,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844
+    "width": 423.8999938964844,
+    "collapsed": true
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -214,10 +216,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "f897435ffee443e8",
+  "active": "d8cf3356a5b86371",
   "lastOpenFiles": [
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.03 Design Goals, Quality and Design Actions.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.02 WebE Process Framework.md",
+    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.03 Design Goals, Quality and Design Actions.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/Past Papers/PP 04 - Web Design Principles.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.01 Web Engineering vs Software Engineering.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.00 Web Engineering.md",
