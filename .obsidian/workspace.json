@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.03 Design Goals, Quality and Design Actions.md",
+                "file": "02. University/CMIS 3124 - Web Designing & E-Commerce/Past Papers/PP 01 - Evolution of the Web.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "03.03 Design Goals, Quality and Design Actions"
+              "title": "PP 01 - Evolution of the Web"
             }
           }
         ],
@@ -98,8 +98,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844,
-    "collapsed": true
+    "width": 423.8999938964844
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -218,8 +217,9 @@
   },
   "active": "d8cf3356a5b86371",
   "lastOpenFiles": [
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.02 WebE Process Framework.md",
+    "02. University/CMIS 3124 - Web Designing & E-Commerce/Past Papers/Past Paper Mapping.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.03 Design Goals, Quality and Design Actions.md",
+    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.02 WebE Process Framework.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/Past Papers/PP 04 - Web Design Principles.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.01 Web Engineering vs Software Engineering.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.00 Web Engineering.md",
@@ -247,7 +247,6 @@
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 03 - Pages B My Plants.md.tmp.9616.841875ba5cd9",
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 07 - AI Pages and UI Freeze.md",
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 03 - Pages B My Plants.md",
-    "05. Projects/plantfolio/02. Progress/PlantFolio Week 02 - Pages A First Impressions.md",
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 03 - Pages B My Plants.md.tmp.9616.02ea5bb880b2",
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 02 - Pages A First Impressions.md.tmp.9616.0ef2cf4e4735",
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 02 - Pages A First Impressions.md.tmp.9616.6693ff5437b5",
