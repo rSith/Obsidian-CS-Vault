@@ -19,7 +19,7 @@ tags: [project, web]
 | P10 Exchange | COM-07 (UI) | How-it-works strip, filters, listing cards with type badge, distance, looking for, rating, interest count | MOD-08 |
 | P11 Listing Detail | COM-08 (UI) | Gallery, summary, plant-story link, owner trust card, safety tips; state A (before interest) and state B (contact revealed) | MOD-08 |
 
-- [ ] P09 Explore (`explore.php?q=`)
+- [x] P09 Explore (`explore.php?q=`) — UI built 2026-10-20 (steps 4.1–4.4): search, Plants / People tabs, filters, matching people row and no-results state (not wired). Still to check by hand: hover, keyboard focus and a real phone.
 - [ ] P14 Public Profile (`user.php?u=`)
 - [ ] P10 Exchange (`exchange.php`)
 - [ ] P11 Listing Detail (`listing.php?id=`)
@@ -28,12 +28,13 @@ tags: [project, web]
 - Reusing partials with different data → [[00.03 PHP Includes and Partials]]
 - Query strings: reading `?id=` and `?q=` → [[01.03 Query Strings and GET Parameters in PHP]]
 - Two states of one page (before and after "I'm interested") → [[01.04 Rendering States - Empty, Owner and Visitor Views]]
+- A row that scrolls sideways on a phone (Explore's matching people) → [[01.06 Sideways Scrolling Rows and Scroll Snap]]
 
 ## Checks for every page
-- [ ] Matches its wireframe page and the Figma prototype
-- [ ] Works at 375, 768 and 1024 px with no horizontal scroll and no console errors
-- [ ] All output escaped with `e()`, images have alt text, inputs have labels
-- [ ] No contact details are printed before interest is expressed
+- [ ] Matches its wireframe page and the Figma prototype *(so far: P09 compared with p16 side by side; not yet with Figma)*
+- [ ] Works at 375, 768 and 1024 px with no horizontal scroll and no console errors *(so far: P09 measured at 375, 768, 1024 and 1280 px in 22 states, visitor and member, and screenshots at all three sizes; no JavaScript yet. Still to do: a real phone.)*
+- [ ] All output escaped with `e()`, images have alt text, inputs have labels *(so far: P09 checked: `<script>` in the search prints as text everywhere, every image has `alt`, every input has a label)*
+- [ ] No contact details are printed before interest is expressed *(so far: P09 has none: member and plant cards print only public columns)*
 
 ---
 ## Work log
@@ -238,7 +239,101 @@ foreach ($before_species as $plant) {
 Lessons: [[01.05 Dropdown Menus with details and summary]] · [[04.04 Search, Filters and Pagination]] · [[01.03 Query Strings and GET Parameters in PHP]]
 
 ---
+### Step 4.4 — Explore: People tab, matching people row and no-results state
+> [!important] Goal (COM-01 and COM-02, UI half)
+> Finish P09 (wireframe p16): the **People tab** ("lists profiles with rating and plant count"), the **"Plant lovers matching" row** above the plants (element 6), and a **no-results state** that "suggests removing the last filter and shows popular plants instead of a blank page" (UX notes). Then the page checks.
+
+**What was done (2026-10-20, branch `feature/pages-ui`, commit `85c38bc`)**
+- `partials/member-card.php` (new): one card for a member: avatar, **@username**, full name, town with a pin, "64 plants · ★ 5.0 (11)", and a sage tag **"2 matching plants"** when the search found some of their plants. The whole card links to `user.php?u=<username>` (built later this week). With `'compact' => true` it becomes the short card of the row: avatar, @username and one line, "42 plants · ★ 4.8 (14)". It prints only public columns, never email or phone.
+- `public/explore.php`:
+  - **People tab**: the count ("5 people"), a line saying why these people match, and a grid of member cards (1 column on a phone, 2 on a tablet, 3 on a desktop). Nobody found: an empty state, *No members match "zzzz"*, with **Show all members**.
+  - **Matching row** on the Plants tab: only for a search that matched someone, at most three cards, and **See all 5 people**, which opens the People tab with the same search. `?q=monstera` gives @aroid.amaya, @kandy.jungle and @dinesh.greens, **the three on p16, in the same order**.
+  - **No plants found**: a message naming the search, then buttons. With filters on: **Remove "Kandy"** (the last chip) and **Clear all filters** (two or more filters) or **Clear the search**. Without filters: **Show all plants**. Under it, **Popular plants**: the six most-liked public plants.
+  - `match_count` is only counted for a plain word search: with no word every plant would "match", and an `@` search is about names.
+  - **Bug fix:** a hand-made address with a list where one word belongs (`q[]=x`, `sort[]=x`) gave a PHP warning or even a fatal error. Every single value now goes through `$get_text()`, which accepts text only.
+  - Small tidy-ups: the two tab addresses are worked out once (`$plants_tab_url`, `$people_tab_url`), and the "most liked" comparison became a named function, `most_liked_first()`, used by the sort and by Popular plants.
+- `partials/empty-state.php`: an action may now give `'url'` (a full address built with `query_url()`) instead of `'href'` (a page name). The chip links on Explore are full addresses.
+- `public/assets/css/components.css`: the member card styles (phone: avatar beside the text; tablet and up: upright and centred, avatar 72 px). The empty state lets a very long word break (`overflow-wrap: anywhere`).
+- `public/assets/css/explore.css`: the sideways strip for the row, the People grid, the Popular plants section and one heading style for both new headings.
+- `partials/README.md` and `public/styleguide.php`: the member card is listed and shown in both looks.
+- **Checked:**
+  - `php -l` on every changed file.
+  - curl, as a visitor and as Nimali: `?q=monstera` (6 plants, 5 people), `&tab=people`, `?q=@kandy` (opens People, 1 person), `?q=zzzz`, `?q=Perera` (finds Nimali by surname, no plants), `?q=monstera&health=sick&location=Kandy`. Hand-made addresses `tab=evil`, `q[]=x`, `tab[]=people&sort[]=x&health[]=y&location[]=z&exchange[]=1`, `q[a][b]=x`: no PHP errors. `q=<script>alert(1)</script>` prints as text in the title, the search box, the heading and the empty state.
+  - Screenshots looked at: 1280 px (Plants and People for monstera, @kandy, zzzz, the filtered no-results, the People no-results), 768 px (monstera Plants and People, zzzz) and a true 375 px (monstera top and further down, People, @kandy, zzzz further down). The style guide's new section at 1280 px.
+  - **No sideways scroll, measured:** for 11 addresses × 4 widths (375, 768, 1024, 1280) × visitor and member = 88 page views, the page's `scrollWidth` equals its `clientWidth` every time, including a search for a 100-letter word.
+  - Every image has `alt`, there is one `<h1>`, no duplicate `id`s, no email or phone anywhere on the page. The page has no JavaScript, so there can be no console errors.
+  - The other pages (Landing, Dashboard, My Garden, both plant views, Add plant, Settings, About, Log in, Sign up, the style guide, `?empty`) still have no PHP errors after the shared changes.
+
+**Why this way**
+- **One partial, two looks.** The same member appears in the row and on the People tab, so both are drawn by one file. A `compact` option changes the layout but not the data, the same idea as the plant card's `community` option in step 4.2. If the rating format changes, it changes in one place.
+- **The row scrolls, the page does not.** Three cards do not fit side by side on a phone. Stacking them would push the plants a screen down. A strip that scrolls sideways keeps them in one short row, and the second card peeks in at the edge so people know there is more. Only the strip has `overflow-x: auto`, so the page stays 375 px wide (lesson 01.06).
+- **"The last filter" is the last chip.** The filter form sends every choice at once, so the page cannot know which one was ticked last. The last chip in the row is the closest honest answer, and its link already removes just that filter. If that still finds nothing, the next page suggests the next one.
+- **Popular plants ignore the search and the filters.** Their job is to show the page is not broken and give something to look at. They are the same community cards, so they open the same plant pages.
+- **Text only from the address.** PHP turns `q[]=x` into an array. `trim()` on an array gives a warning, and an array used as an array key stops the page with a fatal error. Checking `is_string()` first, in one small function, protects all six single values. The species list already did this in step 4.2.
+- **Phone layout for the People card.** A centred card with a big avatar left a lot of white space on a phone and made each card about 270 px tall. Beside the text it takes about 160 px. From 768 px there is room for the upright card of a profile grid.
+
+```php
+// A hand-made address can send a list where one word belongs: only text is accepted
+$get_text = fn ($name) => is_string($_GET[$name] ?? null) ? $_GET[$name] : '';
+$q    = mb_substr(trim($get_text('q')), 0, 100);
+$sort = $get_text('sort');   // then checked against the allowed sorts, as before
+
+// The row: only on the Plants tab, only for a search, three at most
+$people_row = ($tab === 'plants' && $term !== '') ? array_slice($people, 0, 3) : [];
+
+// No plants: suggest removing the last chip; its link already removes just that filter
+$last_filter = $active_filters ? end($active_filters) : null;
+```
+
+```php
+<?php // explore.php: the same partial in two places ?>
+<?php partial('member-card', ['member' => $member, 'compact' => true]); ?>   <?php // the row ?>
+<?php partial('member-card', ['member' => $member]); ?>                      <?php // the People tab ?>
+```
+
+```css
+/* Phone: one strip that scrolls sideways, each card snapping into place */
+.people-row-list {
+  display: grid;
+  grid-auto-columns: minmax(240px, 80%);   /* the next card peeks in */
+  grid-auto-flow: column;
+  overflow-x: auto;                        /* only the strip scrolls */
+  scroll-snap-type: x mandatory;
+}
+.people-row-list > * { scroll-snap-align: start; }
+```
+
+**Problems and fixes**
+- **`q[]=x` and `sort[]=x` broke the page.** Step 4.2's test tried `species[0][]=1`, `tab=evil` and other wrong *words*, but no list in a single-value field. This step's test found a warning ("Array to string conversion") for `q[]=x` and a fatal error ("Illegal offset type") for `sort[]=x`. Fixed with `$get_text()`. The same problem is still in `garden.php`, `plant.php` and `settings.php` (see Open points).
+- **A 100-letter search word pushed the page sideways** at 375 px: the empty-state heading could not break it. `overflow-wrap: anywhere` on the empty state and on the two new headings fixed it.
+- **First People card on a phone was too tall** (centred, lots of white space). Changed to avatar beside the text on phones.
+- **Screenshot tool:** headless Edge sometimes returned before the PNG was written, so the screenshot seemed to fail. The helper script now waits for the file.
+- **Measuring the page width:** a test page opened from the disk (`file:///`) is not allowed to read pages from `localhost` (a different origin), even with the browser's security switched off. A temporary PHP built-in server (`php -S localhost:8099`, with a small router kept in the scratch folder, not the repo) served the test page and the site from one origin. The first runs printed only "waiting": the generated JavaScript had a real line break inside a string. A sanity test with a 600 px-wide page showed the measurement does catch overflow.
+
+> [!tip] What to remember
+> - Same data in two places → one partial with an option, not two copies.
+> - A row may scroll sideways; the page never. Scroll only the box that needs it.
+> - Anything in `$_GET` can be an array. Check `is_string()` before treating a value as text.
+> - A no-results page should always offer a next step and something to look at.
+
+**Check yourself**
+1. Why is the member card one partial with a `compact` option instead of two partials?
+2. What did `explore.php?sort[]=x` do before this step, what does it do now, and why?
+3. On a phone, the three member cards are wider than the screen together. Why does the page not scroll sideways?
+
+> [!success]- Answers
+> 1. Both show the same member row from the same data. One file means the username, rating and link are written once, so the row and the People tab can never disagree. The option only changes the layout.
+> 2. Before: a fatal error, because `$sort` was an array and `array_key_exists()` cannot use an array as a key. Now `$get_text('sort')` returns `''` for anything that is not text, `''` is not an allowed sort, so the page falls back to Most liked.
+> 3. Only the strip has `overflow-x: auto`. Its extra width becomes a scroll inside the strip, and its negative margins and padding add up to exactly the screen width. The page's `scrollWidth` equals its `clientWidth`, which was measured at 375 px.
+
+Lessons: [[00.03 PHP Includes and Partials]] · [[01.06 Sideways Scrolling Rows and Scroll Snap]] · [[01.03 Query Strings and GET Parameters in PHP]] · [[01.04 Rendering States - Empty, Owner and Visitor Views]] · [[04.04 Search, Filters and Pagination]]
+
+---
 ## Open points
 - **Explore (P09), mock data:** Dinesh lives in **Negombo** (p16), while his snake plant listing is in Kuliyapitiya: a listing can be somewhere other than its owner's home town. *Monstera* 'Thai Constellation' has its own species row because p16 prints that name. The owners of Leafy and Holey (cut off on p16), Ruwan's counts, every member's `created_at`, the collections and the six plants after Holey are invented. All monsteras use the Monty placeholder drawing.
-- **Explore (P09), page:** "Newest" sorts by plant id (no `created_at` on `plants`). A new search drops the filters (my choice). The species chip shows the common name ("Swiss cheese plant"), where p16 shows "Monstera". The People tab is a placeholder until step 4.4. Nimali appears among the people, and her own plants among the results: p16 shows Monty, so I kept both.
+- **Explore (P09), page:** "Newest" sorts by plant id (no `created_at` on `plants`). A new search drops the filters (my choice). The species chip shows the common name ("Swiss cheese plant"), where p16 shows "Monstera". The People tab was a placeholder until step 4.4, which filled it (see the next bullets). Nimali appears among the people, and her own plants among the results: p16 shows Monty, so I kept both.
 - **Explore (P09), filters:** **Apply filters** is not on p16; it is needed until week 6 applies them on every change. Health has an **Any** chip (not on p16) so a choice can be taken back without JavaScript. The species list is one row per species, not p16's groups ("Monstera", "Succulents"). "Clear all" shows both in the sidebar and beside the chips (the sidebar is hidden on a phone). p23's bottom sheet for filters waits for week 6; until then the panel opens in place.
+- **Explore (P09), member card (step 4.4):** a partial (`partials/member-card.php`), because the row and the People tab show the same thing. The compact card keeps the rating count, "★ 4.8 (14)", where p16 shows "★ 4.8": the rating partial looks the same everywhere. The compact avatar is the 40 px default, not `sm` (28 px): on p16 it is as tall as the two text lines. On the People tab the avatar is 72 px (the profile's 96 px crowds a card a third of the page wide). On a phone the People card puts the avatar beside the text; from 768 px it stands upright and centred. "N matching plants" shows only on the People tab, only for a plain word search. Nimali appears among the people when she is logged in, as before.
+- **Explore (P09), People tab and row (step 4.4):** the People tab is ordered by most matching plants, then the biggest garden; without a search, the biggest garden first. A muted line under the count says why these people match (not on p16). The row shows only for a search that matched someone, at most three cards, also above "0 plants" (e.g. `?q=Perera` finds Nimali by surname). "See all 5 people" has no arrow, and quotes are straight, as on p16. Its heading and "Popular plants" use Poppins semibold like p16's row heading, not Lora. Copy never uses he or she ("See all 5 people", not "See her listings").
+- **Explore (P09), no results (step 4.4):** "the last filter" is the last chip in the row, because one form sends every filter at once. Buttons: Remove "*last chip*" (e.g. Remove "Kandy"), then Clear all filters (two or more filters) or Clear the search; with no filters, Show all plants (keeps the sort). Popular plants are the six most-liked public plants (ties by name), ignoring the search and the filters; six fills 1, 2 and 3 columns evenly. All wording is mine: *No plants match "zzzz"* (+ *with these filters*), *No plants match these filters*, *No public plants yet*, *Check the spelling or try a shorter word. Until then, here are some popular plants.*, *Remove a filter to widen the search. …*, *Popular plants · The most-liked public plants in the community.*, *No members match "…"* with Show all members.
+- **Explore (P09), code (step 4.4):** `partials/empty-state.php` accepts `'url'` beside `'href'`. Address values are text only (`$get_text()`). **Same bug still open in earlier pages:** `garden.php?q[]=x` (warning), `garden.php?sort[]=x`, `plant.php?id=42&tab[]=x` and `settings.php?saved[]=x` (fatal errors). Suggestion: move `$get_text()` into `includes/helpers.php` as a shared helper and use it on those pages, as its own small fix step. To decide in DES-07: whether a member's public `plant_count` (42, 64 …) counts private plants too.
