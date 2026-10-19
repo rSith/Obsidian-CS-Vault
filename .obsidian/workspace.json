@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.04 Advanced Tables and Figures.md",
+                "file": "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.05 HTML Forms.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "00.04 Advanced Tables and Figures"
+              "title": "00.05 HTML Forms"
             }
           }
         ],
@@ -98,8 +98,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844,
-    "collapsed": true
+    "width": 423.8999938964844
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -218,6 +217,13 @@
   },
   "active": "d8cf3356a5b86371",
   "lastOpenFiles": [
+    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.99 Summary - HTML and CSS Foundations.md",
+    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.09 Styling Forms with CSS.md",
+    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.08 CSS Selectors, Pseudo-classes and the Cascade.md",
+    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.07 CSS Fundamentals.md",
+    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.06 Semantic HTML.md",
+    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.05 HTML Forms.md",
+    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.04 Advanced Tables and Figures.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.03 HTML Elements - Text, Lists, Links, Images, Tables.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.02 HTML Document Structure.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.01 How Websites Work.md",
@@ -237,13 +243,6 @@
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/04. Web Design Principles/04.02 Colour Psychology and Colour Schemes.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/04. Web Design Principles/04.01 Aesthetic Layout and CARP Principles.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/04. Web Design Principles/04.00 Web Design Principles.md",
-    "02. University/CMIS 3142 - Computational Methods/Past Papers/PP 02 - Error Analysis.md",
-    "02. University/CMIS 3142 - Computational Methods/01. Lessons/02. Error Analysis/02.01 Accuracy, Precision and Error Measures.md",
-    "02. University/CMIS 3142 - Computational Methods/01. Lessons/06. LU and Cholesky/06.02 Cholesky Method.md",
-    "02. University/CMIS 3142 - Computational Methods/01. Lessons/06. LU and Cholesky/06.01 LU Decomposition.md",
-    "02. University/CMIS 3142 - Computational Methods/01. Lessons/06. LU and Cholesky/06.00 LU Decomposition and Cholesky.md",
-    "02. University/CMIS 3142 - Computational Methods/00. CMIS 3142 Course Overview.md",
-    "02. University/CMIS 3142 - Computational Methods/01. Lessons/02. Error Analysis/02.00 Error Analysis.md",
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 04 - Pages C Community.md.tmp.37328.dd4c1d926574",
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 04 - Pages C Community.md.tmp.37328.59d6231cf495",
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 04 - Pages C Community.md.tmp.37328.15f543eec9da",
