@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.02 WebE Process Framework.md",
+                "file": "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.01 Matrix Types and Vector Products.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "03.02 WebE Process Framework"
+              "title": "03.01 Matrix Types and Vector Products"
             }
           },
           {
@@ -35,8 +35,7 @@
               "title": "03.02 Row-Major and Column-Major Storage"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -216,8 +215,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "d8cf3356a5b86371",
+  "active": "f897435ffee443e8",
   "lastOpenFiles": [
+    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.02 WebE Process Framework.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.02 Row-Major and Column-Major Storage.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.01 Matrix Types and Vector Products.md",
     "02. University/CMIS 3142 - Computational Methods/Java Codes/Practice/VectorProducts.class",
     "02. University/CMIS 3142 - Computational Methods/Java Codes/Practice/VectorProducts.java",
@@ -252,8 +253,6 @@
     "02. University/CMIS 3124 - Web Designing & E-Commerce/Past Papers/PP 01 - Evolution of the Web.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/Past Papers/Past Paper Mapping.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.03 Design Goals, Quality and Design Actions.md",
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.02 WebE Process Framework.md",
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/Past Papers/PP 04 - Web Design Principles.md",
     "01. Old_Vault/Attachment/images/Pasted image 20260904132141.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904120424.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904115845.png",
