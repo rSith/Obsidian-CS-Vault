@@ -1,20 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Piyumi
- */
 public class ColumnVector {
-    int size;
-    int[] data;
+    final int size;
+    final double[] data;
 
     ColumnVector(int size) {
+        if (size <= 0) {
+            throw new IllegalArgumentException("Size must be positive");
+        }
         this.size = size;
-        data = new int[size];
+        data = new double[size];
+    }
+
+    void set(int i, double value) {
+        data[i] = value;
+    }
+
+    double get(int i) {
+        return data[i];
     }
 
     void display() {
@@ -23,6 +24,3 @@ public class ColumnVector {
         }
     }
 }
-
-    
-

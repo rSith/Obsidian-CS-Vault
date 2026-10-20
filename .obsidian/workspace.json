@@ -34,8 +34,19 @@
               "icon": "lucide-file",
               "title": "03.02 Row-Major and Column-Major Storage"
             }
+          },
+          {
+            "id": "497497a5840ad823",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
+            }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -97,8 +108,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844,
-    "collapsed": true
+    "width": 423.8999938964844
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -215,11 +225,15 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "f897435ffee443e8",
+  "active": "0b09aa595b698eed",
   "lastOpenFiles": [
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.02 WebE Process Framework.md",
+    "02. University/CMIS 3142 - Computational Methods/Java Codes/Matrix/Main.class",
+    "02. University/CMIS 3142 - Computational Methods/Java Codes/Matrix/RowVector.class",
+    "02. University/CMIS 3142 - Computational Methods/Java Codes/Matrix/FullMatrix.class",
+    "02. University/CMIS 3142 - Computational Methods/Java Codes/Matrix/ColumnVector.class",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.02 Row-Major and Column-Major Storage.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.01 Matrix Types and Vector Products.md",
+    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.02 WebE Process Framework.md",
     "02. University/CMIS 3142 - Computational Methods/Java Codes/Practice/VectorProducts.class",
     "02. University/CMIS 3142 - Computational Methods/Java Codes/Practice/VectorProducts.java",
     "02. University/CMIS 3142 - Computational Methods/Java Codes/Practice",
@@ -232,9 +246,6 @@
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/02. Error Analysis/02.99 Summary - Error Analysis.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/02. Error Analysis/02.06 Conditioning and Stability.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/02. Error Analysis/02.05 Well-Posed Problems, Forward and Backward Error.md",
-    "05. Projects/plantfolio/PlantFolio - Project Home.md.tmp.23624.226825535c2c",
-    "05. Projects/plantfolio/02. Progress/PlantFolio Week 04 - Pages C Community.md.tmp.23624.077694043422",
-    "05. Projects/plantfolio/02. Progress/PlantFolio Week 04 - Pages C Community.md.tmp.23624.3dc3a2be26f2",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/02. Error Analysis/02.04 Rounding Errors in GPA Calculation.md",
     "05. Projects/plantfolio/01. Lessons/01. Building Pages/01.06 Sideways Scrolling Rows and Scroll Snap.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.05 HTML Forms.md",
@@ -252,7 +263,6 @@
     "02. University/CMIS 3124 - Web Designing & E-Commerce/CMIS 3124 Course Home.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/Past Papers/PP 01 - Evolution of the Web.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/Past Papers/Past Paper Mapping.md",
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.03 Design Goals, Quality and Design Actions.md",
     "01. Old_Vault/Attachment/images/Pasted image 20260904132141.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904120424.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904115845.png",
