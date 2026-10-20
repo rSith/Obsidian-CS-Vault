@@ -20,7 +20,7 @@ tags: [project, web]
 | P11 Listing Detail | COM-08 (UI) | Gallery, summary, plant-story link, owner trust card, safety tips; state A (before interest) and state B (contact revealed) | MOD-08 |
 
 - [x] P09 Explore (`explore.php?q=`) — UI built 2026-10-20 (steps 4.1–4.4): search, Plants / People tabs, filters, matching people row and no-results state (not wired). Still to check by hand: hover, keyboard focus and a real phone.
-- [ ] P14 Public Profile (`user.php?u=`)
+- [x] P14 Public Profile (`user.php?u=`) — UI built 2026-10-20 (step 4.5): identity, stats, tabs (Collections, Plants, Listings, Ratings), collection collages, trader rating and latest review, owner and visitor views, and a 404 for unknown members (not wired). Still to check by hand: hover, keyboard focus and a real phone.
 - [ ] P10 Exchange (`exchange.php`)
 - [ ] P11 Listing Detail (`listing.php?id=`)
 
@@ -31,10 +31,10 @@ tags: [project, web]
 - A row that scrolls sideways on a phone (Explore's matching people) → [[01.06 Sideways Scrolling Rows and Scroll Snap]]
 
 ## Checks for every page
-- [ ] Matches its wireframe page and the Figma prototype *(so far: P09 compared with p16 side by side; not yet with Figma)*
-- [ ] Works at 375, 768 and 1024 px with no horizontal scroll and no console errors *(so far: P09 measured at 375, 768, 1024 and 1280 px in 22 states, visitor and member, and screenshots at all three sizes; no JavaScript yet. Rechecked after the step 4.4 review fixes: 7 states × 4 widths, no sideways scroll, both tabs 44 px tall. Still to do: a real phone.)*
-- [ ] All output escaped with `e()`, images have alt text, inputs have labels *(so far: P09 checked: `<script>` in the search prints as text everywhere, every image has `alt`, every input has a label)*
-- [ ] No contact details are printed before interest is expressed *(so far: P09 has none: member and plant cards print only public columns)*
+- [ ] Matches its wireframe page and the Figma prototype *(so far: P09 compared with p16 and P14 with p21 side by side; not yet with Figma)*
+- [ ] Works at 375, 768 and 1024 px with no horizontal scroll and no console errors *(so far: P09 measured at 375, 768, 1024 and 1280 px in 22 states, visitor and member, and screenshots at all three sizes; no JavaScript yet. Rechecked after the step 4.4 review fixes: 7 states × 4 widths, no sideways scroll, both tabs 44 px tall. P14 measured at 375, 768, 1024 and 1280 px in 20 states (80 page views, visitor, owner and empty), screenshots at all three sizes, the ⋯ menu open at 375 px; no JavaScript. Still to do: a real phone.)*
+- [ ] All output escaped with `e()`, images have alt text, inputs have labels *(so far: P09 checked: `<script>` in the search prints as text everywhere, every image has `alt`, every input has a label. P14 checked: `<script>` in `?u=` prints as text, every image has `alt`, no duplicate ids; the page has no inputs)*
+- [ ] No contact details are printed before interest is expressed *(so far: P09 has none: member and plant cards print only public columns. P14 has none: no email, phone, `mailto:` or `tel:` in any state)*
 
 ---
 ## Work log
@@ -354,6 +354,135 @@ $last_filter          = ($active_filters && !$search_found_nothing) ? end($activ
 Lessons: [[00.03 PHP Includes and Partials]] · [[01.06 Sideways Scrolling Rows and Scroll Snap]] · [[01.03 Query Strings and GET Parameters in PHP]] · [[01.04 Rendering States - Empty, Owner and Visitor Views]] · [[04.04 Search, Filters and Pagination]]
 
 ---
+### Step 4.5 — Public Profile: identity, stats, tabs, collages and trader rating
+> [!important] Goal (COM-05 and COM-13, UI half)
+> Build `user.php?u=` (wireframe p21, warm style): a member's public portfolio and trust record as a trader. Identity under a sage cover band, a stats row, one main action, tabs for Collections, Plants, Listings and Ratings, collection collages, the rating breakdown and the latest review. Only public things, and never contact details.
+
+**What was done (2026-10-20, branch `feature/pages-ui`, commits `c20072e`, `69bab66` and `c0181dd`)**
+- `includes/mock-data.php` (commit `c20072e`):
+  - **`$mock_users`**: every member gains `bio`, `collection_count` and `swap_count`. Their `plant_count` and `collection_count` are now **public-only**, because these rows are what other people see. Nimali shows **13 plants in 2 collections** to others, while her own Dashboard and My Garden (`$current_user`) still say 18 in 3.
+  - **`$mock_collections`** (Nimali's) gain `cover_photos`, the three photos of the collage.
+  - **`$mock_community_collections`** (new): the other members' collections, the ids 21 to 52 that `$mock_community_plants` already pointed at, two of them private. Each member's public collections add up to their plant count (Amaya 12 + 30 = 42).
+  - **`$mock_user_ratings`** (new): 10 written reviews shaped like `user_ratings` rows, joined with the rater (`rater_username`, `rater_full_name`, `rater_avatar`) and the listing (`listing_title`). Each finished exchange appears twice, once in each direction. Nimali's newest is the one on p21: *"Healthy cuttings, well packed. Easy and friendly swap!"* by @dinesh.greens on 14 Sep.
+  - **`$mock_rating_counts`** (new): the result of a `GROUP BY rated_id, score`, how many 5★, 4★ … each member received. Each member's counts add up to their `rating_count` and average to their `rating_avg`.
+  - **`$mock_listings`**: Nimali's **Peace lily division** from p17 (id 6), so "See listings (2)" matches p21.
+  - The `?empty` switch also clears her swaps, ratings and received reviews.
+- `public/user.php` (new, commit `69bab66`):
+  - **Whose profile:** `?u=nimali.grows`, also `?u=@Nimali.Grows` (lower-cased, the `@` removed). A member with no `?u` sees their own profile. An unknown or missing name answers HTTP **404**, "Member not found", with a **Find people** button (Explore's People tab). Only text from the address is accepted (`$get_text()`, as on Explore).
+  - **Identity:** the sage cover band with a decorative drawing (`alt=""`), the avatar (96 px, 120 px from 768 px) hanging over the band, the name in Lora, "@nimali.grows · Kurunegala · Member since Mar 2025", and the bio.
+  - **Main action:** visitors and other members get **See listings (2)**, which opens the Listings tab. The owner gets **Edit profile** (Settings) instead. A ⋯ `<details>` menu: **Report profile** (About › Contact) and **Community guidelines** for others; **Account settings**, **Privacy settings** and **Go to My Garden** for the owner.
+  - **Stats row:** plants, collections, swaps completed, and "4.9 trader rating · 23" (or "– no ratings yet").
+  - **Tabs** with counts, as links (`?tab=plants#tab-plants`) with `aria-current="page"`. **Collections**: one collage card per public collection (one large photo, two small); a card opens the Plants tab with only that collection (`&collection=1`). **Plants**: the public plants as community plant cards. **Listings**: the open listings as listing cards. **Ratings**: the written reviews (avatar, @username linking to that member's profile, stars, date, comment, and what was swapped).
+  - **Trader rating card:** the big average, stars, "23 ratings", one bar per score from 5★ to 1★ with its count, then the latest review and "See all reviews (5)". Beside the tabs on a desktop, under them on a phone and a tablet.
+  - **Owner view:** the same public page plus a note: *This is how other people see your profile. Hidden from them: 1 private collection and 5 private plants.* with a Privacy settings link.
+  - **Empty states** for no public collections, plants, open listings or ratings: a next step for the owner (Go to My Garden, Add a plant, List a plant) and a plain sentence for everyone else.
+  - The header lights **Profile** on your own profile and **Explore** on anyone else's (`$nav_area`, as on the Plant Profile in step 4.2a).
+- `partials/stars.php` (new): five stars filled up to a score, read out as one image ("Rated 4.9 out of 5"). The style guide uses it too.
+- `partials/plant-card.php`: a new option, `'show_owner' => false`, for community cards: the collection instead of the owner, because every card on a profile has the same owner.
+- `public/assets/css/profile.css` (new), `public/assets/img/profile-cover.svg` (new: three plants from the mock drawings, without their background boxes), and small additions to `components.css`, `partials/README.md` and `public/styleguide.php`.
+- **Fix (commit `c0181dd`):** the ⋯ menu no longer breaks "Community guidelines" over two lines.
+- **Two sessions.** The first session stopped after commit `69bab66` (usage limit), before the checks and this note. The second session ran the checks below, made the menu fix and wrote this section.
+- **Checked** (second session):
+  - `php -l` on the five changed PHP files.
+  - curl on 30 addresses as a visitor, as Nimali and as the empty Nimali: 200 for real members; 404 for `?u=nobody`, `?u=<script>alert(1)</script>`, `?u[]=x`, `?u=%FF`, a 300-letter name, and a visitor with no `?u`. No PHP warnings anywhere. The script tag prints as text, and a long name is cut to 40 letters in the message. `tab=bogus`, `tab[]=x`, `collection[]=1`, `collection=-1`, `collection=21` (someone else's) and `collection=3` (private) all fall back safely.
+  - **Privacy:** Vera, Pearl, the Succulents collection and the two private community collections never appear to other people. No email, phone, `mailto:` or `tel:` anywhere.
+  - **Other pages after the mock-data change:** every other page built so far (Landing, Dashboard, My Garden, three plant views, Explore in three states, Settings, the style guide, About, Log in, Sign up, Add plant) × visitor, member and empty: no PHP errors. Nimali's Dashboard and My Garden still say 18 plants in 3 collections; her plant's owner card (seen by a visitor) and her Explore people card say 13 plants, the public count. The Landing page's fresh listings are unchanged.
+  - **Screenshots looked at:** 1280 px (Nimali as a visitor and as the owner, Kavindi's Plants, Listings and Ratings, the 404, the empty profile's Collections and Ratings), 768 px (Nimali as a visitor, the owner on Ratings) and a true 375 px (Nimali as a visitor and as the owner, the owner with the bottom bar, Kavindi's three tabs, the 404, the empty profile, and the open ⋯ menu).
+  - **Measured:** 20 addresses × 4 widths (375, 768, 1024, 1280) = 80 page views with no sideways scroll. The ⋯ button is 44 × 44 px and every menu item 44 px. One `<h1>` on every profile, every image has `alt`, no duplicate ids. The page has no JavaScript, so there can be no console errors.
+
+**Why this way**
+- **Public numbers for public eyes.** The stats, the tab counts and Explore's people cards are read by other people, so they count only public plants and collections. "18 plants" with only 13 visible would tell a stranger that 5 are hidden. Nimali's own pages still count everything. In stage B this is `AND is_public = 1` inside the `COUNT()` query.
+- **The owner sees the public page.** p21 is the profile "shown as another member sees it". So the owner gets the same page plus a note, not a different page. The note's numbers are her full counts minus her public counts, so the two can never disagree.
+- **Privacy is decided when the data is loaded.** Private collections are removed with `array_filter()` before any HTML is written. A private collection's id in the address (`&collection=3`) is simply not found, so the page shows all public plants and never says the collection exists.
+- **A GROUP BY result, not 23 rows.** The bars only need "how many of each score". The query returns one row per score that someone gave, so the page starts every score at 0 and fills in the rows. A score nobody gave still gets its empty bar.
+- **The average must match the bars.** p21's 20 / 2 / 1 averages 4.83, which prints 4.8, while p16, p17, p18 and p21 all print 4.9. One 4★ became a 5★: 21 / 1 / 1 = 112 / 23 = 4.87, printed 4.9.
+- **Written reviews and ratings are not the same.** A rating can come without a comment. The Ratings tab lists the 5 written reviews and says "out of 23 ratings"; the tab count and the breakdown use all 23.
+- **Tabs as links with `#tab-…`.** Each tab has its own address and works without JavaScript (week 5 adds the tab script). The `#tab-ratings` part makes the browser scroll down to the tabs and, on a phone, scroll the sideways tab row until the chosen tab is in view. The id sits on a `<span>` inside the link, because a link that is the target of `#…` gets keyboard focus and shows its focus ring.
+- **One layout map per screen size.** `grid-template-areas` names the parts of the profile head (avatar, name, about, actions, stats). The phone and the tablet layouts are two different maps of the same HTML.
+- **No he or she.** p21 says "See her listings"; the page is written for any member, so it says "See listings (2)".
+
+```php
+// Whose profile: the one in the address, or your own; nobody → 404
+$asked_for = mb_strtolower(ltrim(trim($get_text('u')), '@'));
+if ($asked_for === '' && $current_user) {
+    $asked_for = $current_user['username'];   // nothing in the address: a member sees their own profile
+}
+// … look the name up in $mock_users …
+if (!$member) {
+    http_response_code(404);   // tells browsers and search engines that the page does not exist
+    // … the "Member not found" empty state, the footer, exit
+}
+$is_owner = $current_user && $member['id'] === $current_user['id'];
+```
+
+```php
+// Public collections only (stage B: WHERE user_id = ? AND is_public = 1)
+$collections = array_values(array_filter(
+    array_merge($mock_collections, $mock_community_collections),
+    fn ($collection) => $collection['user_id'] === $member['id'] && $collection['is_public']
+));
+
+// The breakdown: every score starts at 0, the GROUP BY rows fill in the rest
+$score_counts = [5 => 0, 4 => 0, 3 => 0, 2 => 0, 1 => 0];
+foreach ($mock_rating_counts as $row) {
+    if ($row['rated_id'] === $member['id']) {
+        $score_counts[$row['score']] = $row['rating_count'];
+    }
+}
+```
+
+```php
+<?php // One bar per score: CSS draws the width, the hidden text is what a screen reader reads ?>
+<span class="rating-bar" aria-hidden="true"><span class="rating-bar-fill" style="width: <?= e(round($count / $rating_count * 100)) ?>%"></span></span>
+<span class="visually-hidden"><?= e($score) ?> <?= $score === 1 ? 'star' : 'stars' ?>: <?= e(count_words($count, 'rating', 'ratings')) ?></span>
+```
+
+```css
+.profile-head {                      /* phone: the avatar and the buttons on one row, the rest below */
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "avatar actions"
+    "name   name"
+    "about  about"
+    "stats  stats";
+}
+@media (min-width: 768px) {          /* tablet and up: the name beside the avatar */
+  .profile-head {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "avatar name  actions"
+      "avatar about about"
+      ".      stats stats";
+  }
+}
+```
+
+**Problems and fixes**
+- **The ⋯ menu broke "Community guidelines" over two lines** (61 px tall), found by measuring the open menu. The panel hangs from the 44 px button, so its width shrinks to its 220 px minimum. `white-space: nowrap` on the profile's menu items lets the panel grow to fit them (commit `c0181dd`). At 375 px it still ends inside the screen (from 128 to 359 px).
+- **The first `?empty` screenshot showed "Member not found".** The screenshot browser was still a visitor from the previous `?guest` screenshot, and `?empty` only empties a logged-in Nimali; a visitor with no `?u` gets the 404. The page was right. `?member&empty` (both switches at once) gave the empty profile.
+- **After the CSS fix the measurement still said 61 px.** The headless browser had kept the old `profile.css` in its cache. Deleting its scratch profile folder made it load the new file, and the items measured 44 px.
+
+> [!tip] What to remember
+> - Count for the viewer: numbers that other people see count only public things.
+> - Remove private rows when the data is loaded, before any HTML, and treat a private id in the address like one that does not exist.
+> - A `GROUP BY` returns no row for a value nobody has: start every bucket at 0.
+> - Mock numbers must agree with each other: an average has to come from its distribution.
+> - Unknown member → `http_response_code(404)` plus a friendly page with a way on.
+
+**Check yourself**
+1. Nimali has 18 plants. Why does her profile say 13, and where does the owner note's "5 private plants" come from?
+2. The `GROUP BY` for Nimali returns three rows (5★, 4★ and 3★). How does the page still draw five bars?
+3. What does `user.php?u=nimali.grows&tab=plants&collection=3` show a visitor, and why?
+
+> [!success]- Answers
+> 1. The profile is what other people see, so it counts only public plants, and her Succulents collection (5 plants) is private. The note subtracts the public count (`$member`, 13) from her full count (`$current_user`, 18).
+> 2. `$score_counts` starts as `[5 => 0, 4 => 0, 3 => 0, 2 => 0, 1 => 0]`. The rows only overwrite the scores they have, so 2★ and 1★ keep 0 and get an empty bar.
+> 3. All of her public plants, with no filter. Collection 3 is private, so it is not in `$collections` and the filter is ignored: the page neither shows its plants nor tells the visitor that it exists.
+
+Lessons: [[01.04 Rendering States - Empty, Owner and Visitor Views]] · [[01.03 Query Strings and GET Parameters in PHP]] · [[01.05 Dropdown Menus with details and summary]] · [[04.05 Counts, Averages and Rating Rules in SQL]] · [[00.07 Mock Data Shaped Like Database Rows]] · [[00.03 PHP Includes and Partials]] · [[07.01 CSS Layout with Flexbox and Grid]] · [[02.04 HTTP Protocol]]
+
+---
 ## Open points
 - **Explore (P09), mock data:** Dinesh lives in **Negombo** (p16), while his snake plant listing is in Kuliyapitiya: a listing can be somewhere other than its owner's home town. *Monstera* 'Thai Constellation' has its own species row because p16 prints that name. The owners of Leafy and Holey (cut off on p16), Ruwan's counts, every member's `created_at`, the collections and the six plants after Holey are invented. All monsteras use the Monty placeholder drawing.
 - **Explore (P09), page:** "Newest" sorts by plant id (no `created_at` on `plants`). A new search drops the filters (my choice). The species chip shows the common name ("Swiss cheese plant"), where p16 shows "Monstera". The People tab was a placeholder until step 4.4, which filled it (see the next bullets). Nimali appears among the people, and her own plants among the results: p16 shows Monty, so I kept both.
@@ -363,3 +492,8 @@ Lessons: [[00.03 PHP Includes and Partials]] · [[01.06 Sideways Scrolling Rows 
 - **Explore (P09), no results (step 4.4):** "the last filter" is the last chip in the row, because one form sends every filter at once. Buttons when the search word finds plants but the filters hide them all: Remove "*last chip*" (e.g. Remove "Kandy"), then Clear all filters (two or more filters) or Clear the search. When the search word finds nothing on its own (review fix): Clear the search (only with filters on; it keeps them), then Show all plants (drops the search and the filters, keeps the sort, grid icon); the filters are not blamed. Popular plants are the six most-liked public plants (ties by name), ignoring the search and the filters; six fills 1, 2 and 3 columns evenly. All wording is mine: *No plants match "zzzz"* (+ *with these filters*, only when the filters are to blame), *No plants match these filters*, *No public plants yet* with *Plants appear here when members make them public.*, *Check the spelling or try a shorter word. Until then, here are some popular plants.*, *Remove a filter to widen the search. Until then, here are some popular plants.*, *Popular plants · The most-liked public plants in the community.*, *No members match "…"* (or *No members yet*) with *Check the spelling, or try part of a name, a town or an @username.* and Show all members.
 - **Explore (P09), code (step 4.4):** `partials/empty-state.php` accepts `'url'` beside `'href'`. Address values are text only, and valid UTF-8 only (`$get_text()`, review fix). `query_url()` in `includes/helpers.php` now also leaves out empty lists, so no link ends in a bare "?" (review fix, affects every page, no visible change). The result counts are plain headings, without `role="status"` (review fix). **Same bug still open in earlier pages:** `garden.php?q[]=x` (warning), `garden.php?sort[]=x`, `plant.php?id=42&tab[]=x` and `settings.php?saved[]=x` (fatal errors). Suggestion: move `$get_text()` (with its encoding check) into `includes/helpers.php` as a shared helper and use it on those pages, as its own small fix step. A second suggestion for the same step: add `ENT_SUBSTITUTE` to `htmlspecialchars()` in `e()`, so a broken character shows as � instead of blanking the whole value on any page (not done: it changes a shared week-1 helper). To decide in DES-07: whether a member's public `plant_count` (42, 64 …) counts private plants too.
 - **Explore (P09), touch targets and layout (step 4.4 review fixes):** the Plants / People tabs are now 44 px tall, 4 px taller than the shared segmented control (`components.css`, `.segmented label`) and the Log in / Sign up tabs (`auth.css`, `.auth-tab`), which are still 40 px, under the 44 px rule. To decide: raise those to 44 px too, as a small fix step for the earlier pages. The "Filters" head and the row head are always 44 px tall, so on a desktop "Filters" lines up with the first results heading, as on p16. The phone strip's cards are a fixed 240 px (it was `minmax(240px, 80%)`, which drew 240 px anyway); about 107 px of the next card shows at 375 px.
+- **Public Profile (P14), counts and privacy (step 4.5):** decided here: a member's public `plant_count` and `collection_count` count **public things only** (this answers the DES-07 question in the Explore code bullet above). So Nimali shows **13 plants and 2 collections** on her profile, on her Explore people card and on her plants' owner card, where p21 shows 18 and 3; her own Dashboard and My Garden keep 18 and 3. p21 also shows her **Succulents** collage, but Succulents has been private (`is_public` 0) in the mock data since week 3. I kept privacy working instead of flipping it, so others see only Living room and Balcony. **To decide:** make Succulents public to match p21 (the profile would then show 18 and 3), or keep it private. The tab counts are the full public counts (Nimali's Plants 13, Kavindi's 64), while the mock sample holds fewer cards (6 and 3): the same sample gap as My Garden's 18 plants and 8 cards.
+- **Public Profile (P14), ratings (step 4.5):** p21's breakdown 20 / 2 / 1 averages 4.83 (printed 4.8), so I used **21 / 1 / 1** (4.87, printed 4.9) to keep the 4.9 shown on p16, p17, p18 and p21. The other members' breakdowns are invented to match their p16 ratings: Amaya 11 × 5★ + 3 × 4★ = 4.8, Kavindi 11 × 5★ = 5.0, Dinesh 11 / 3 / 1 = 4.7, Ruwan 6 / 2 / 1 = 4.6. **`user_ratings.created_at` is a proposed column for DES-07** (p21 dates the latest review; the table plan has no date). Only ratings with a comment are rows in `$mock_user_ratings`; the others exist only in the counts. Every review except Dinesh's of 14 Sep, and every review date, is invented. Listing ids 1 to 5 stand for Nimali's closed exchanges (titles invented; they are not in `$mock_listings`, which holds open listings only). A review date shows "14 Sep" in the current year and "8 Mar 2025" in an earlier one (my rule).
+- **Public Profile (P14), mock data (step 4.5):** invented: the bios of Amaya, Kavindi, Dinesh and Ruwan (Nimali's is from p21); every `swap_count` except Nimali's 12; every `collection_count`; the other members' collections (names, plant counts, and two private ones, Amaya's *Propagation box* and Dinesh's *Propagation jars*); and the collage photos, which borrow placeholder drawings for plants that are not in the sample. `cover_photos` is a calculated column (stage B: `GROUP_CONCAT` of the photos of the three most-liked plants). `swap_count` means closed swap listings the member took part in, as owner or as `exchanged_with`; a free give-away can be rated too, so ratings can outnumber swaps. Nimali's second open listing, **Peace lily division** (id 6, from p17: Kurunegala · 1 km · 1 week ago), was added so "See listings (2)" matches p21; its "Looking for: a fern or a calathea" is invented (cut off on p17).
+- **Public Profile (P14), page (step 4.5):** "See listings (2)", not p21's "See her listings (2)" (no he or she). The ⋯ menu items are my choice: Report profile → `about.php#contact` (no report form yet) and Community guidelines for others; Account settings, Privacy settings and Go to My Garden for the owner. Edit profile opens `settings.php#profile`. A visitor with no `?u` gets the 404 (*The address does not say which member to show. You can find people on Explore.*); an unknown name gets *Nobody is called @… Check the spelling, or search for the member on Explore.* The owner's note is not on p21 (*This is how other people see your profile. Hidden from them: 1 private collection and 5 private plants.* + Privacy settings). A collection card opens the Plants tab filtered to that collection (*Plants in Living room · 7 plants*, *Show all plants*): not on p21. Plant cards on a profile show the collection instead of the owner; listing cards still show the owner row (the shared partial is unchanged). The Ratings tab starts with a summary line (*5 written reviews out of 23 ratings. Ratings without a comment still count in the average.*), and "See all reviews (5)" sits under the latest review: neither is on p21. The rating card sits beside the tabs only from 1024 px; at 768 px it is full width under the tabs, with the bars and the latest review side by side. All empty-state wording is mine: *No public collections yet*, *No public plants yet*, *No open listings*, *No ratings yet*, with Go to My Garden, Add a plant, List a plant or Browse the exchange; with no ratings the stats row says "– no ratings yet" and the card *No ratings yet · Ratings appear after a completed swap.*
+- **Public Profile (P14), links and small open questions (step 4.5):** the @usernames of the reviews and of the latest review link to that member's profile. Usernames on listing cards and community plant cards stay plain text, because the whole card is already one link (to the listing or the plant) and a link inside a link is not allowed; the Plant Profile's owner card already has **View profile**. The 404 page has no `<h1>` (the empty state's title is an `<h2>`), exactly like the Plant Profile's "Plant not found": to decide in a small shared fix whether the empty state should print an `<h1>` on not-found pages. On a phone, a typed address with `?tab=ratings` but without `#tab-ratings` leaves the chosen tab off the right edge of the tab row ("R" peeks in); the page's own links always include it. The `?empty` preview keeps Nimali's bio and "Member since Mar 2025", so the owner's *Add a short bio* prompt only appears for a real account without a bio (stage B). The shared header's Log in and Join free buttons are 36 px tall on visitor pages at 768 px and wider (pre-existing, not part of this page).
