@@ -46,7 +46,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -108,7 +108,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844
+    "width": 423.8999938964844,
+    "collapsed": true
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -225,12 +226,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "0b09aa595b698eed",
+  "active": "d8cf3356a5b86371",
   "lastOpenFiles": [
-    "02. University/CMIS 3142 - Computational Methods/Java Codes/Matrix/Main.class",
+    "02. University/CMIS 3142 - Computational Methods/Java Codes/Matrix/ColumnVector.class",
     "02. University/CMIS 3142 - Computational Methods/Java Codes/Matrix/RowVector.class",
     "02. University/CMIS 3142 - Computational Methods/Java Codes/Matrix/FullMatrix.class",
-    "02. University/CMIS 3142 - Computational Methods/Java Codes/Matrix/ColumnVector.class",
+    "02. University/CMIS 3142 - Computational Methods/Java Codes/Matrix/Main.class",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.02 Row-Major and Column-Major Storage.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.01 Matrix Types and Vector Products.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.02 WebE Process Framework.md",

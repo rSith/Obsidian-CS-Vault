@@ -8,8 +8,15 @@ public class Main {
 
         System.out.println("Full Matrix:");
         fm.display();
+
+        System.out.println("\nAs a Row Vector:");
+        RowVector rv = fm.toRowVector();
+        rv.display();
+
+        System.out.println("\nAs a Column Vector:");
+        fm.toColumnVector().display();
+
+        System.out.println("\nRow Vector back to a 2 x 2 Matrix:");
+        rv.toFullMatrix(2, 2).display();
     }
 }
-
-    
-

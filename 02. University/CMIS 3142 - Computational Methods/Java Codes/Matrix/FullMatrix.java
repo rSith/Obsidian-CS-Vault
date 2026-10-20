@@ -1,15 +1,22 @@
 public class FullMatrix {
-    int rows, cols;
-    int[][] data;
+    final int rows, cols;
+    final double[][] data;
 
     FullMatrix(int r, int c) {
+        if (r <= 0 || c <= 0) {
+            throw new IllegalArgumentException("Rows and columns must be positive");
+        }
         rows = r;
         cols = c;
-        data = new int[r][c];
+        data = new double[r][c];
     }
 
-    void set(int r, int c, int value) {
+    void set(int r, int c, double value) {
         data[r][c] = value;
+    }
+
+    double get(int r, int c) {
+        return data[r][c];
     }
 
     void display() {
@@ -20,30 +27,28 @@ public class FullMatrix {
             System.out.println();
         }
     }
+
     RowVector toRowVector() {
-    RowVector rv = new RowVector(rows * cols);
-    int k = 0;
+        RowVector rv = new RowVector(rows * cols);
+        int k = 0;
 
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            rv.data[k++] = data[i][j];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                rv.data[k++] = data[i][j];
+            }
         }
+        return rv;
     }
-    return rv;
-}
+
     ColumnVector toColumnVector() {
-    ColumnVector cv = new ColumnVector(rows * cols);
-    int k = 0;
+        ColumnVector cv = new ColumnVector(rows * cols);
+        int k = 0;
 
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            cv.data[k++] = data[i][j];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                cv.data[k++] = data[i][j];
+            }
         }
+        return cv;
     }
-    return cv;
-}
-
-
-
-    
 }
