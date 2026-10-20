@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.01 Jacobi Method.md",
+                "file": "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.02 Gauss-Seidel Method.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "05.01 Jacobi Method"
+              "title": "05.02 Gauss-Seidel Method"
             }
           }
         ],
@@ -231,8 +231,8 @@
   },
   "active": "497497a5840ad823",
   "lastOpenFiles": [
-    "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.00 Iterative Methods - Jacobi and Gauss-Seidel.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.01 Jacobi Method.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.00 Iterative Methods - Jacobi and Gauss-Seidel.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.03 Convergence of Iterative Methods.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.02 Gauss-Seidel Method.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.99 Summary - Gaussian Elimination.md",
