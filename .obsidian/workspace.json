@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.00 Gaussian Elimination.md",
+                "file": "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.01 Systems of Linear Equations and Augmented Matrix.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "04.00 Gaussian Elimination"
+              "title": "04.01 Systems of Linear Equations and Augmented Matrix"
             }
           },
           {
@@ -41,16 +41,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3142 - Computational Methods/Past Papers/PP 03 - Matrix Programming.md",
+                "file": "02. University/CMIS 3142 - Computational Methods/Past Papers/PP 04 - Gaussian Elimination.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "PP 03 - Matrix Programming"
+              "title": "PP 04 - Gaussian Elimination"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -229,8 +229,14 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "d8cf3356a5b86371",
+  "active": "497497a5840ad823",
   "lastOpenFiles": [
+    "02. University/CMIS 3142 - Computational Methods/Past Papers/PP 03 - Matrix Programming.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.01 Systems of Linear Equations and Augmented Matrix.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.00 Gaussian Elimination.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.00 Iterative Methods - Jacobi and Gauss-Seidel.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.03 Gaussian Elimination Algorithm and Program.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.02 Forward Elimination and Back Substitution.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.06 Sparse Symmetric Matrices.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.05 Sparse Matrices.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/06. LU and Cholesky/06.02 Cholesky Method.md",
@@ -239,11 +245,7 @@
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/01. Floating Point Numbers/01.02 Scientific Notation and Floating-Point Representation.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.02 Gauss-Seidel Method.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.01 Jacobi Method.md",
-    "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.00 Iterative Methods - Jacobi and Gauss-Seidel.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.99 Summary - Gaussian Elimination.md",
-    "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.03 Gaussian Elimination Algorithm and Program.md",
-    "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.02 Forward Elimination and Back Substitution.md",
-    "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.01 Systems of Linear Equations and Augmented Matrix.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.04 Abstract Matrix Class and Inheritance.md",
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 04 - Pages C Community.md.tmp.32720.dc8e497c9ef0",
     "02. University/CMIS 3142 - Computational Methods/Java Codes/MatrixHierarchy/SymmetricMatrix.java.tmp",
@@ -256,7 +258,6 @@
     "02. University/CMIS 3142 - Computational Methods/Java Codes/MatrixHierarchy/ColumnVector.java.tmp",
     "02. University/CMIS 3142 - Computational Methods/Java Codes/MatrixHierarchy/SymmetricMatrix.class",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.03 Symmetric Matrix Storage.md",
-    "02. University/CMIS 3142 - Computational Methods/Past Papers/PP 03 - Matrix Programming.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.02 Row-Major and Column-Major Storage.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.01 Matrix Types and Vector Products.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.02 WebE Process Framework.md",
@@ -266,7 +267,6 @@
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/02. Error Analysis/02.06 Conditioning and Stability.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/02. Error Analysis/02.05 Well-Posed Problems, Forward and Backward Error.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/02. Error Analysis/02.04 Rounding Errors in GPA Calculation.md",
-    "05. Projects/plantfolio/01. Lessons/01. Building Pages/01.06 Sideways Scrolling Rows and Scroll Snap.md",
     "01. Old_Vault/Attachment/images/Pasted image 20260904132141.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904120424.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904115845.png",
