@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.05 Sparse Matrices.md",
+                "file": "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.06 Sparse Symmetric Matrices.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "03.05 Sparse Matrices"
+              "title": "03.06 Sparse Symmetric Matrices"
             }
           },
           {
@@ -232,6 +232,7 @@
   },
   "active": "d8cf3356a5b86371",
   "lastOpenFiles": [
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.05 Sparse Matrices.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/06. LU and Cholesky/06.02 Cholesky Method.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/01. Floating Point Numbers/01.04 Biased Exponent.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/01. Floating Point Numbers/01.03 IEEE 754 Single Precision.md",
@@ -244,7 +245,6 @@
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.02 Forward Elimination and Back Substitution.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.01 Systems of Linear Equations and Augmented Matrix.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.06 Sparse Symmetric Matrices.md",
-    "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.05 Sparse Matrices.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.04 Abstract Matrix Class and Inheritance.md",
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 04 - Pages C Community.md.tmp.32720.dc8e497c9ef0",
     "02. University/CMIS 3142 - Computational Methods/Java Codes/MatrixHierarchy/SymmetricMatrix.java.tmp",
