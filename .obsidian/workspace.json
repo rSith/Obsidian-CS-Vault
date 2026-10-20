@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.02 Forward Elimination and Back Substitution.md",
+                "file": "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.03 Gaussian Elimination Algorithm and Program.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "04.02 Forward Elimination and Back Substitution"
+              "title": "04.03 Gaussian Elimination Algorithm and Program"
             }
           }
         ],
@@ -112,8 +112,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844,
-    "collapsed": true
+    "width": 423.8999938964844
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -232,13 +231,13 @@
   },
   "active": "497497a5840ad823",
   "lastOpenFiles": [
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.02 Forward Elimination and Back Substitution.md",
     "02. University/CMIS 3142 - Computational Methods/Past Papers/PP 04 - Gaussian Elimination.md",
     "02. University/CMIS 3142 - Computational Methods/Past Papers/PP 03 - Matrix Programming.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.01 Systems of Linear Equations and Augmented Matrix.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.00 Gaussian Elimination.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.00 Iterative Methods - Jacobi and Gauss-Seidel.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.03 Gaussian Elimination Algorithm and Program.md",
-    "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.02 Forward Elimination and Back Substitution.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.06 Sparse Symmetric Matrices.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.05 Sparse Matrices.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/06. LU and Cholesky/06.02 Cholesky Method.md",
