@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.04 Abstract Matrix Class and Inheritance.md",
+                "file": "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.05 Sparse Matrices.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "03.04 Abstract Matrix Class and Inheritance"
+              "title": "03.05 Sparse Matrices"
             }
           },
           {
@@ -232,6 +232,20 @@
   },
   "active": "d8cf3356a5b86371",
   "lastOpenFiles": [
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/06. LU and Cholesky/06.02 Cholesky Method.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/01. Floating Point Numbers/01.04 Biased Exponent.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/01. Floating Point Numbers/01.03 IEEE 754 Single Precision.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/01. Floating Point Numbers/01.02 Scientific Notation and Floating-Point Representation.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.02 Gauss-Seidel Method.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.01 Jacobi Method.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.00 Iterative Methods - Jacobi and Gauss-Seidel.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.99 Summary - Gaussian Elimination.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.03 Gaussian Elimination Algorithm and Program.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.02 Forward Elimination and Back Substitution.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/04. Gaussian Elimination/04.01 Systems of Linear Equations and Augmented Matrix.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.06 Sparse Symmetric Matrices.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.05 Sparse Matrices.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.04 Abstract Matrix Class and Inheritance.md",
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 04 - Pages C Community.md.tmp.32720.dc8e497c9ef0",
     "02. University/CMIS 3142 - Computational Methods/Java Codes/MatrixHierarchy/SymmetricMatrix.java.tmp",
     "02. University/CMIS 3142 - Computational Methods/Java Codes/MatrixHierarchy/SparseSymmetricMatrix.java.tmp",
@@ -242,7 +256,6 @@
     "02. University/CMIS 3142 - Computational Methods/Java Codes/MatrixHierarchy/FullMatrix.java.tmp",
     "02. University/CMIS 3142 - Computational Methods/Java Codes/MatrixHierarchy/ColumnVector.java.tmp",
     "02. University/CMIS 3142 - Computational Methods/Java Codes/MatrixHierarchy/SymmetricMatrix.class",
-    "02. University/CMIS 3142 - Computational Methods/Java Codes/MatrixHierarchy/SparseSymmetricMatrix.class",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.03 Symmetric Matrix Storage.md",
     "02. University/CMIS 3142 - Computational Methods/Past Papers/PP 03 - Matrix Programming.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.02 Row-Major and Column-Major Storage.md",
@@ -255,19 +268,6 @@
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/02. Error Analysis/02.05 Well-Posed Problems, Forward and Backward Error.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/02. Error Analysis/02.04 Rounding Errors in GPA Calculation.md",
     "05. Projects/plantfolio/01. Lessons/01. Building Pages/01.06 Sideways Scrolling Rows and Scroll Snap.md",
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.05 HTML Forms.md",
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.99 Summary - HTML and CSS Foundations.md",
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.09 Styling Forms with CSS.md",
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.08 CSS Selectors, Pseudo-classes and the Cascade.md",
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.07 CSS Fundamentals.md",
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.06 Semantic HTML.md",
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.04 Advanced Tables and Figures.md",
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.03 HTML Elements - Text, Lists, Links, Images, Tables.md",
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.02 HTML Document Structure.md",
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.01 How Websites Work.md",
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.00 HTML and CSS Foundations.md",
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/CMIS 3124 Lessons 1–6.md",
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/CMIS 3124 Course Home.md",
     "01. Old_Vault/Attachment/images/Pasted image 20260904132141.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904120424.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904115845.png",
