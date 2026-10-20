@@ -98,7 +98,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844
+    "width": 423.8999938964844,
+    "collapsed": true
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -217,6 +218,10 @@
   },
   "active": "d8cf3356a5b86371",
   "lastOpenFiles": [
+    "05. Projects/plantfolio/02. Progress/PlantFolio Week 04 - Pages C Community.md.tmp.38468.13f178f22d4e",
+    "05. Projects/plantfolio/02. Progress/PlantFolio Week 04 - Pages C Community.md.tmp.38468.838e2ac84259",
+    "05. Projects/plantfolio/02. Progress/PlantFolio Week 04 - Pages C Community.md.tmp.38468.3a66c45cc29d",
+    "05. Projects/plantfolio/02. Progress/PlantFolio Week 04 - Pages C Community.md.tmp.38468.b944816ccd73",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/03. Matrix Programming/03.00 Matrix Programming.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/01. Floating Point Numbers/01.00 Floating Point Numbers.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/02. Error Analysis/02.99 Summary - Error Analysis.md",
@@ -229,9 +234,6 @@
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 04 - Pages C Community.md.tmp.23624.177dff7b6731",
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 04 - Pages C Community.md.tmp.23624.27b72baace45",
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 04 - Pages C Community.md.tmp.23624.987a86a7635f",
-    "05. Projects/plantfolio/02. Progress/PlantFolio Week 04 - Pages C Community.md.tmp.23624.5889b505b2f9",
-    "05. Projects/plantfolio/01. Lessons/01. Building Pages/01.06 Sideways Scrolling Rows and Scroll Snap.md.tmp.23624.688fa245691f",
-    "05. Projects/plantfolio/01. Lessons/01. Building Pages/01.06 Sideways Scrolling Rows and Scroll Snap.md.tmp.23624.bff8f245fa07",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/02. Error Analysis/02.04 Rounding Errors in GPA Calculation.md",
     "05. Projects/plantfolio/01. Lessons/01. Building Pages/01.06 Sideways Scrolling Rows and Scroll Snap.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/00. HTML and CSS Foundations/00.05 HTML Forms.md",
@@ -252,7 +254,6 @@
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.03 Design Goals, Quality and Design Actions.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.02 WebE Process Framework.md",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/Past Papers/PP 04 - Web Design Principles.md",
-    "02. University/CMIS 3124 - Web Designing & E-Commerce/01. Lessons/03. Web Engineering/03.01 Web Engineering vs Software Engineering.md",
     "01. Old_Vault/Attachment/images/Pasted image 20260904132141.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904120424.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904115845.png",
