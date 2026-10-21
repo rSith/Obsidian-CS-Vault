@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-08 Arden's Theorem & RE-FA Conversion.md",
+                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-05 Moore and Mealy Machines.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3134-08 Arden's Theorem & RE-FA Conversion"
+              "title": "3134-05 Moore and Mealy Machines"
             }
           }
         ]
@@ -202,16 +202,16 @@
   },
   "active": "f897435ffee443e8",
   "lastOpenFiles": [
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-07 Syntax Analysis.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-06 Lexical Analysis.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-05 Moore and Mealy Machines.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-04 NDFA to DFA Conversion & DFA Minimization.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-03 Automata.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-05 Moore and Mealy Machines.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-06 Lexical Analysis.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-08 Arden's Theorem & RE-FA Conversion.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-07 Syntax Analysis.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-02 Regular Expressions.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-01 Introduction to Compilers.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Exam Prep/3134 Topic Map & Past Papers.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/CMIS 3134 Course Home.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-08 Arden's Theorem & RE-FA Conversion.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/mid/05. Jacobi and Gauss-Seidel/05.99 Summary - Jacobi and Gauss-Seidel.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/mid/05. Jacobi and Gauss-Seidel/05.03 Convergence of Iterative Methods.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/mid/05. Jacobi and Gauss-Seidel/05.02 Gauss-Seidel Method.md",
