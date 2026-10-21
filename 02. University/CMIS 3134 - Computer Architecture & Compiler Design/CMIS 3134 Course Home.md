@@ -7,6 +7,9 @@ tags: [compilers]
 ---
 # CMIS 3134 — Computer Architecture & Compiler Design
 
+> [!tip] Full study notes
+> Start at [[00. CMIS 3134 Course Overview]]: lesson notes, past-paper answers and exam revision sheets.
+
 > [!info] Paper format (same in all five past papers)
 > 8 questions, answer any **6**, three hours. Every question has parts a–d worth **20 / 20 / 20 / 40** marks.
 

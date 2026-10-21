@@ -13,15 +13,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.01 What is a Compiler.md",
+                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.08 Front-End Phases and Error Detection.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "01.01 What is a Compiler"
+              "title": "01.08 Front-End Phases and Error Detection"
+            }
+          },
+          {
+            "id": "492ccdcc21fd2b3f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/01. Introduction to Compilers/PP 01.1 - Compilers, Translators and the Language Processing System.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "PP 01.1 - Compilers, Translators and the Language Processing System"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -83,8 +98,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844,
-    "collapsed": true
+    "width": 423.8999938964844
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -201,44 +215,44 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "f897435ffee443e8",
+  "active": "492ccdcc21fd2b3f",
   "lastOpenFiles": [
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.08 Front-End Phases and Error Detection.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.07 Phases of a Compiler.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/CMIS 3134 Papers by Year.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Exam Revision/CMIS 3134 Important Definitions.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Exam Revision/CMIS 3134 Important Comparisons.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Exam Revision/CMIS 3134 High Priority Topics.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Exam Revision/CMIS 3134 Final Revision Summary.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Exam Revision/CMIS 3134 Algorithms and Procedures.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Exam Revision",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/00. CMIS 3134 Course Overview.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.06 Linker and Loader.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.05 Compiler, Interpreter, Assembler and De-compiler.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.04 Preprocessor.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.03 Language Processing System.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.02 Why Computers Need Translators.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.01 What is a Compiler.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.00 Introduction to Compilers.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-05 Moore and Mealy Machines.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/CMIS 3134 Past Paper Mapping.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/08. Arden's Theorem and RE-FA Conversion/PP 08 - Arden's Theorem and RE-FA Conversion.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/08. Arden's Theorem and RE-FA Conversion",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/07. Syntax Analysis/PP 07.2 - Parsing (2019-20 only).md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/07. Syntax Analysis/PP 07.1 - Grammars, Derivations and Ambiguity.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/07. Syntax Analysis",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/06. Lexical Analysis/PP 06 - Lexical Analysis.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/06. Lexical Analysis",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/05. Moore and Mealy Machines/PP 05 - Moore and Mealy Machines.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/05. Moore and Mealy Machines",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/04. NDFA to DFA Conversion and DFA Minimization/PP 04.2 - DFA Minimization.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/04. NDFA to DFA Conversion and DFA Minimization/PP 04.1 - NDFA to DFA Conversion.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/04. NDFA to DFA Conversion and DFA Minimization",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/03. Automata/PP 03.2 - Acceptability and Designing Automata.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/03. Automata/PP 03.1 - Automata Theory and Terminology.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/03. Automata",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/02. Regular Expressions/PP 02 - Regular Expressions.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/02. Regular Expressions",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/01. Introduction to Compilers/PP 01.2 - Phases of a Compiler.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/01. Introduction to Compilers/PP 01.1 - Compilers, Translators and the Language Processing System.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/01. Introduction to Compilers",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/08. Arden's Theorem and RE-FA Conversion/08.99 Summary - Arden's Theorem and RE-FA Conversion.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/08. Arden's Theorem and RE-FA Conversion/08.05 The Full Pipeline - RE to Minimized DFA.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.00 Introduction to Compilers.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Exam Prep/3134 Topic Map & Past Papers.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-05 Moore and Mealy Machines.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/08. Arden's Theorem and RE-FA Conversion/08.04 Regular Expression to Finite Automaton.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/08. Arden's Theorem and RE-FA Conversion/08.03 Finite Automaton to Regular Expression.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/08. Arden's Theorem and RE-FA Conversion/08.02 Arden's Theorem.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/08. Arden's Theorem and RE-FA Conversion/08.01 Regular Expression Identities.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/08. Arden's Theorem and RE-FA Conversion/08.00 Arden's Theorem and RE-FA Conversion.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/08. Arden's Theorem and RE-FA Conversion",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/07. Syntax Analysis/07.99 Summary - Syntax Analysis.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/07. Syntax Analysis/07.11 Parsing Strategies - Top-Down, Bottom-Up, LL(1), LR(0).md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/07. Syntax Analysis/07.10 Limitations of Syntax Analysis.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/07. Syntax Analysis/07.09 First and Follow Sets.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/07. Syntax Analysis/07.08 Left Recursion and Left Factoring.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/07. Syntax Analysis/07.07 Associativity and Precedence.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/07. Syntax Analysis/07.06 Language of a Grammar and Membership Proofs.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/07. Syntax Analysis/07.05 Ambiguity.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/07. Syntax Analysis/07.04 Parse Trees.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/07. Syntax Analysis",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/06. Lexical Analysis",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/05. Moore and Mealy Machines",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/04. NDFA to DFA Conversion and DFA Minimization",
     "01. Old_Vault/Attachment/images/Pasted image 20260904132141.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904120424.png",
     "01. Old_Vault/Attachment/images/Pasted image 20260904115845.png",
