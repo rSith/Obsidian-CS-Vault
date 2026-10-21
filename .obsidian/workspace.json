@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3142 - Computational Methods/01. Lessons/01. Floating Point Numbers/01.01 Number System Conversions.md",
+                "file": "02. University/CMIS 3142 - Computational Methods/01. Lessons/01. Floating Point Numbers/01.00 Floating Point Numbers.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "01.01 Number System Conversions"
+              "title": "01.00 Floating Point Numbers"
             }
           }
         ],
@@ -231,13 +231,13 @@
   },
   "active": "497497a5840ad823",
   "lastOpenFiles": [
-    "02. University/CMIS 3142 - Computational Methods/01. Lessons/01. Floating Point Numbers/01.00 Floating Point Numbers.md",
-    "02. University/CMIS 3142 - Computational Methods/01. Lessons/01. Floating Point Numbers/01.01 Number System Conversions.md",
-    "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.03 Convergence of Iterative Methods.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/06. LU and Cholesky/06.03 Cholesky Java Program.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/06. LU and Cholesky/06.02 Cholesky Method.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/06. LU and Cholesky/06.01 LU Decomposition.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/06. LU and Cholesky/06.00 LU Decomposition and Cholesky.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/01. Floating Point Numbers/01.01 Number System Conversions.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/01. Floating Point Numbers/01.00 Floating Point Numbers.md",
+    "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.03 Convergence of Iterative Methods.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.02 Gauss-Seidel Method.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.01 Jacobi Method.md",
     "02. University/CMIS 3142 - Computational Methods/01. Lessons/05. Jacobi and Gauss-Seidel/05.00 Iterative Methods - Jacobi and Gauss-Seidel.md",
