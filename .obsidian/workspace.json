@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/01. Introduction to Compilers/PP 01.1 - Compilers, Translators and the Language Processing System.md",
-                "mode": "source",
+                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.00 Introduction to Compilers.md",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "PP 01.1 - Compilers, Translators and the Language Processing System"
+              "title": "01.00 Introduction to Compilers"
             }
           }
         ],
@@ -231,12 +231,13 @@
   },
   "active": "0d9fe39f8589ad9e",
   "lastOpenFiles": [
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.02 Why Computers Need Translators.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/01. Introduction to Compilers/PP 01.1 - Compilers, Translators and the Language Processing System.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/01. Introduction to Compilers/PP 01.2 - Phases of a Compiler.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-01 Introduction to Compilers.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-03 Automata.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.01 What is a Compiler.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.08 Front-End Phases and Error Detection.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/01. Introduction to Compilers/PP 01.1 - Compilers, Translators and the Language Processing System.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.07 Phases of a Compiler.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/CMIS 3134 Papers by Year.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Exam Revision/CMIS 3134 Important Definitions.md",
@@ -250,7 +251,6 @@
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.05 Compiler, Interpreter, Assembler and De-compiler.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.04 Preprocessor.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.03 Language Processing System.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.02 Why Computers Need Translators.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.00 Introduction to Compilers.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-05 Moore and Mealy Machines.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/CMIS 3134 Past Paper Mapping.md",
