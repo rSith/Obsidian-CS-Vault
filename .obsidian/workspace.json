@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.02 Operations on Languages.md",
+                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.03 Notation, Precedence and Recursive Definition.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "02.02 Operations on Languages"
+              "title": "02.03 Notation, Precedence and Recursive Definition"
             }
           }
         ]
@@ -203,8 +203,8 @@
   },
   "active": "34e55011ad1038fd",
   "lastOpenFiles": [
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.03 Notation, Precedence and Recursive Definition.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.02 Operations on Languages.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.03 Notation, Precedence and Recursive Definition.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.01 Regular Expressions and Lexical Analysis.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.00 Regular Expressions.md",
     "05. Projects/dengue-early-warning/Phase 00 - Setup and Domain Knowledge.md",
