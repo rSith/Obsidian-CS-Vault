@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.00 Introduction to Compilers.md",
+                "file": "07. Research/Computational Psychiatry/11. Symptom Network Models.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "01.00 Introduction to Compilers"
+              "title": "11. Symptom Network Models"
             }
           }
         ],
@@ -214,8 +214,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -231,6 +230,19 @@
   },
   "active": "0b09aa595b698eed",
   "lastOpenFiles": [
+    "07. Research/Computational Psychiatry/13. Clinical Use - Promises, Challenges and Explainable AI.md",
+    "07. Research/Computational Psychiatry/14. Computational Psychiatry Glossary.md",
+    "07. Research/Computational Psychiatry/12. Machine Learning Applications in Psychiatry.md",
+    "07. Research/Computational Psychiatry/11. Symptom Network Models.md",
+    "07. Research/Computational Psychiatry/08. Drift Diffusion Models.md",
+    "07. Research/Computational Psychiatry/07. Bayesian Brain and Belief Updating.md",
+    "07. Research/Computational Psychiatry/06. Reinforcement Learning and the Rescorla-Wagner Model.md",
+    "07. Research/Computational Psychiatry/04. What is a Model.md",
+    "07. Research/Computational Psychiatry/03. Theory-driven vs Data-driven Approaches.md",
+    "07. Research/Computational Psychiatry/02. Why Psychiatry Needs Computational Methods.md",
+    "07. Research/Computational Psychiatry/01. Paper - What is Computational Psychiatry (Antonucci 2026).md",
+    "07. Research/Computational Psychiatry/00. Computational Psychiatry - Research Home.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.00 Introduction to Compilers.md",
     "07. Research/Computational Psychiatry/attachments/cp-rw-learning-rates.png",
     "07. Research/Computational Psychiatry/attachments/cp-paper-fig3-data-driven.jpg",
     "07. Research/Computational Psychiatry/attachments/cp-paper-fig2-theory-driven.jpg",
@@ -242,27 +254,14 @@
     "07. Research/Computational Psychiatry/attachments/cp-bayes-updating.png",
     "07. Research/Computational Psychiatry/attachments",
     "07. Research/Computational Psychiatry/15. Source Issues and Open Questions.md",
-    "07. Research/Computational Psychiatry/14. Computational Psychiatry Glossary.md",
-    "07. Research/Computational Psychiatry/13. Clinical Use - Promises, Challenges and Explainable AI.md",
-    "07. Research/Computational Psychiatry/12. Machine Learning Applications in Psychiatry.md",
-    "07. Research/Computational Psychiatry/11. Symptom Network Models.md",
     "07. Research/Computational Psychiatry/10. Data-driven Modelling - AI and Machine Learning.md",
     "07. Research/Computational Psychiatry/09. Probabilistic Reward Task - Anhedonia Case Study.md",
-    "07. Research/Computational Psychiatry/08. Drift Diffusion Models.md",
-    "07. Research/Computational Psychiatry/07. Bayesian Brain and Belief Updating.md",
-    "07. Research/Computational Psychiatry/06. Reinforcement Learning and the Rescorla-Wagner Model.md",
     "07. Research/Computational Psychiatry/05. Theory-driven Computational Models.md",
-    "07. Research/Computational Psychiatry/04. What is a Model.md",
-    "07. Research/Computational Psychiatry/03. Theory-driven vs Data-driven Approaches.md",
-    "07. Research/Computational Psychiatry/02. Why Psychiatry Needs Computational Methods.md",
-    "07. Research/Computational Psychiatry/01. Paper - What is Computational Psychiatry (Antonucci 2026).md",
-    "07. Research/Computational Psychiatry/00. Computational Psychiatry - Research Home.md",
     "07. Research/Computational Psychiatry",
     "07. Research/Untitled",
     "07. Research",
     "05. Projects/Untitled",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.10 Symbol Table and Error Handler.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.00 Introduction to Compilers.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.02 Why Computers Need Translators.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/01. Introduction to Compilers/PP 01.1 - Compilers, Translators and the Language Processing System.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/01. Introduction to Compilers/PP 01.2 - Phases of a Compiler.md",
@@ -275,7 +274,6 @@
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/07. Syntax Analysis",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/06. Lexical Analysis",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/05. Moore and Mealy Machines",
-    "01. Old_Vault/Attachment/images/Pasted image 20260904132141.png",
-    "01. Old_Vault/Attachment/images/Pasted image 20260904120424.png"
+    "01. Old_Vault/Attachment/images/Pasted image 20260904132141.png"
   ]
 }
