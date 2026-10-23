@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.00 Regular Expressions.md",
+                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.05 Compiler, Interpreter, Assembler and De-compiler.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "02.00 Regular Expressions"
+              "title": "01.05 Compiler, Interpreter, Assembler and De-compiler"
             }
           },
           {
@@ -41,16 +41,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.01 Regular Expressions and Lexical Analysis.md",
+                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.05 Compiler, Interpreter, Assembler and De-compiler.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "02.01 Regular Expressions and Lexical Analysis"
+              "title": "01.05 Compiler, Interpreter, Assembler and De-compiler"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -112,8 +112,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844,
-    "collapsed": true
+    "width": 423.8999938964844
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -230,9 +229,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "426bbae55fdde632",
+  "active": "ac53b40eb62b1a16",
   "lastOpenFiles": [
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.00 Regular Expressions.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.05 Compiler, Interpreter, Assembler and De-compiler.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.01 Regular Expressions and Lexical Analysis.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.03 Language Processing System.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.02 Why Computers Need Translators.md",
@@ -267,7 +267,6 @@
     "07. Research/Computational Psychiatry/attachments/cp-bayes-updating.png",
     "07. Research/Computational Psychiatry/attachments",
     "07. Research/Computational Psychiatry/15. Source Issues and Open Questions.md",
-    "07. Research/Computational Psychiatry/10. Data-driven Modelling - AI and Machine Learning.md",
     "07. Research/Computational Psychiatry",
     "07. Research/Untitled",
     "07. Research",
