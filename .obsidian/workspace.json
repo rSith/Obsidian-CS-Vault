@@ -27,12 +27,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.03 Language Processing System.md",
+                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.00 Regular Expressions.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "01.03 Language Processing System"
+              "title": "02.00 Regular Expressions"
+            }
+          },
+          {
+            "id": "426bbae55fdde632",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.01 Regular Expressions and Lexical Analysis.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "02.01 Regular Expressions and Lexical Analysis"
             }
           }
         ],
@@ -98,7 +112,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844
+    "width": 423.8999938964844,
+    "collapsed": true
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -217,6 +232,9 @@
   },
   "active": "ac53b40eb62b1a16",
   "lastOpenFiles": [
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.01 Regular Expressions and Lexical Analysis.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.00 Regular Expressions.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.03 Language Processing System.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.02 Why Computers Need Translators.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.01 What is a Compiler.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.00 Introduction to Compilers.md",
@@ -250,13 +268,10 @@
     "07. Research/Computational Psychiatry/attachments",
     "07. Research/Computational Psychiatry/15. Source Issues and Open Questions.md",
     "07. Research/Computational Psychiatry/10. Data-driven Modelling - AI and Machine Learning.md",
-    "07. Research/Computational Psychiatry/09. Probabilistic Reward Task - Anhedonia Case Study.md",
-    "07. Research/Computational Psychiatry/05. Theory-driven Computational Models.md",
     "07. Research/Computational Psychiatry",
     "07. Research/Untitled",
     "07. Research",
     "05. Projects/Untitled",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/01. Introduction to Compilers/PP 01.1 - Compilers, Translators and the Language Processing System.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Exam Revision",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/08. Arden's Theorem and RE-FA Conversion",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/07. Syntax Analysis",
