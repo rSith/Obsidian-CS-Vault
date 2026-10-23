@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.11 Errors a Compiler Cannot Detect.md",
+                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.03 Language Processing System.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "01.11 Errors a Compiler Cannot Detect"
+              "title": "01.03 Language Processing System"
             }
           }
         ],
@@ -98,8 +98,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844,
-    "collapsed": true
+    "width": 423.8999938964844
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -218,8 +217,12 @@
   },
   "active": "ac53b40eb62b1a16",
   "lastOpenFiles": [
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.08 Front-End Phases and Error Detection.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.02 Why Computers Need Translators.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.01 What is a Compiler.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.00 Introduction to Compilers.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.11 Errors a Compiler Cannot Detect.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.04 Preprocessor.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.08 Front-End Phases and Error Detection.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.10 Symbol Table and Error Handler.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.09 Back-End Phases - Intermediate Code, Optimization, Code Generation.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.07 Phases of a Compiler.md",
@@ -235,7 +238,6 @@
     "07. Research/Computational Psychiatry/02. Why Psychiatry Needs Computational Methods.md",
     "07. Research/Computational Psychiatry/01. Paper - What is Computational Psychiatry (Antonucci 2026).md",
     "07. Research/Computational Psychiatry/00. Computational Psychiatry - Research Home.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.00 Introduction to Compilers.md",
     "07. Research/Computational Psychiatry/attachments/cp-rw-learning-rates.png",
     "07. Research/Computational Psychiatry/attachments/cp-paper-fig3-data-driven.jpg",
     "07. Research/Computational Psychiatry/attachments/cp-paper-fig2-theory-driven.jpg",
@@ -254,10 +256,7 @@
     "07. Research/Untitled",
     "07. Research",
     "05. Projects/Untitled",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.02 Why Computers Need Translators.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/01. Introduction to Compilers/PP 01.1 - Compilers, Translators and the Language Processing System.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/01. Introduction to Compilers/PP 01.2 - Phases of a Compiler.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-01 Introduction to Compilers.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Exam Revision",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/08. Arden's Theorem and RE-FA Conversion",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/07. Syntax Analysis",
