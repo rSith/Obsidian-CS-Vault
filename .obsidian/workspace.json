@@ -49,12 +49,14 @@
             "id": "aa0f864188e78f76",
             "type": "leaf",
             "state": {
-              "type": "release-notes",
+              "type": "markdown",
               "state": {
-                "currentVersion": "1.14.5"
+                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.08 Front-End Phases and Error Detection.md",
+                "mode": "preview",
+                "source": false
               },
-              "icon": "lucide-book-up",
-              "title": "Release Notes 1.14.5"
+              "icon": "lucide-file",
+              "title": "01.08 Front-End Phases and Error Detection"
             }
           }
         ],
@@ -120,7 +122,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844
+    "width": 423.8999938964844,
+    "collapsed": true
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -222,7 +225,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -238,6 +242,7 @@
   },
   "active": "aa0f864188e78f76",
   "lastOpenFiles": [
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.07 Phases of a Compiler.md",
     "07. Research/Computational Psychiatry/11. Symptom Network Models.md",
     "07. Research/Computational Psychiatry/13. Clinical Use - Promises, Challenges and Explainable AI.md",
     "07. Research/Computational Psychiatry/14. Computational Psychiatry Glossary.md",
