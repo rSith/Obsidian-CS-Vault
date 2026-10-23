@@ -14,7 +14,7 @@ tags: [project, ml]
 ## Steps
 - [x] Find the case data: which sources, which format (PDF, web table, file), how far back (done 2026-10-11, Step 1.1)
 - [ ] Write the case collector `src/collect_cases.py` → [[01.03 Web Scraping with BeautifulSoup and read_html]] · [[01.04 PDF Table Extraction with pdfplumber]]
-- [ ] Write the weather collector `src/collect_weather.py` → [[01.01 HTTP Requests and REST APIs in Python]] · [[01.02 Parsing JSON into Tables]]
+- [x] Write the weather collector `src/collect_weather.py` (done 2026-10-23, Step 1.3) → [[01.01 HTTP Requests and REST APIs in Python]] · [[01.02 Parsing JSON into Tables]]
 - [ ] Collect population per district
 - [ ] Write the data dictionary in `docs/data.md`
 - [ ] Cache every download and wait between requests
@@ -29,7 +29,7 @@ tags: [project, ml]
 
 ## Done when
 - [ ] `cases_raw.csv` covers the chosen districts for 8 or more years
-- [ ] Daily weather is downloaded for the same districts and years
+- [x] Daily weather is downloaded for the same districts and years (2026-10-23: 26 units, 2006-01-01 to 2026-10-22)
 - [ ] The population table is saved
 - [ ] Both collector scripts re-run from scratch with no manual steps
 - [ ] The data dictionary is written
@@ -145,16 +145,31 @@ A place name is not unique. The search returned three places called Kalmunai (in
 > 3. It was made by hand, so no script can rebuild it. Raw downloads can be fetched again by the collector, so they stay out of Git.
 
 ---
-## Step 1.3 — Weather collector (in progress)
+## Step 1.3 — Weather collector
 > [!important] Goal
 > A script that downloads daily rainfall, temperature and humidity for all 26 units from 2006 to today, and can be run again at any time without downloading the same thing twice.
 
-**What was done (2026-10-11)**
+**What was done (2026-10-11 and 2026-10-23)**
 - Chose Open-Meteo over NASA POWER (decision in Step 1.1).
 - **Explored in a notebook first**, `notebooks/01_weather.ipynb`: one request for Colombo, 2024, then the reply turned into a table. No missing values in any of the five variables.
 - **Wrote `src/collect_weather.py`** in two parts: a download part that saves one raw JSON file per unit and year in `data/raw/weather/`, and a build part that reads those files into `data/processed/weather_daily.csv`.
 - **First full run:** started 20:56 and stopped at 21:09 with a `429` error, after saving 388 of 546 files (18 units complete, and Puttalam up to 2015).
-- **Still to do:** run it again to fetch the remaining 158 files, check the finished table, add the columns to the data dictionary.
+- **Second run (2026-10-23, 23:11 to 23:17):** the same command, run again from the project root. It made 176 requests and none failed: the 158 missing files, plus the 18 files for 2026 that were already there, downloaded again because the year is not over. The 370 finished past-year files were skipped. Then the script built `data/processed/weather_daily.csv`.
+- **Added the six weather columns** to the data dictionary in `docs/data.md`.
+
+**Checked (2026-10-23)**
+
+| Check | Result |
+|---|---|
+| Raw files | 546 of 546 (26 units × 21 years) |
+| Table size | 197,600 rows × 7 columns |
+| Dates | 2006-01-01 to 2026-10-22 (yesterday) for every unit |
+| Rows per unit | 7,600 for every unit, the exact number of days in that range, so no day is missing |
+| Duplicate unit-date rows | 0 |
+| Missing values | 0 in every column |
+| Ranges | rain 0–322 mm per day, mean temperature 11.9–32.8 °C, humidity 33–100 % |
+
+The extremes make sense. The coldest unit is Nuwara Eliya (mean 16.9 °C), the hill station, followed by Badulla and Kandy; all others are about 25–27 °C. The wettest day is Kilinochchi on 2021-01-11 with 322 mm, during the north-east monsoon.
 
 **Why this way**
 - **Notebook for exploring, `.py` file for the real code.** In a notebook the reply stays in memory, so it can be examined cell by cell without calling the API again. But a notebook cannot be imported by the weekly pipeline or tested with pytest, so the collector lives in `src/`.
@@ -188,6 +203,8 @@ python -m src.collect_weather           # from the project root, with .venv acti
 > - A `429` is not a bug. The request was fine; the server asked for a pause.
 > - Save each reply the moment it arrives. That is what made the failed run cost only waiting time.
 > - The cache knows only the unit and the year. After changing the variables or a coordinate, delete the old files.
+> - A year counts as final when its file was saved after 7 January of the next year. That is why a 2025 file saved in October 2026 is kept, and a 2026 file is fetched again on every run.
+> - Run the script from the project root. Its paths (`data/raw/weather`) are relative to the folder you run it from, and `python -m src.collect_weather` finds `src` only there.
 
 **Check yourself**
 1. The first run failed at file 388. Why does the second run not start again at Colombo 2006?

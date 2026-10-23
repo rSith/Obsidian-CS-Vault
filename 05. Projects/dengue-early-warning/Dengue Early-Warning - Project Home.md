@@ -50,3 +50,4 @@ General concepts are explained once, in `04. Concepts`. The project notes link t
 - 2026-10-11: district coordinates table `data/reference/districts.csv` created, 26 units mapped to 25 districts with the main town as the weather point (Phase 01, Step 1.2).
 - 2026-10-11: GitHub repository `rSith/dengue-early-warning` created and the first commit pushed (Phase 00, Step 0.7).
 - 2026-10-11: weather collector `src/collect_weather.py` written and first run made: 388 of 546 files saved before Open-Meteo's rate limit stopped it (Phase 01, Step 1.3, in progress). New lesson note [[01.07 Resumable Downloads - Caching and Rate Limits]].
+- 2026-10-23: weather download finished on the second run: all 546 files, `weather_daily.csv` built and checked (197,600 rows, no gaps, no missing values) and its columns added to the data dictionary (Phase 01, Step 1.3).
