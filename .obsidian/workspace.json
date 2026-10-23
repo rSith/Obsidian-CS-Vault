@@ -39,18 +39,26 @@
             "id": "0d9fe39f8589ad9e",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
+            }
+          },
+          {
+            "id": "aa0f864188e78f76",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
               "state": {
-                "file": "07. Research/Computational Psychiatry/11. Symptom Network Models.md",
-                "mode": "preview",
-                "source": false
+                "currentVersion": "1.14.5"
               },
-              "icon": "lucide-file",
-              "title": "11. Symptom Network Models"
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.14.5"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -228,12 +236,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "0b09aa595b698eed",
+  "active": "aa0f864188e78f76",
   "lastOpenFiles": [
+    "07. Research/Computational Psychiatry/11. Symptom Network Models.md",
     "07. Research/Computational Psychiatry/13. Clinical Use - Promises, Challenges and Explainable AI.md",
     "07. Research/Computational Psychiatry/14. Computational Psychiatry Glossary.md",
     "07. Research/Computational Psychiatry/12. Machine Learning Applications in Psychiatry.md",
-    "07. Research/Computational Psychiatry/11. Symptom Network Models.md",
     "07. Research/Computational Psychiatry/08. Drift Diffusion Models.md",
     "07. Research/Computational Psychiatry/07. Bayesian Brain and Belief Updating.md",
     "07. Research/Computational Psychiatry/06. Reinforcement Learning and the Rescorla-Wagner Model.md",
