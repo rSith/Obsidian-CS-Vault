@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.10 Symbol Table and Error Handler.md",
+                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.11 Errors a Compiler Cannot Detect.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "01.10 Symbol Table and Error Handler"
+              "title": "01.11 Errors a Compiler Cannot Detect"
             }
           }
         ],
@@ -218,8 +218,10 @@
   },
   "active": "ac53b40eb62b1a16",
   "lastOpenFiles": [
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.09 Back-End Phases - Intermediate Code, Optimization, Code Generation.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.08 Front-End Phases and Error Detection.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.11 Errors a Compiler Cannot Detect.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.10 Symbol Table and Error Handler.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.09 Back-End Phases - Intermediate Code, Optimization, Code Generation.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.07 Phases of a Compiler.md",
     "07. Research/Computational Psychiatry/11. Symptom Network Models.md",
     "07. Research/Computational Psychiatry/13. Clinical Use - Promises, Challenges and Explainable AI.md",
@@ -252,12 +254,10 @@
     "07. Research/Untitled",
     "07. Research",
     "05. Projects/Untitled",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.10 Symbol Table and Error Handler.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.02 Why Computers Need Translators.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/01. Introduction to Compilers/PP 01.1 - Compilers, Translators and the Language Processing System.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/01. Introduction to Compilers/PP 01.2 - Phases of a Compiler.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-01 Introduction to Compilers.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Lectures/3134-03 Automata.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Exam Revision",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/08. Arden's Theorem and RE-FA Conversion",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/07. Syntax Analysis",
