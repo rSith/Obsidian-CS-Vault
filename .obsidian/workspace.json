@@ -98,7 +98,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844
+    "width": 423.8999938964844,
+    "collapsed": true
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -217,10 +218,11 @@
   },
   "active": "f1d7b69d0cff97d2",
   "lastOpenFiles": [
+    "03. Self-Study/ML Specialization/ML Specialization - Course Home.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.03 Notation, Precedence and Recursive Definition.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.98 Complete Study Guide - Regular Expressions.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.02 Operations on Languages.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.05 Regular Expressions for Real-World Tokens.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.98 Complete Study Guide - Regular Expressions.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.06 Reading and Writing Regular Expressions.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.04 Representing Valid Tokens - Repetition and Ranges.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.01 Regular Expressions and Lexical Analysis.md",
@@ -242,7 +244,6 @@
     "07. Research/Computational Psychiatry/14. Computational Psychiatry Glossary.md",
     "07. Research/Computational Psychiatry/12. Machine Learning Applications in Psychiatry.md",
     "07. Research/Computational Psychiatry/08. Drift Diffusion Models.md",
-    "07. Research/Computational Psychiatry/07. Bayesian Brain and Belief Updating.md",
     "07. Research/Computational Psychiatry/attachments/cp-rw-learning-rates.png",
     "07. Research/Computational Psychiatry/attachments/cp-paper-fig3-data-driven.jpg",
     "07. Research/Computational Psychiatry/attachments/cp-paper-fig2-theory-driven.jpg",
