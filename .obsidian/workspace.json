@@ -20,8 +20,23 @@
               "icon": "lucide-file",
               "title": "02.05 Regular Expressions for Real-World Tokens"
             }
+          },
+          {
+            "id": "f1d7b69d0cff97d2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.98 Complete Study Guide - Regular Expressions.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "02.98 Complete Study Guide - Regular Expressions"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -201,8 +216,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "34e55011ad1038fd",
+  "active": "f1d7b69d0cff97d2",
   "lastOpenFiles": [
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.05 Regular Expressions for Real-World Tokens.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.98 Complete Study Guide - Regular Expressions.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.06 Reading and Writing Regular Expressions.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.04 Representing Valid Tokens - Repetition and Ranges.md",
@@ -228,7 +244,6 @@
     "07. Research/Computational Psychiatry/12. Machine Learning Applications in Psychiatry.md",
     "07. Research/Computational Psychiatry/08. Drift Diffusion Models.md",
     "07. Research/Computational Psychiatry/07. Bayesian Brain and Belief Updating.md",
-    "07. Research/Computational Psychiatry/06. Reinforcement Learning and the Rescorla-Wagner Model.md",
     "07. Research/Computational Psychiatry/attachments/cp-rw-learning-rates.png",
     "07. Research/Computational Psychiatry/attachments/cp-paper-fig3-data-driven.jpg",
     "07. Research/Computational Psychiatry/attachments/cp-paper-fig2-theory-driven.jpg",
