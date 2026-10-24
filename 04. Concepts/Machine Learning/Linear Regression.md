@@ -31,4 +31,5 @@ How it works :
 2. [[Multiple Linear Regression]] : Uses two or more independent variables to predict the dependent variable.
 
 ## Related
-- [[Regression]] · [[Simple Linear Regression]] · [[Multiple Linear Regression]]
+- [[Regression]] · [[Simple Linear Regression]] · [[Multiple Linear Regression]] · [[Cost Function]] · [[Gradient Descent]]
+- Course notes: [[C1W1-03 Linear Regression Model]]

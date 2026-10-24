@@ -19,3 +19,4 @@ How It Works:
 
 ## Related
 - [[Machine Learning]] · [[Supervised Learning]]
+- Course notes: [[C1W1-02 Supervised vs Unsupervised Learning]]

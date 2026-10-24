@@ -16,3 +16,4 @@ tags: [ml]
 
 ## Related
 - [[Machine Learning]] · [[Unsupervised Learning]]
+- Course notes: [[C1W1-02 Supervised vs Unsupervised Learning]]

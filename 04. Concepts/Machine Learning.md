@@ -30,6 +30,7 @@ This section covers preprocessing, exploratory data analysis, and model evaluati
 **Learning types:** [[Supervised Learning]] · [[Unsupervised Learning]] · [[Reinforcement Learning]] · [[Self-Supervised Learning]] · [[Semi-Supervised Learning]]
 **Supervised:** [[Classification]] · [[Regression]] · [[Linear Regression]] · [[Simple Linear Regression]] · [[Multiple Linear Regression]] · [[Logistic Regression]] · [[Decision Trees]] · [[Random Forest]]
 **Unsupervised:** [[Clustering]] · [[Association Rule]] · [[Dimensionality Reduction]]
+**Training:** [[Cost Function]] · [[Gradient Descent]]
 **Workflow:** [[Machine Learning Pipeline]] · [[Data Preprocessing]] · [[Exploratory Data Analysis]] · [[Model Evaluation]]
 **Deep learning:** [[Neural Network]] · [[Deep Learning]] · [[RNN]] · [[LSTM]] · [[Transformer]] · [[LLMs]]
 **Tools:** [[NumPy]] · [[Pandas]] · [[Matplotlib]] · [[Seaborn]] · [[Plotly]]

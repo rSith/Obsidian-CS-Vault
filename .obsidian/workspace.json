@@ -27,12 +27,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.98 Complete Study Guide - Regular Expressions.md",
+                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/03. Automata/03.01 What is an Automaton.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "02.98 Complete Study Guide - Regular Expressions"
+              "title": "03.01 What is an Automaton"
+            }
+          },
+          {
+            "id": "f484cd4f95ba9814",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/C1W1-01 What is Machine Learning.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "C1W1-01 What is Machine Learning"
             }
           }
         ],
@@ -98,8 +112,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844,
-    "collapsed": true
+    "width": 423.8999938964844
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -218,51 +231,51 @@
   },
   "active": "f1d7b69d0cff97d2",
   "lastOpenFiles": [
-    "03. Self-Study/ML Specialization/ML Specialization - Course Home.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.03 Notation, Precedence and Recursive Definition.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/03. Automata/03.00 Automata.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.06 Reading and Writing Regular Expressions.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.98 Complete Study Guide - Regular Expressions.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.03 Notation, Precedence and Recursive Definition.md",
+    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/C1W1-01 What is Machine Learning.md",
+    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/C1W1 - Week Hub.md",
+    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/Labs/C1W1-L02 Lab - Model Representation.md",
+    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/Labs/C1W1-L01 Lab - Python and Jupyter.md",
+    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1 - Supervised ML - Course Home.md",
+    "03. Self-Study/ML Specialization/ML Specialization - Course Home.md",
+    "03. Self-Study/ML Specialization/ML Specialization - Algorithm Comparison.md",
+    "04. Concepts/Machine Learning/Gradient Descent.md",
+    "04. Concepts/Machine Learning/Cost Function.md",
+    "03. Self-Study/ML Specialization/_assets/c1w1_supervised_vs_unsupervised.png",
+    "03. Self-Study/ML Specialization/_assets/c1w1_linear_regression_model.png",
+    "03. Self-Study/ML Specialization/_assets/c1w1_learning_rate.png",
+    "03. Self-Study/ML Specialization/_assets/c1w1_gradient_descent_path.png",
+    "03. Self-Study/ML Specialization/_assets/c1w1_derivative_intuition.png",
+    "03. Self-Study/ML Specialization/_assets/c1w1_cost_surface_contour.png",
+    "03. Self-Study/ML Specialization/_assets/c1w1_cost_intuition.png",
+    "03. Self-Study/ML Specialization/_assets",
+    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/Labs/C1W1-L04 Lab - Gradient Descent.md",
+    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/Labs/C1W1-L03 Lab - Cost Function.md",
+    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/Labs",
+    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/C1W1-05 Gradient Descent.md",
+    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/C1W1-04 Cost Function.md",
+    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/C1W1-03 Linear Regression Model.md",
+    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/C1W1-02 Supervised vs Unsupervised Learning.md",
+    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning",
+    "03. Self-Study/ML Specialization/C1 - Supervised ML",
+    "03. Self-Study/ML Specialization/ML Specialization - Glossary.md",
+    "03. Self-Study/ML Specialization/ML Specialization - Equation Sheet.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.02 Operations on Languages.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.05 Regular Expressions for Real-World Tokens.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.06 Reading and Writing Regular Expressions.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.04 Representing Valid Tokens - Repetition and Ranges.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.01 Regular Expressions and Lexical Analysis.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.00 Regular Expressions.md",
-    "05. Projects/dengue-early-warning/Phase 00 - Setup and Domain Knowledge.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.05 Compiler, Interpreter, Assembler and De-compiler.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.08 Front-End Phases and Error Detection.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.03 Language Processing System.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.02 Why Computers Need Translators.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.01 What is a Compiler.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.00 Introduction to Compilers.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.11 Errors a Compiler Cannot Detect.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.04 Preprocessor.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.10 Symbol Table and Error Handler.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.09 Back-End Phases - Intermediate Code, Optimization, Code Generation.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.07 Phases of a Compiler.md",
-    "07. Research/Computational Psychiatry/11. Symptom Network Models.md",
-    "07. Research/Computational Psychiatry/13. Clinical Use - Promises, Challenges and Explainable AI.md",
-    "07. Research/Computational Psychiatry/14. Computational Psychiatry Glossary.md",
-    "07. Research/Computational Psychiatry/12. Machine Learning Applications in Psychiatry.md",
-    "07. Research/Computational Psychiatry/08. Drift Diffusion Models.md",
     "07. Research/Computational Psychiatry/attachments/cp-rw-learning-rates.png",
     "07. Research/Computational Psychiatry/attachments/cp-paper-fig3-data-driven.jpg",
     "07. Research/Computational Psychiatry/attachments/cp-paper-fig2-theory-driven.jpg",
-    "07. Research/Computational Psychiatry/attachments/cp-paper-fig1-modelling-principles.jpg",
-    "07. Research/Computational Psychiatry/attachments/cp-overfitting-curve.png",
-    "07. Research/Computational Psychiatry/attachments/cp-inverted-u.png",
-    "07. Research/Computational Psychiatry/attachments/cp-ddm-simulation.png",
-    "07. Research/Computational Psychiatry/attachments/cp-cafe-example.png",
-    "07. Research/Computational Psychiatry/attachments/cp-bayes-updating.png",
     "07. Research/Computational Psychiatry/attachments",
     "07. Research/Computational Psychiatry",
     "07. Research/Untitled",
     "07. Research",
     "05. Projects/Untitled",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Exam Revision",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/08. Arden's Theorem and RE-FA Conversion",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/07. Syntax Analysis",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/06. Lexical Analysis",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/05. Moore and Mealy Machines",
-    "01. Old_Vault/Attachment/images/Pasted image 20260904132141.png"
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Exam Revision"
   ]
 }
