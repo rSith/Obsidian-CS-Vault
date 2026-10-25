@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/03. Automata/PP 03.1 - Automata Theory and Terminology.md",
+                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/03. Automata/PP 03.2 - Acceptability and Designing Automata.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "PP 03.1 - Automata Theory and Terminology"
+              "title": "PP 03.2 - Acceptability and Designing Automata"
             }
           },
           {
@@ -97,8 +97,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844,
-    "collapsed": true
+    "width": 423.8999938964844
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -217,12 +216,12 @@
   },
   "active": "f1d7b69d0cff97d2",
   "lastOpenFiles": [
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/03. Automata/PP 03.1 - Automata Theory and Terminology.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/03. Automata/03.00 Automata.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/03. Automata/03.01 What is an Automaton.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/04. NDFA to DFA Conversion and DFA Minimization/PP 04.2 - DFA Minimization.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/04. NDFA to DFA Conversion and DFA Minimization/PP 04.1 - NDFA to DFA Conversion.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/03. Automata/PP 03.2 - Acceptability and Designing Automata.md",
-    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/03. Automata/PP 03.1 - Automata Theory and Terminology.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/03. Automata/03.06 Non-deterministic Finite Automaton (NDFA).md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.06 Reading and Writing Regular Expressions.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.98 Complete Study Guide - Regular Expressions.md",
