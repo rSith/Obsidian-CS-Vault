@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/04. NDFA to DFA Conversion and DFA Minimization/04.03 DFA Minimization - Equivalence Theorem.md",
+                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.00 Introduction to Compilers.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "04.03 DFA Minimization - Equivalence Theorem"
+              "title": "01.00 Introduction to Compilers"
             }
           },
           {
@@ -216,6 +216,7 @@
   },
   "active": "f1d7b69d0cff97d2",
   "lastOpenFiles": [
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/04. NDFA to DFA Conversion and DFA Minimization/04.03 DFA Minimization - Equivalence Theorem.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/04. NDFA to DFA Conversion and DFA Minimization/04.00 NDFA to DFA Conversion and DFA Minimization.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/04. NDFA to DFA Conversion and DFA Minimization/PP 04.1 - NDFA to DFA Conversion.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/04. NDFA to DFA Conversion and DFA Minimization/PP 04.2 - DFA Minimization.md",
@@ -250,7 +251,6 @@
     "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/C1W1-05 Gradient Descent.md",
     "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/C1W1-04 Cost Function.md",
     "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/C1W1-03 Linear Regression Model.md",
-    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/C1W1-02 Supervised vs Unsupervised Learning.md",
     "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning",
     "03. Self-Study/ML Specialization/C1 - Supervised ML",
     "07. Research/Computational Psychiatry/attachments/cp-rw-learning-rates.png",
