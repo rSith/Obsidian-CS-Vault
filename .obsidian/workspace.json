@@ -11,10 +11,14 @@
             "id": "1f07d7a391d7137b",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "02. University/CMIS 3114 - Data Communication & Computer Networks/01. Lessons/01. Introduction/01.08 Network Topologies.md",
+                "mode": "preview",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "01.08 Network Topologies"
             }
           }
         ]
@@ -196,8 +200,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "0b09aa595b698eed",
+  "active": "1f07d7a391d7137b",
   "lastOpenFiles": [
+    "02. University/CMIS 3114 - Data Communication & Computer Networks/01. Lessons/01. Introduction/01.09 Network Classification by Scale.md",
+    "02. University/CMIS 3114 - Data Communication & Computer Networks/01. Lessons/01. Introduction/01.01 Computer Networks.md",
+    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/04. Query Optimization/04.01 Query Execution and Join Algorithms.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/05. Distributed Database Systems/05.00 Distributed Database Systems.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.01 Types of Storage and Memory Hierarchy.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.00 Data Storage and File Organization.md",
@@ -221,9 +228,6 @@
     "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/Labs/C1W1-L01 Lab - Python and Jupyter.md",
     "03. Self-Study/ML Specialization/C1 - Supervised ML/C1 - Supervised ML - Course Home.md",
     "03. Self-Study/ML Specialization/ML Specialization - Course Home.md",
-    "03. Self-Study/ML Specialization/ML Specialization - Algorithm Comparison.md",
-    "04. Concepts/Machine Learning/Gradient Descent.md",
-    "04. Concepts/Machine Learning/Cost Function.md",
     "03. Self-Study/ML Specialization/_assets/c1w1_supervised_vs_unsupervised.png",
     "03. Self-Study/ML Specialization/_assets/c1w1_linear_regression_model.png",
     "03. Self-Study/ML Specialization/_assets/c1w1_learning_rate.png",
