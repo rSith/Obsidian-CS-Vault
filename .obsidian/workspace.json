@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.00 Regular Expressions.md",
+                "file": "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/04. Query Optimization/04.01 Query Execution and Join Algorithms.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "02.00 Regular Expressions"
+              "title": "04.01 Query Execution and Join Algorithms"
             }
           },
           {
@@ -216,6 +216,10 @@
   },
   "active": "f1d7b69d0cff97d2",
   "lastOpenFiles": [
+    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/05. Distributed Database Systems/05.00 Distributed Database Systems.md",
+    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.01 Types of Storage and Memory Hierarchy.md",
+    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.00 Data Storage and File Organization.md",
+    "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.00 Regular Expressions.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/01. Introduction to Compilers/01.00 Introduction to Compilers.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/04. NDFA to DFA Conversion and DFA Minimization/04.03 DFA Minimization - Equivalence Theorem.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/04. NDFA to DFA Conversion and DFA Minimization/04.00 NDFA to DFA Conversion and DFA Minimization.md",
@@ -246,11 +250,7 @@
     "03. Self-Study/ML Specialization/_assets/c1w1_cost_surface_contour.png",
     "03. Self-Study/ML Specialization/_assets/c1w1_cost_intuition.png",
     "03. Self-Study/ML Specialization/_assets",
-    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/Labs/C1W1-L04 Lab - Gradient Descent.md",
-    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/Labs/C1W1-L03 Lab - Cost Function.md",
     "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/Labs",
-    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/C1W1-05 Gradient Descent.md",
-    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/C1W1-04 Cost Function.md",
     "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning",
     "03. Self-Study/ML Specialization/C1 - Supervised ML",
     "07. Research/Computational Psychiatry/attachments/cp-rw-learning-rates.png",
