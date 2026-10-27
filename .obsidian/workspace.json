@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3114 - Data Communication & Computer Networks/01. Lessons/01. Introduction/01.10 Protocols and Layering.md",
+                "file": "02. University/CMIS 3114 - Data Communication & Computer Networks/01. Lessons/01. Introduction/01.11 Protocol Hierarchies and Encapsulation.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "01.10 Protocols and Layering"
+              "title": "01.11 Protocol Hierarchies and Encapsulation"
             }
           }
         ]
@@ -203,8 +203,8 @@
   },
   "active": "1f07d7a391d7137b",
   "lastOpenFiles": [
-    "02. University/CMIS 3114 - Data Communication & Computer Networks/01. Lessons/01. Introduction/01.09 Network Classification by Scale.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/01. Lessons/01. Introduction/01.10 Protocols and Layering.md",
+    "02. University/CMIS 3114 - Data Communication & Computer Networks/01. Lessons/01. Introduction/01.09 Network Classification by Scale.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/01. Lessons/01. Introduction/01.08 Network Topologies.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/01. Lessons/01. Introduction/01.01 Computer Networks.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/04. Query Optimization/04.01 Query Execution and Join Algorithms.md",
