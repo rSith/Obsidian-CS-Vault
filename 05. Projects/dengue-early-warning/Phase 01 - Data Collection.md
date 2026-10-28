@@ -13,7 +13,7 @@ tags: [project, ml]
 
 ## Steps
 - [x] Find the case data: which sources, which format (PDF, web table, file), how far back (done 2026-10-11, Step 1.1)
-- [ ] Write the case collector `src/collect_cases.py` → [[01.03 Web Scraping with BeautifulSoup and read_html]] · [[01.04 PDF Table Extraction with pdfplumber]]
+- [ ] Write the case collector `src/collect_cases.py` → [[01.03 Web Scraping with BeautifulSoup and read_html]] · [[01.04 PDF Table Extraction with pdfplumber]] (in progress, Step 1.4: `denguedatahub` part done 2026-10-28, WER part to do)
 - [x] Write the weather collector `src/collect_weather.py` (done 2026-10-23, Step 1.3) → [[01.01 HTTP Requests and REST APIs in Python]] · [[01.02 Parsing JSON into Tables]]
 - [ ] Collect population per district
 - [ ] Write the data dictionary in `docs/data.md`
@@ -25,7 +25,7 @@ tags: [project, ml]
 > - [x] Choose the source that will feed the live system (decided 2026-10-11: Dengue Control Unit update, WER as fallback)
 > - [x] Decide whether to collect all districts now (decided 2026-10-11: yes, all 26 units)
 > - [x] Decide how the 26 reporting units map to 25 districts (decided 2026-10-11: keep 26 in the raw file, add Kalmunai to Ampara in Phase 2)
-> - [ ] Confirm the week definition used in the reports → [[01.05 Dates and Epidemiological Weeks]]
+> - [ ] Confirm the week definition used in the reports → [[01.05 Dates and Epidemiological Weeks]] (2026-10-28: `denguedatahub` agrees with the WER PDFs: Saturday starts up to 2025, Monday starts from 2025-12-29. See Step 1.4.)
 
 ## Done when
 - [ ] `cases_raw.csv` covers the chosen districts for 8 or more years
@@ -215,3 +215,82 @@ python -m src.collect_weather           # from the project root, with .venv acti
 > 1. Each reply was saved as its own file as soon as it arrived. Before every request the script checks for the file, finds it, and skips the request.
 > 2. 2024 is over and its numbers are final. 2026 gets a new day every day, and its newest days are provisional.
 > 3. The files for past years already exist, so the script did not ask the server again. The saved files hold the old list of variables. Delete `data/raw/weather/` and download again.
+
+---
+## Step 1.4 — Case collector (in progress)
+> [!important] Goal
+> A script that downloads the weekly case counts and saves them as one table, `cases_raw.csv`, with the columns `unit, year, week, week_start, week_end, cases`. Part 1 covers the `denguedatahub` file (Dec 2006 to May 2026). Part 2, still to do, parses WER PDFs for 2026 weeks 21 onwards.
+
+**What was done (2026-10-28)**
+- **Download part.** `download_datahub()` in `src/collect_cases.py` saves the `.rda` file from the `denguedatahub` GitHub repository to `data/raw/cases/` once and skips it on later runs.
+- **Explored in a notebook**, `notebooks/01_cases.ipynb`. Read the file with `pyreadr` (added to `requirements.txt`) and checked the column types, missing values and the number of weeks per unit.
+- **Build part.** `build_table()` turns the R table into `data/processed/cases_raw.csv`: unit names renamed to match `districts.csv`, `year`, `week` and `cases` as integers, the two date strings parsed into `week_start` and `week_end`.
+- Set `jupyter.notebookFileRoot` to the workspace folder in `.vscode/settings.json`, so the notebook runs from the project root and the `data/...` paths work.
+
+**Checked (2026-10-28)**
+
+| Check | Result |
+|---|---|
+| Table size | 26,311 rows × 6 columns, 26 units |
+| Dates | 2006-12-23 to 2026-05-17, over 19 years |
+| Missing values | 0 in every column |
+| Duplicate unit-week rows | 0 |
+| Weeks per unit | 1,012 for every unit except Puttalam (1,011) |
+| Cases | 0 to 2,631; the highest is Gampaha, 2017 week 28, the 2017 outbreak |
+| Unknown unit names after renaming | none |
+
+**Problems in the source data**
+These were found and written down, not fixed. `cases_raw.csv` keeps the data exactly as published; Phase 2 cleaning deals with them.
+
+| Problem | Detail |
+|---|---|
+| Puttalam is missing one week | 2026 week 7, 2026-02-09 to 2026-02-15. Every other unit has it. Fill it in Phase 2, or take it from that WER issue. |
+| Week start changes | Saturday starts up to 2025, Monday starts from 2025-12-29, the same change seen in the WER PDFs in Step 1.1. |
+| Two days in no week | 2025-12-27 and 2025-12-28 fall between the last Saturday week and the first Monday week. |
+| Wrong year label | The week 2025-12-20 to 2025-12-26 is labelled `year 2026, week 53`. It is 2025 week 53. Sorted by `year, week`, it would land at the end of 2026. |
+| Odd week lengths in 2009 | Week 17 runs 2009-04-18 to 2009-04-25 (8 days), week 22 runs 2009-05-24 to 2009-05-29 (6 days), and the weeks in between start on Sunday. Probably a typing slip in the source. |
+| Dates not zero-padded | `2/9/2026`, not `02/09/2026`. `format="%m/%d/%Y"` still reads them. |
+
+**Why this way**
+- **The raw table keeps the source's mistakes.** If `cases_raw.csv` silently fixed the year label, nobody could later tell what the source said. Raw stays raw; every fix happens in one visible place in Phase 2.
+- **`week_start` is the key, not `year` and `week`.** The mislabelled week 53 and the 2009 dates show that week numbers cannot be trusted. Sorting and joining to weather by date avoids both problems.
+- **Rename to the `districts.csv` spelling now.** Every later merge (weather, population, map) goes through `unit`. One spelling everywhere means the joins just work.
+- **Stop on unknown names.** If a new copy of the file spells a unit differently, the script raises an error instead of quietly leaving that unit without weather in Phase 2.
+- **Download and build are separate**, the same as in the weather collector: the build code can be fixed and re-run without the network.
+
+```python
+UNIT_NAMES = {"NuwaraEliya": "Nuwara Eliya", "Hambanthota": "Hambantota", "Kalmune": "Kalmunai"}
+df = pyreadr.read_r(DATAHUB_FILE)["srilanka_weekly_data"]   # a dict of R objects, by name
+"week_start": pd.to_datetime(df["start.date"], format="%m/%d/%Y"),
+```
+
+```python
+# which week is Puttalam missing?
+all_weeks = set(df["start.date"])
+puttalam = set(df.loc[df["district"] == "Puttalam", "start.date"])
+all_weeks - puttalam          # {'2/9/2026'}
+```
+
+```powershell
+python -m src.collect_cases          # from the project root, with .venv active
+```
+
+**Still to do in this step**
+- Parse the WER PDFs for 2026 weeks 21 onwards with `pdfplumber` and append them → [[01.04 PDF Table Extraction with pdfplumber]].
+- A second copy of the `.rda` sits loose in `data/raw/` from an earlier download; the script uses `data/raw/cases/`. Delete the loose copy.
+
+> [!tip] What to remember
+> - `value_counts()` on the unit column is a quick completeness check: every unit should have the same number of weeks. The one that is short is where to look.
+> - Set difference (`set_a - set_b`) finds exactly which rows are missing.
+> - Check the length of every week and the gap to the next one. This found the 2009 slip and the 2-day hole that no missing-value check could find, because no value was missing.
+> - `float64` for counts usually means the data came from R or had missing values at some point. Convert to `int` only after checking there are no `NaN`s, or the conversion fails.
+
+**Check yourself**
+1. Why does `cases_raw.csv` keep the wrong `year 2026, week 53` label instead of fixing it?
+2. `df.isna().sum()` showed zero everywhere. How was the missing Puttalam week still found?
+3. Why do you sort by `week_start` and not by `year` and `week`?
+
+> [!success]- Answers
+> 1. Raw data records what the source published. Fixing it silently would hide the problem; Phase 2 fixes it in code that can be read and re-run.
+> 2. A missing week is a missing row, not a missing value. Counting rows per unit showed Puttalam one short, and a set difference of the start dates named the week.
+> 3. The year label is wrong for one week, so sorting by `year, week` puts a December 2025 count at the end of 2026. The start date is always correct.

@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3114 - Data Communication & Computer Networks/01. Lessons/01. Introduction/01.11 Protocol Hierarchies and Encapsulation.md",
+                "file": "05. Projects/dengue-early-warning/00. Dengue Early-Warning Overview.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "01.11 Protocol Hierarchies and Encapsulation"
+              "title": "00. Dengue Early-Warning Overview"
             }
           }
         ]
@@ -83,8 +83,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844,
-    "collapsed": true
+    "width": 423.8999938964844
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -203,6 +202,8 @@
   },
   "active": "1f07d7a391d7137b",
   "lastOpenFiles": [
+    "05. Projects/dengue-early-warning/Phase 00 - Setup and Domain Knowledge.md",
+    "02. University/CMIS 3114 - Data Communication & Computer Networks/01. Lessons/01. Introduction/01.11 Protocol Hierarchies and Encapsulation.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/01. Lessons/01. Introduction/01.10 Protocols and Layering.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/01. Lessons/01. Introduction/01.09 Network Classification by Scale.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/01. Lessons/01. Introduction/01.08 Network Topologies.md",
@@ -227,8 +228,6 @@
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/01. Lessons/02. Regular Expressions/02.03 Notation, Precedence and Recursive Definition.md",
     "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/C1W1-01 What is Machine Learning.md",
     "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/C1W1 - Week Hub.md",
-    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/Labs/C1W1-L02 Lab - Model Representation.md",
-    "03. Self-Study/ML Specialization/C1 - Supervised ML/C1W1 - Introduction to Machine Learning/Labs/C1W1-L01 Lab - Python and Jupyter.md",
     "03. Self-Study/ML Specialization/_assets/c1w1_supervised_vs_unsupervised.png",
     "03. Self-Study/ML Specialization/_assets/c1w1_linear_regression_model.png",
     "03. Self-Study/ML Specialization/_assets/c1w1_learning_rate.png",
