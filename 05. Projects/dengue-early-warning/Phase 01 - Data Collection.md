@@ -449,7 +449,8 @@ for col, label in enumerate(header):
 | `extract_text()` breaks the 2025–2026 file: spaces inside numbers, `Kalutara 1 ,302 6 29 6 73` | `x_tolerance` 3, 4 and 5: no change, so the gaps are real in the layout | `extract_table()`. It uses the cell borders, so each number stays in one cell (`'1 ,302'`); removing spaces and commas gives `1302`. Works on both files. |
 | The text strategy, `extract_table({"vertical_strategy": "text", ...})`, cut words across cells (`'tal M'`, `'ale Fem'`) | — | Not used; the default (border lines) is right for these files |
 | The district spelling differs: `Nuwara-eliya` in the PDF | — | `DISTRICT_NAMES` rename map, the same idea as `UNIT_NAMES` in the case collector |
-| Typos in the docstring and comments (`Satistcs`, `dat/raw`, `namees`, `easir`) and imports not grouped | — | Still to fix. Standard library first, blank line, then `pandas`, `pdfplumber`, `requests` together; two blank lines between top-level functions |
+| Typos in the docstring and comments (`Satistcs`, `dat/raw`, `namees`, `easir`) and imports not grouped | — | Still to fix. Standard library first, blank line, then `pandas`, `pdfplumber`, `requests` together; two blank lines between top-level functions. **Fixed 2026-10-29**, along with two new typos from a half-finished edit (`statistcs`, a stray `/ch` in the path); all docstrings now use `"""`. Output unchanged after the tidy-up. |
+| The planned failure test did **not** fail: reading the Male column instead of Total still gave a gap of 0 | Ran the shifted parser on a scratch copy of the script | A column shift moves the Sri Lanka row too, so male districts add up to male Sri Lanka. Added a row-level check in the parser: Total must equal Male + Female (±1 thousand). The shifted run now stops with `Sri Lanka 2014: Total 10059 is not Male 10719 + Female 20970` |
 
 **Found for Part 4: the census-base jump.** From 2024 (2012 census base) to 2025 (2024 census base) some districts change far more than a year's growth of about 1 %:
 
@@ -480,6 +481,25 @@ gap = (summed - national).abs()
 
 To test it: change `line[col]` to `line[col + 1]` (the Male column) for one run and confirm it raises "Districts do not add up to Sri Lanka".
 
+**Part 3: run and tested (2026-10-29).** The `__main__` block now joins both PDFs with `pd.concat` and passes them through `check_population()`.
+
+| Test | Expected | Result |
+|---|---|---|
+| Real data | Pass | Passed: 25 districts, largest gap 0; 325 rows = 25 × 13 years (2014–2026) |
+| District renamed back to `Nuwara-eliya` | Stop | Stopped: `unknown ['Nuwara-eliya'], missing ['Nuwara Eliya']` |
+| Male column read as Total | Stop | **Passed — the check missed it.** Every row shifts, Sri Lanka included, so the wrong columns still add up |
+| Same shift, after adding Total = Male + Female | Stop | Stopped: `Total 10059 is not Male 10719 + Female 20970` |
+
+The fix lives in the parser, because that is where all three columns are still side by side:
+
+```python
+total, male, female = (to_thousands(line[c]) for c in (col, col + 1, col + 2))
+if abs(total - male - female) > 1:      # each figure rounded to a thousand
+    raise ValueError(...)
+```
+
+So the two checks guard against different mistakes: **Total = Male + Female** catches a wrong column (the same mistake in every row); **districts = Sri Lanka** catches a wrong or missing row in one district.
+
 **Why this way**
 - **Download and parse are separate**, as in the other collectors: the parser can be fixed and re-run without the network.
 - **Short local file names, URLs kept in the code.** Easy to type, and the code still records where each file came from.
@@ -489,7 +509,7 @@ To test it: change `line[col]` to `line[col + 1]` (the Male column) for one run 
 - **One consistent series beats a mix of official numbers.** A smooth estimate on one census base is a better denominator than official figures from two bases with a fake jump between them.
 
 **Still to do in this step**
-- Run Part 3 and the deliberate-failure test.
+- ~~Run Part 3 and the deliberate-failure test.~~ Done 2026-10-29 (see above).
 - Part 4: combine the two tables, add `census_base` (2012 or 2024) and `estimated`, back-fill 2006–2013.
 - Part 5: check 25 districts × 21 years = 525 rows, no gaps, no duplicates.
 - Part 6: population columns in `docs/data.md` (note the Mullaitivu and Kilinochchi caveat for 2006–2009), `docs/progress.md`, commit.
@@ -497,6 +517,7 @@ To test it: change `line[col]` to `line[col + 1]` (the Male column) for one run 
 > [!tip] What to remember
 > - When `extract_text()` gives broken numbers, try `extract_table()` before fighting with tolerances. If the PDF has cell borders, the table reader is more reliable.
 > - A national total row is a built-in test. Use it, then drop it.
+> - Run every check against a deliberate mistake before trusting it. A check that has never failed may not be able to fail: the district-sum check passed a whole-column error because the total row shifted with it.
 > - Before mixing two official series, check whether they share a base. A census changes the base, and a sudden jump in the year it changes is an artefact, not a real event.
 > - Population changes about 1 % a year, cases change ten-fold within a year. A small error in the denominator barely moves the incidence rate, except where people really moved, such as the Northern districts during the war (2006–2009).
 
