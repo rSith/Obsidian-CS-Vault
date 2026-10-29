@@ -13,7 +13,7 @@ tags: [project, ml]
 
 ## Steps
 - [x] Find the case data: which sources, which format (PDF, web table, file), how far back (done 2026-10-11, Step 1.1)
-- [ ] Write the case collector `src/collect_cases.py` → [[01.03 Web Scraping with BeautifulSoup and read_html]] · [[01.04 PDF Table Extraction with pdfplumber]] (in progress, Step 1.4: `denguedatahub` part done 2026-10-28, WER part to do)
+- [ ] Write the case collector `src/collect_cases.py` → [[01.03 Web Scraping with BeautifulSoup and read_html]] · [[01.04 PDF Table Extraction with pdfplumber]] (in progress, Step 1.4: `denguedatahub` part done 2026-10-28; WER parser and downloader written 2026-10-29, download waiting on the site)
 - [x] Write the weather collector `src/collect_weather.py` (done 2026-10-23, Step 1.3) → [[01.01 HTTP Requests and REST APIs in Python]] · [[01.02 Parsing JSON into Tables]]
 - [ ] Collect population per district
 - [ ] Write the data dictionary in `docs/data.md`
@@ -276,8 +276,8 @@ python -m src.collect_cases          # from the project root, with .venv active
 ```
 
 **Still to do in this step**
-- Parse the WER PDFs for 2026 weeks 21 onwards with `pdfplumber` and append them → [[01.04 PDF Table Extraction with pdfplumber]].
-- A second copy of the `.rda` sits loose in `data/raw/` from an earlier download; the script uses `data/raw/cases/`. Delete the loose copy.
+- Parse the WER PDFs for 2026 weeks 21 onwards with `pdfplumber` and append them → [[01.04 PDF Table Extraction with pdfplumber]]. (2026-10-29: parser and downloader written, download waiting on the site. See Part 2 below.)
+- A second copy of the `.rda` sits loose in `data/raw/` from an earlier download; the script uses `data/raw/cases/`. Delete the loose copy. (Gone, checked 2026-10-29.)
 
 > [!tip] What to remember
 > - `value_counts()` on the unit column is a quick completeness check: every unit should have the same number of weeks. The one that is short is where to look.
@@ -294,3 +294,54 @@ python -m src.collect_cases          # from the project root, with .venv active
 > 1. Raw data records what the source published. Fixing it silently would hide the problem; Phase 2 fixes it in code that can be read and re-run.
 > 2. A missing week is a missing row, not a missing value. Counting rows per unit showed Puttalam one short, and a set difference of the start dates named the week.
 > 3. The year label is wrong for one week, so sorting by `year, week` puts a December 2025 count at the end of 2026. The start date is always correct.
+
+### Part 2 — WER PDFs (in progress)
+> [!important] Goal
+> Add 2026 week 21 onwards, which `denguedatahub` does not have yet, by downloading each WER issue and reading the dengue column from its table.
+
+**What was done (2026-10-29)**
+- **Parser**, `parse_wer()` (commit `80ebbf1`). It finds the page whose text has a line starting `Table` that mentions "Medical Officers of Health", rebuilds the sideways table with `sideways_lines()`, reads the end date and week number from the title, and keeps the first two numbers after each unit name (dengue this week, dengue year to date). Tested on the two saved issues.
+- **Already wired in.** `build_table()` calls `wer_weeks(after=<last denguedatahub week_start>)`, so only weeks newer than the `.rda` file are appended.
+- **Downloader**, `list_wer_issues()` and `download_wer(after)`. The archive page lists every issue as a card with its week number, its own date range (`2025.01.25 - 2025.01.31`) and a Download link. The script reads the cards with BeautifulSoup, keeps issues dated after the last `denguedatahub` week, and saves each PDF once, waiting 2 seconds between files. `beautifulsoup4` uncommented in `requirements.txt`.
+- **Small restructure.** `read_datahub()` was split out of `build_table()`, because the WER download needs the last `denguedatahub` date before the table is built.
+- **Not yet downloaded.** The site was down all session (see Problems), so `cases_raw.csv` currently has 2026 weeks up to 20 from `denguedatahub`, then only week 33 from the one saved 2026 issue. Weeks 21 to 32 are a gap until the download runs.
+
+**Why this way**
+- **Read the date on the card, not the file name.** File names are not consistent: old ones look like `Vol 38 NO 01 English.pdf`, new ones like `en_67d929c3161cb_Vol_52_no_05-english.pdf` with a random code, and one is just `en_63ec87e11b430_WER.pdf`. All 968 cards in the archived page had the same week line and date line, so the date is the reliable key.
+- **One overlap week on purpose.** An issue reports the week *before* its own date. Keeping issues dated after the last `denguedatahub` week start means the first issue saved repeats that last week. `wer_weeks()` drops it from the table, but the PDF is there to compare by hand with `denguedatahub`.
+- **A failed download does not stop the build.** If the site is down, the script prints a warning and builds from the PDFs already saved. The live pipeline in Phase 8 needs this: a bad day on the server should give a slightly older table, not no table.
+- **Honest User-Agent.** The request names the project and links to the repository, so the site owner can see who is downloading and why.
+
+```python
+for card in soup.select("li.product"):
+    dates = WER_ISSUE_DATES.search(card.get_text())   # "2025.01.25 - 2025.01.31"
+    link = card.find("a", href=True)
+```
+
+```python
+HEADERS = {"User-Agent": "dengue-early-warning/0.1 (+https://github.com/rSith/dengue-early-warning)"}
+```
+
+**Problems and fixes**
+- **509 Bandwidth Limit Exceeded.** The Epidemiology Unit's host ran out of bandwidth, so every page returned 509 (later 500). Nothing to fix on our side. To write the parser anyway, the page structure was read from a Wayback Machine copy (`web.archive.org/web/2026/https://www.epid.gov.lk/weekly-epidemiological-report`, snapshot of 2025-10-15). `list_wer_issues()` was tested on that copy: 968 issues, 2006-12-30 to 2025-08-02. There is no 2026 snapshot.
+- **403 Forbidden from Python only.** curl got 500, but `requests` got 403. Testing with curl showed that the server blocks the User-Agent `python-requests/...` but not other names. Sending a User-Agent that names the project changed the 403 to the same 500 as everyone else.
+
+**Still to do in Part 2**
+- Run `python -m src.collect_cases` when the site is back. Check that issues dated 2026-05-18 onwards download, that every week has 26 units, and that weeks 21 to 33 follow each other with no gap.
+- Compare the overlap week (11–17 May 2026) between the WER issue and `denguedatahub`.
+- Check whether the WER issue for 2026 week 7 gives the missing Puttalam count.
+
+> [!tip] What to remember
+> - When a site is down, the Wayback Machine often has a copy of the page. That is enough to learn its HTML structure and write the parser.
+> - A 403 that only Python gets is usually a User-Agent filter. Compare with curl before assuming you are banned.
+> - Choose files by what the page *says* about them (dates, titles), not by guessing URL patterns.
+
+**Check yourself**
+1. Why does the downloader pick issues by the date on the card and not by the volume number in the file name?
+2. The last `denguedatahub` week starts 2026-05-11. Which week does the first downloaded issue report, and why is that useful?
+3. Why does the script carry on when the WER download fails, instead of stopping?
+
+> [!success]- Answers
+> 1. File names change style across years and some have no volume number at all, while every card shows its date in the same format.
+> 2. The issue dated 18–24 May reports 11–17 May, the week `denguedatahub` already has. It is dropped from the table, but it lets you check that the two sources agree.
+> 3. The PDFs already saved are still valid. Building from them gives a table that is at most a little out of date, which matters for the weekly pipeline later.
