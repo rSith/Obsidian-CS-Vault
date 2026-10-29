@@ -500,6 +500,43 @@ if abs(total - male - female) > 1:      # each figure rounded to a thousand
 
 So the two checks guard against different mistakes: **Total = Male + Female** catches a wrong column (the same mistake in every row); **districts = Sri Lanka** catches a wrong or missing row in one district.
 
+**Part 4: one series, 2006–2026 (2026-10-29).** `build_series(table)` fills two gaps per district.
+
+*The choice.* Three ways to handle the 2024 → 2025 census break were compared:
+
+| Option | What it does | Verdict |
+|---|---|---|
+| A. As published | Keep both series, mark the break with `census_base` | Leaves fake jumps (Mullaitivu +23 %) that the model would read as a real fall in incidence |
+| B. Scale all old years | Multiply 2006–2024 by the district's factor | Removes the jump, but makes 2012 wrong: the old series *was* a census count that year |
+| **C. Phase in (chosen)** | Factor 1.0 in 2012, rising in a straight line to the full factor in 2024 | Removes the jump and keeps 2012 correct; matches how the drift built up. This is the standard *intercensal adjustment* |
+
+*The formulas.* For each district, with $r$ its yearly growth over 2014–2019 (final figures, before COVID):
+
+$$r = \left(\frac{P_{2019}}{P_{2014}}\right)^{1/5} - 1 \qquad \text{factor} = \frac{P_{2025} / (1 + r)}{P_{2024}}$$
+
+$$P^{\text{back-fill}}_y = \frac{P_{2014}}{(1 + r)^{2014 - y}} \quad (2006 \le y \le 2013)$$
+
+$$P^{\text{adjusted}}_y = P_y \times \left(1 + (\text{factor} - 1)\cdot\frac{\max(0,\ y - 2012)}{12}\right) \quad (y \le 2024)$$
+
+The factor ranges from 0.868 (Vavuniya: old estimate 15 % too high) to 1.225 (Mullaitivu: 22 % too low); most districts are within 4 %.
+
+```python
+weight = max(0, year - OLD_CENSUS) / (NEW_CENSUS - OLD_CENSUS)
+population = wide[year] * (1 + (factor - 1) * weight)
+```
+
+*Checked.*
+
+| Check | Result |
+|---|---|
+| Rows | 525 = 25 × 21 years (2006–2026) |
+| 2024 → 2025 change | Now equal to each district's growth rate: 0.42 % (Mullaitivu) to 1.80 % (Ampara, Kilinochchi). Before: −12.2 % to +23.0 % |
+| Largest yearly change anywhere | +3.18 % (Mannar 2018), −1.28 % (Kandy 2023). Both sit on years that are already uneven in the published figures (2018 is where the provisional estimates start) |
+| Mullaitivu | 91,885 (2006) → 94,212 (2012) → 122,489 (2024) → 123,000 (2025) |
+| Flags | `estimated` True for 2006–2024 (475 rows: back-filled or adjusted), False for 2025–2026 (50 rows, exactly as published) |
+
+`estimated` turned out True for every year up to 2024, because every 2013–2024 figure is adjusted a little. Only 2025–2026 are untouched official numbers. That is the honest answer, not a bug.
+
 **Why this way**
 - **Download and parse are separate**, as in the other collectors: the parser can be fixed and re-run without the network.
 - **Short local file names, URLs kept in the code.** Easy to type, and the code still records where each file came from.
@@ -510,7 +547,7 @@ So the two checks guard against different mistakes: **Total = Male + Female** ca
 
 **Still to do in this step**
 - ~~Run Part 3 and the deliberate-failure test.~~ Done 2026-10-29 (see above).
-- Part 4: combine the two tables, add `census_base` (2012 or 2024) and `estimated`, back-fill 2006–2013.
+- ~~Part 4: combine the two tables, add `census_base` (2012 or 2024) and `estimated`, back-fill 2006–2013.~~ Done 2026-10-29 with option C (see above).
 - Part 5: check 25 districts × 21 years = 525 rows, no gaps, no duplicates.
 - Part 6: population columns in `docs/data.md` (note the Mullaitivu and Kilinochchi caveat for 2006–2009), `docs/progress.md`, commit.
 
