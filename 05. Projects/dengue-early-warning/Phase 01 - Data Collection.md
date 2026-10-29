@@ -15,7 +15,7 @@ tags: [project, ml]
 - [x] Find the case data: which sources, which format (PDF, web table, file), how far back (done 2026-10-11, Step 1.1)
 - [ ] Write the case collector `src/collect_cases.py` → [[01.03 Web Scraping with BeautifulSoup and read_html]] · [[01.04 PDF Table Extraction with pdfplumber]] (in progress, Step 1.4: `denguedatahub` part done 2026-10-28; WER parser and downloader written 2026-10-29, download waiting on the site)
 - [x] Write the weather collector `src/collect_weather.py` (done 2026-10-23, Step 1.3) → [[01.01 HTTP Requests and REST APIs in Python]] · [[01.02 Parsing JSON into Tables]]
-- [ ] Collect population per district
+- [ ] Collect population per district → [[01.08 Population Denominators and Incidence Rates]] · [[01.04 PDF Table Extraction with pdfplumber]] (in progress, Step 1.5: sources found and `src/collect_population.py` downloads and parses both tables, 2026-10-29)
 - [ ] Write the data dictionary in `docs/data.md`
 - [ ] Cache every download and wait between requests
 
@@ -331,6 +331,16 @@ HEADERS = {"User-Agent": "dengue-early-warning/0.1 (+https://github.com/rSith/de
 - Compare the overlap week (11–17 May 2026) between the WER issue and `denguedatahub`.
 - Check whether the WER issue for 2026 week 7 gives the missing Puttalam count.
 
+**Later the same day (2026-10-29): site still down, and the fallback plan**
+- Checked again with a browser User-Agent: the archive page now answers **500**. The Wayback Machine was also offline ("Temporarily Offline", then `429`), so the PDFs could not be fetched from there either.
+- Worked out what is lost if the site never comes back. Very little:
+  - **Training history is safe.** `denguedatahub` already gives about 19.5 years (2006-12-23 to 2026-05-17); the phase asks for 8 or more. The WER was only going to add the newest 12 weeks.
+  - **The live system does not depend on the WER.** The Dengue Control Unit update was chosen as the live source on 2026-10-11; the WER was only the fallback.
+  - **Most of the gap can come from the Dengue Control Unit.** Its PDFs cover 2026 weeks 19–37 except 20, 22, 23 and 31. Week 20 is in `denguedatahub`, so only **weeks 22, 23 and 31** would be truly missing. Leave them missing in the raw file and decide in Phase 2 how to treat them.
+  - **The collector already copes.** A failed WER download prints a warning and builds from the PDFs already saved, so "re-run from scratch with no manual steps" still holds.
+- **Plan:** wait about a week. If the site is still down, add a Dengue Control Unit part to `collect_cases.py`, compare its weeks 19–20 with `denguedatahub` for all 26 units, add a `source` column (`datahub` / `wer` / `ndcu`) to `cases_raw.csv`, and record the WER as discontinued in `docs/data.md`. Other things to try: the Wayback Machine again, a newer `denguedatahub` release, or emailing the Epidemiology Unit.
+- Meanwhile, moved on to population (Step 1.5), which needs neither site.
+
 > [!tip] What to remember
 > - When a site is down, the Wayback Machine often has a copy of the page. That is enough to learn its HTML structure and write the parser.
 > - A 403 that only Python gets is usually a User-Agent filter. Compare with curl before assuming you are banned.
@@ -345,3 +355,157 @@ HEADERS = {"User-Agent": "dengue-early-warning/0.1 (+https://github.com/rSith/de
 > 1. File names change style across years and some have no volume number at all, while every card shows its date in the same format.
 > 2. The issue dated 18–24 May reports 11–17 May, the week `denguedatahub` already has. It is dropped from the table, but it lets you check that the two sources agree.
 > 3. The PDFs already saved are still valid. Building from them gives a table that is at most a little out of date, which matters for the weekly pipeline later.
+
+---
+## Step 1.5 — Population per district (in progress)
+> [!important] Goal
+> A script, `src/collect_population.py`, that downloads the official mid-year population tables and saves `data/processed/population.csv` with one row per district per year, 2006 to 2026, and the columns `district, year, population, provisional, estimated, census_base`. Phase 2 divides cases by it to get cases per 100,000 people → [[01.08 Population Denominators and Incidence Rates]].
+
+The step is done in six small parts:
+
+| # | Part | Status |
+|---|---|---|
+| 1 | Download the two PDFs | Done, checked 2026-10-29 |
+| 2 | Parse a PDF into rows | Done, checked 2026-10-29 |
+| 3 | Check names and totals | Code written, not yet run |
+| 4 | Join the two tables, mark the census base, fill 2006–2013 | To do |
+| 5 | Check the final table (525 rows, no gaps) | To do |
+| 6 | Data dictionary, notes, progress log | To do |
+
+**What was done (2026-10-29)**
+
+*Finding the source.* The Census and Statistics site (Vital Statistics page) has two district tables, both PDF only:
+
+| Years | File | Based on | Provisional |
+|---|---|---|---|
+| 2014–2024 | `Mid-year_population_by_district_and_sex_2014_2024.pdf`, 3 pages, 4 years per page | 2012 census | 2018 onwards (`*`) |
+| 2025–2026 | `Mid-year_population_by_district_and_sex_2025-2026.pdf`, 1 page | 2024 census | both years |
+
+Both are in thousands, give Total, Male and Female, and list 25 districts plus a `Sri Lanka` row. Ampara only, no Kalmunai, as expected.
+
+*Looking for 2006–2013.* No official district table was found:
+- The yearly Vital Statistics pages (for example 2010) have only births, infant deaths and deaths by district, not population.
+- The Central Bank's *Socio-Economic Data 2014* gives national totals only, and they show a break: **2011: 20,869 thousand → 2012: 20,328 thousand.** The country did not lose 540,000 people. Estimates before 2012 were built on the 2001 census, which could not fully count the North and East during the war; the 2012 census reset the base.
+- **Decision:** do not mix older official figures into the series even if found, because they would make a false jump in 2012. Instead, extend the 2012-based series backwards with each district's average yearly growth over 2014–2019, and mark those rows `estimated=True`. 2019 is the end of the window because 2020–2024 are provisional and affected by COVID and emigration.
+
+*Part 1: download.* `download_population()` saves both PDFs to `data/raw/population/` under short names, once. Checked: both files start with `%PDF-` (real PDFs, not saved error pages), 515,910 and 112,156 bytes, and a second run printed "Already have …" twice and downloaded nothing.
+
+```python
+PDF_URLS = {
+    "population_2014_2024.pdf": (
+        "https://www.statistics.gov.lk/Resource/en/Population/Vital_Statistics/"
+        "Mid-year_population_by_district_and_sex_2014_2024.pdf"
+    ),
+    "population_2025_2026.pdf": (...),
+}
+
+for name, url in PDF_URLS.items():
+    path = RAW_DIR / name
+    if path.exists():
+        print(f"Already have {path}, skipping")
+        continue                      # not return: there is more than one file
+    response = requests.get(url, headers=HEADERS, timeout=60)
+    response.raise_for_status()
+    path.write_bytes(response.content)
+    time.sleep(DELAY_SECONDS)         # only after a real download
+```
+
+*Part 2: parse.* `parse_population_pdf(path)` reads each page with `extract_table()` and returns long rows of `district, year, population, provisional`. Row 0 of each table has a year above its Total column (`['District', '2025*', None, None, '2026*', None, None]`), row 1 is the Total/Male/Female sub-header, data starts at row 2.
+
+```python
+DISTRICT_NAMES = {"Nuwara-eliya": "Nuwara Eliya"}     # PDF spelling -> districts.csv
+
+table = page.extract_table()
+header, body = table[0], table[2:]
+for col, label in enumerate(header):
+    if col == 0 or label is None:
+        continue                                      # a year sits only above Total
+    for line in body:
+        total = line[col].replace(" ", "").replace(",", "")
+        rows.append({
+            "district": DISTRICT_NAMES.get(line[0], line[0]),
+            "year": int(label.rstrip("*")),
+            "population": int(total) * 1000,          # table is in thousands
+            "provisional": label.endswith("*"),
+        })
+```
+
+**Checked (2026-10-29)**
+
+| Check | Result |
+|---|---|
+| 2014–2024 file | 286 rows = 26 (25 districts + Sri Lanka) × 11 years |
+| 2025–2026 file | 52 rows = 26 × 2 |
+| Provisional flag | False for 2014–2017, True for 2018–2026, as marked in the PDFs |
+| District names | All 25 match `districts.csv` after the `Nuwara-eliya` rename |
+| 25 districts vs the Sri Lanka row | Difference **0** in all 13 years |
+| Colombo | 2,353,000 (2014) → 2,446,000 (2024) → 2,371,000 (2025) |
+
+**Problems and fixes**
+
+| Problem | What was tried | Fix |
+|---|---|---|
+| The web page reader could not open the 2014–2024 PDF; it returned "raw compressed PDF data" | — | Downloaded the file and read it with `pdfplumber` instead |
+| `extract_text()` breaks the 2025–2026 file: spaces inside numbers, `Kalutara 1 ,302 6 29 6 73` | `x_tolerance` 3, 4 and 5: no change, so the gaps are real in the layout | `extract_table()`. It uses the cell borders, so each number stays in one cell (`'1 ,302'`); removing spaces and commas gives `1302`. Works on both files. |
+| The text strategy, `extract_table({"vertical_strategy": "text", ...})`, cut words across cells (`'tal M'`, `'ale Fem'`) | — | Not used; the default (border lines) is right for these files |
+| The district spelling differs: `Nuwara-eliya` in the PDF | — | `DISTRICT_NAMES` rename map, the same idea as `UNIT_NAMES` in the case collector |
+| Typos in the docstring and comments (`Satistcs`, `dat/raw`, `namees`, `easir`) and imports not grouped | — | Still to fix. Standard library first, blank line, then `pandas`, `pdfplumber`, `requests` together; two blank lines between top-level functions |
+
+**Found for Part 4: the census-base jump.** From 2024 (2012 census base) to 2025 (2024 census base) some districts change far more than a year's growth of about 1 %:
+
+| District | 2024 → 2025 |
+|---|---|
+| Mullaitivu | **+23.0 %** (100,000 → 123,000) |
+| Vavuniya | **−12.2 %** |
+| Nuwara Eliya | −6.8 % |
+| Mannar | +6.0 % |
+| Jaffna | −5.4 % |
+| Sri Lanka | −0.7 % |
+
+These are corrections, not real changes: the 2012-based estimates drifted for 12 years and the 2024 census measured again. The `census_base` column will mark which series each row comes from. Growth over 2014–2019 ranges from 0.42 % a year (Mullaitivu) to 1.80 % (Ampara, Kilinochchi); these are the rates for the back-fill.
+
+**Part 3 (written, not yet run).** `check_population(table)` stops on unknown or missing names and on totals that do not add up, then drops the Sri Lanka row. The tolerance is 26 × 500 = 13,000: every figure is rounded to the nearest thousand, so 25 districts and the national row can each be 500 off. Today the difference is 0, but a correct table rounded differently should not fail, and a column mistake (Male instead of Total) is off by millions.
+
+```python
+TOTAL_TOLERANCE = 26 * 500
+
+known = set(pd.read_csv(DISTRICTS_FILE)["district"])        # 26 rows -> 25 names
+found = set(table["district"]) - {"Sri Lanka"}
+if found != known:
+    raise ValueError(f"... unknown {sorted(found - known)}, missing {sorted(known - found)}")
+national = table[table["district"] == "Sri Lanka"].set_index("year")["population"]
+summed = table[table["district"] != "Sri Lanka"].groupby("year")["population"].sum()
+gap = (summed - national).abs()
+```
+
+To test it: change `line[col]` to `line[col + 1]` (the Male column) for one run and confirm it raises "Districts do not add up to Sri Lanka".
+
+**Why this way**
+- **Download and parse are separate**, as in the other collectors: the parser can be fixed and re-run without the network.
+- **Short local file names, URLs kept in the code.** Easy to type, and the code still records where each file came from.
+- **`extract_table()` over `extract_text()`.** The table has drawn cell borders, so the table reader keeps each number whole even when the text reader splits it. The WER needed character positions because its table is sideways; this one does not.
+- **Whole people, not thousands.** `population` is multiplied by 1,000 once, so later formulas have no hidden factor.
+- **Keep the Sri Lanka row until the check.** It is a free test of the parser, then it is dropped.
+- **One consistent series beats a mix of official numbers.** A smooth estimate on one census base is a better denominator than official figures from two bases with a fake jump between them.
+
+**Still to do in this step**
+- Run Part 3 and the deliberate-failure test.
+- Part 4: combine the two tables, add `census_base` (2012 or 2024) and `estimated`, back-fill 2006–2013.
+- Part 5: check 25 districts × 21 years = 525 rows, no gaps, no duplicates.
+- Part 6: population columns in `docs/data.md` (note the Mullaitivu and Kilinochchi caveat for 2006–2009), `docs/progress.md`, commit.
+
+> [!tip] What to remember
+> - When `extract_text()` gives broken numbers, try `extract_table()` before fighting with tolerances. If the PDF has cell borders, the table reader is more reliable.
+> - A national total row is a built-in test. Use it, then drop it.
+> - Before mixing two official series, check whether they share a base. A census changes the base, and a sudden jump in the year it changes is an artefact, not a real event.
+> - Population changes about 1 % a year, cases change ten-fold within a year. A small error in the denominator barely moves the incidence rate, except where people really moved, such as the Northern districts during the war (2006–2009).
+
+**Check yourself**
+1. Why was `extract_table()` used and not `extract_text()` for the population PDFs?
+2. Official national figures show 20.9 million in 2011 and 20.3 million in 2012. What happened, and why does it matter for the project?
+3. The Mullaitivu population goes from 100,000 in 2024 to 123,000 in 2025. Is that real growth? How will the table show it?
+
+> [!success]- Answers
+> 1. In the 2025–2026 file, `extract_text()` puts spaces inside numbers (`1 ,302`, `6 29`), so splitting a line on spaces gives too many pieces. `extract_table()` follows the drawn cell borders and keeps each number in one cell, so removing spaces and commas gives the right value.
+> 2. The base changed from the 2001 census to the 2012 census, which counted the North and East properly. Mixing the two series would make every district's incidence jump in 2012 for no real reason, and a model could learn that jump.
+> 3. No. It is the switch from 2012-census estimates to the 2024 census. The `census_base` column marks each row as 2012 or 2024, so the jump can be seen and explained.
