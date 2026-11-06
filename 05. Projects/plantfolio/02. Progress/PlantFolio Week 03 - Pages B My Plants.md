@@ -643,10 +643,252 @@ if (!$errors) {
 
 Lessons: [[03.06 Form Handling - Validation, Redirects and Flash Messages]] · [[03.03 Password Hashing and Login Lockout]] · [[00.04 Output Escaping in PHP]]
 
+### Step 3.13 — My Garden: the New collection popup
+> [!important] Goal
+> **CORE-13 (UI built, not wired).** Ranshitha reported that "+ New collection" did nothing. It had been a placeholder since step 3.2. It now opens a popup for creating a collection.
+
+**What was done**
+- 2026-11-05, branch `feature/simplify-ui`, commit `6b64b0c`.
+- `public/garden.php`: the button got `data-dialog="new-collection"`. A `<dialog>` at the bottom of the page holds one POST form with **Name** and **Who can see it?** (Public / Private), plus **Cancel** and **Create collection**. At the top of the file, PHP checks the form.
+- `includes/mock-data.php`: a new `mock_add_collection()` keeps the new collection in the session, the same way `mock_add_reminder()` does on the Dashboard. So the new tab appears on My Garden, on the Dashboard's Garden at a glance and in the Add plant form, and the header says "in 4 collections".
+- An empty collection now shows "Nothing in this collection yet" with **Add a plant**, not "No plants match".
+- `garden.css`: one small rule puts Public and Private side by side.
+
+**Why this way**
+- **No new JavaScript.** `app.js` already opens any `<dialog>` whose id matches a button's `data-dialog`. The Dashboard popups work the same way.
+- **The rules come from the data dictionary:** `collections.name` is `VARCHAR(60)` with `UNIQUE (user_id, name)`, so the name is required, at most 60 characters and not already used ("balcony" counts as "Balcony"). `is_public` defaults to 1, so Public starts ticked.
+- **POST, then redirect:** after Create, the page sends you to `garden.php?collection=900`. Reloading the page then cannot create the collection twice, and the new tab is already open.
+- **An error reopens the popup:** `data-open-on-load` makes it open as soon as the page loads, with the message under the Name box.
+
+```php
+if ($name === '') {
+    $collection_errors['name'] = 'Give the collection a name.';
+} elseif (mb_strlen($name) > 60) {
+    $collection_errors['name'] = 'Use 60 characters or fewer.';
+}
+if (!$collection_errors) {
+    $new_collection = mock_add_collection($name, $collection_values['is_public'] === '1');
+    header('Location: ' . url('garden.php?collection=' . $new_collection['id']));
+    exit;
+}
+```
+
+**Checked:** both PHP files pass `php -l`. With curl: an empty name and "balcony" each reopen the popup with their error; "Bedroom" (Private) redirects, shows its toast and a "Bedroom 0" tab, appears on the Dashboard and in Add plant, and stays off the Public Profile because it is private. Screenshots at 1280 px and 375 px look right. Not yet tried by hand: keyboard (Tab, Esc) and a real phone.
+
+> [!tip] What to remember
+> - A popup form is still a normal form: POST, check on the server, redirect.
+> - Check the rules in PHP even when the browser checks them (`required`, `maxlength`).
+> - In stage F the session stands in for the database. Stage B swaps `mock_add_collection()` for an `INSERT`.
+
+**Check yourself**
+1. Why does the page redirect after a collection is created, instead of just showing the page?
+2. The input already has `maxlength="60"`. Why does PHP check the length again?
+3. What changes in stage B?
+
+> [!success]- Answers
+> 1. So a reload repeats a harmless GET, not the POST. Otherwise the browser would send the form again and create a second collection (the Post/Redirect/Get pattern).
+> 2. Browser checks can be switched off or skipped with a hand-made request. Only the server's check can be trusted.
+> 3. `mock_add_collection()` becomes `INSERT INTO collections (user_id, name, is_public) VALUES (?, ?, ?)` with a PDO prepared statement, a CSRF token is added to the form, and the UNIQUE key backs the duplicate-name rule.
+
+Lessons: [[02.02 Tabs, Modals, Toasts and Focus]] · [[03.06 Form Handling - Validation, Redirects and Flash Messages]]
+
+### Step 3.14 — New collection popup: pick plants to put in it
+> [!important] Goal
+> **CORE-13 (UI built, not wired).** Ranshitha's idea: the popup should also let you add existing plants to the new collection, but **not** plants that already belong to a collection.
+
+**What was done**
+- 2026-11-05, branch `feature/simplify-ui`, commit `cb148cb`.
+- The popup has an **Add plants (optional)** list: checkbox, photo, name, and where the plant is now. Plants with no collection are listed first and can be ticked. The others are greyed out (disabled) with "In Living room" and so on.
+- **The sample data was a problem:** all 8 sample plants were already in a collection, so nothing could be picked. Ranshitha chose to add two new **private** sample plants with no collection: **Penny** (Chinese money plant, id 62) and **Heidi** (Heartleaf philodendron, id 63). Nimali now has 20 plants (18 in collections + 2). Her public count stays 13.
+- Pages that print a plant's collection now cope with "no collection": the plant card shows nothing, the list view and the reminder picker say "No collection", and the plant page leaves the collection out of the breadcrumb.
+- **A privacy bug found while testing, and fixed:** a *public* collection holding *private* plants showed their count and photos on the Public Profile. New collections now also carry public-only numbers, which `user.php` reads.
+
+**Why this way**
+- **One collection per plant** comes from the database: `plants.collection_id` is one column, so a plant cannot be in two collections. Greying the plant out (not hiding it) tells the member *why* Monty can't be picked.
+- **Disabled is not security.** Anyone can send `plants[]=42` by hand, so PHP accepts only ids that are the member's own and still in no collection:
+
+```php
+$free_plant_ids = array_column(array_filter($mock_plants, fn ($plant) => $plant['collection_id'] === null), 'id');
+if (array_diff($collection_values['plants'], $free_plant_ids)) {
+    $collection_errors['plants'] = 'Choose only plants that are not in a collection yet.';
+}
+```
+
+- `array_diff()` returns the ids that are **not** in the allowed list. Anything left over means a bad id, so the form is refused.
+
+**Checked:** every member page loads with no PHP warnings (19 addresses, including Penny and Heidi's pages and the new-member preview). Creating "Bedroom" with Penny and Heidi opens a tab with 2 plants and the toast "Collection created: Bedroom · 2 plants added". Monty (`plants[]=42`), `plants[]=abc` and Penny a second time are each refused. The Public Profile shows Bedroom with 0 plants. Screenshots at 1280 px and 375 px look right. Not yet tried by hand: keyboard and a real phone.
+
+> [!tip] What to remember
+> - A rule in the database (one `collection_id` per plant) becomes a rule in the form, and the page should explain it.
+> - `disabled` in HTML is only a hint: check again on the server.
+> - Private stays private everywhere: test the public pages after every change to shared data.
+
+**Check yourself**
+1. Why can't a plant be in two collections in PlantFolio?
+2. The Monty box is disabled. How could someone still send Monty's id, and what stops it?
+3. Why does the Public Profile show Bedroom with 0 plants when it holds 2?
+
+> [!success]- Answers
+> 1. Each `plants` row has one `collection_id` column, so it can point to one collection only. Several collections per plant would need a link table (many-to-many).
+> 2. By editing the HTML in DevTools or sending a hand-made POST with `plants[]=42`. PHP compares every id with `$free_plant_ids` and refuses the form if any id is not on it.
+> 3. Penny and Heidi are private plants. A private plant is never counted or shown to others, even inside a public collection (stage B: `AND plants.is_public = 1`).
+
+Lessons: [[02.02 Tabs, Modals, Toasts and Focus]] · [[03.06 Form Handling - Validation, Redirects and Flash Messages]]
+
+### Step 3.15 — Delete a collection
+> [!important] Goal
+> **CORE-13 (UI built, not wired).** Ranshitha asked how to delete a collection made by mistake or no longer needed. There was no way to do it.
+
+**What was done**
+- 2026-11-05, branch `feature/simplify-ui`, commit `6b76d69`.
+- When a collection's tab is open, a line under the tabs shows **"Balcony · 6 plants"** and a quiet **Delete collection** button (grey, red only on hover). On **All plants** the line is hidden, because All plants is not a collection.
+- The button opens a confirm popup: **Delete "Balcony"?** "Your 6 plants will stay in your garden. They just won't be in a collection." **Cancel** gets the focus; **Delete** is the red-outline `.btn-danger`.
+- After Delete you go back to All plants with the toast "Collection deleted: Balcony". Its plants become **No collection**, so they can be picked again in **+ New collection**.
+- `mock-data.php`: `mock_delete_collection()` remembers the id in the session. The end of the file leaves that collection out, sets its plants' `collection_id` to null and lowers the counts. `?member` brings everything back.
+
+**Why this way**
+- **The plants are kept** because the database says so: `plants.collection_id` is a foreign key with **ON DELETE SET NULL** ("Deleting a collection keeps its plants"). In stage B, MySQL does this by itself.
+- **The popup names the item:** a CLAUDE.md rule for every destructive action, so nobody deletes the wrong collection.
+- **Cancel has the focus** (`autofocus`), so pressing Enter by habit cannot delete anything.
+- **Ownership check:** only an id that is one of the member's own collections is accepted. Amaya's collection 21, `abc` and `collection[]=1` change nothing.
+
+```php
+foreach ($mock_collections as $collection) {
+    if (ctype_digit($delete_id) && $collection['id'] === (int) $delete_id && $collection['user_id'] === $current_user['id']) {
+        $deleted = $collection;
+    }
+}
+```
+
+**Checked:** both PHP files pass `php -l`. Deleted a new "Bedroom": toast shown, Penny can be picked again. Deleted Living room: "20 plants in 2 collections", Monty can be picked again, and the Public Profile shows 1 collection. Ten member pages load with no PHP warnings afterwards. Screenshots of the line and the popup look right. Not yet tried by hand: keyboard (Esc, Tab) and a real phone.
+
+> [!tip] What to remember
+> - Deleting a group is not deleting its contents: decide what happens to the children (here SET NULL).
+> - Destructive action = confirm popup that names the item, with the safe button focused.
+> - The server checks ownership before every delete; the hidden id in the form can be changed by anyone.
+
+**Check yourself**
+1. What happens to the plants in a deleted collection, and which part of the database decides it?
+2. Why does the popup focus Cancel, not Delete?
+3. The form sends `collection=1` in a hidden field. What stops someone from deleting another member's collection by changing it?
+
+> [!success]- Answers
+> 1. They stay in the garden with `collection_id` NULL ("No collection"). The foreign key `plants.collection_id → collections.id` with ON DELETE SET NULL decides it.
+> 2. So a member who presses Enter without reading cannot lose anything. The dangerous choice needs a deliberate click.
+> 3. The server deletes only a collection whose `user_id` is the logged-in member's (stage B: `DELETE … WHERE id = ? AND user_id = ?`). Another member's id matches no row, so nothing happens.
+
+Lessons: [[02.02 Tabs, Modals, Toasts and Focus]] · [[03.06 Form Handling - Validation, Redirects and Flash Messages]]
+
+### Step 3.16 — Add plants to an existing collection
+> [!important] Goal
+> **CORE-13 (UI built, not wired).** Ranshitha noticed that plants could only be picked when a collection was created, not added to one that already exists.
+
+**What was done**
+- 2026-11-05, branch `feature/simplify-ui`, commit `b4a4274`.
+- The line under the tabs now has **+ Add plants** next to **Delete collection**. It opens **Add plants to "Living room"** with the same list as New collection: free plants can be ticked, the others are greyed out with "In …".
+- After Add you stay on the collection's tab with the toast "1 plant added to Living room".
+- If every plant already has a collection, the popup says so in a sage box and the **Add plants** button is switched off.
+- **New file `partials/plant-picker.php`:** the list moved out of `garden.php`, so both popups use one copy. It takes an `$id` prefix, because two lists on one page must not share an `id`.
+- `mock-data.php`: `mock_add_to_collection()` reuses the "plant id → collection id" session list that New collection already uses.
+
+**Why this way**
+- **A partial instead of copy-paste:** one change to the list now fixes both popups (the DRY idea: don't repeat yourself).
+- **The form posts to `garden.php?collection=1`,** not plain `garden.php`. On an error the page needs to know which tab to show again. `filter_input(INPUT_GET, …)` reads the real address, so changing `$_GET` in code would not have worked (my first try did that and I replaced it before testing).
+- **Two server checks:** the collection must be the member's own, and every plant must be hers and still free.
+
+```php
+$add_plants_values = posted_plant_ids();
+if (!$add_plants_values) {
+    $add_plants_error = 'Tick at least one plant.';
+} elseif (array_diff($add_plants_values, $free_plant_ids)) {
+    $add_plants_error = 'Choose only plants that are not in a collection yet.';
+}
+```
+
+**Problems and fixes**
+- Adding to one of the three original collections would have hit a missing key, because only new collections had public-only numbers. They are now filled in from the totals the first time a plant is added.
+
+**Checked:** the PHP files pass `php -l`. Nothing ticked, Monty, and Amaya's collection 21 are each refused. Heidi added to Living room: "Living room 8" in My Garden, still 7 on the Public Profile (Heidi is private). With no free plants, the notice shows and Add is disabled. Eight pages load with no PHP warnings. Screenshots of the line and the popup look right. Not yet tried by hand: keyboard and a real phone.
+
+> [!tip] What to remember
+> - When two pages or popups need the same piece of HTML, make it a partial and pass it what differs.
+> - Element ids must be unique on a page: give a reused partial an id prefix.
+> - Disable a button only together with a message that says why.
+
+**Check yourself**
+1. Why does the plant list live in `partials/plant-picker.php` now?
+2. Why does the Add plants form send to `garden.php?collection=1` instead of `garden.php`?
+3. In the Add plants popup, why is the Add button sometimes disabled?
+
+> [!success]- Answers
+> 1. Both popups (New collection and Add plants) show the same list. One partial means one place to change it, and the two can never drift apart.
+> 2. If the form comes back with an error, the page must show the same collection's tab with the popup open again. The tab is read from the address (`?collection=1`), so the address must carry it.
+> 3. When every plant already belongs to a collection, nothing can be ticked, so there is nothing to add. A message above the list explains why.
+
+Lessons: [[02.02 Tabs, Modals, Toasts and Focus]] · [[03.06 Form Handling - Validation, Redirects and Flash Messages]]
+
+#### Follow-up — "Add plants" renamed to "Choose plants"
+- 2026-11-05, commit `268b6dc`. Ranshitha found that **+ Add plants** (under the tabs) and **+ Add plant** (the big green button) looked alike, so a member could press the wrong one.
+- They do different things: **Add plant** makes a *new* plant; the other puts plants you *already have* into the open collection. So it now has its own verb, icon and style: **Choose plants**, a folder-with-arrow icon (`folder-input`), and a plain text button like Delete collection. The popup is **Choose plants for "Living room"** with the button **Add to collection**.
+- **Rule to remember:** two buttons that do different things must not share a label, an icon *and* a look. Change at least the words, and keep only one big primary button per area.
+
+### Step 3.17 — My Garden: every tab's plants in one fixed-size box
+> [!important] Goal
+> **CORE-14 layout (UI only).** Ranshitha's design: the white box used for an empty collection should hold the plants of *every* tab, All plants included. It has a fixed size and scrolls inside with no visible scrollbar. The collection's name and actions go in the box header, and the filters go above the box. On a phone, two small cards per row.
+
+**What was done**
+- 2026-11-05, branch `feature/simplify-ui`, commit `8f3d23f`. Only `garden.php` and `garden.css` changed.
+- **New order:** tabs + Add plant → search/status/sort → **the box**.
+- **Box header:** "All plants" or the collection's name, its count, "Private" with a lock, and while filtering "· 3 match × Clear filters". For a real collection it also has **Choose plants** and **Delete collection**. All plants has no actions, because it is not a collection.
+- **Box body:** fixed height (560 px phone, 600 tablet, 640 desktop), so about two rows of cards show and the next row peeks out. It scrolls by itself with the scrollbar hidden (`.scroll-quiet`, the Dashboard's trick), and a soft white **fade** at the bottom hints that there is more. The grid, the list view and all empty messages are inside it.
+- **Phone cards:** two per row, so the scientific name and collection are hidden, the name is smaller, and the health word moves to the bottom of the photo (at the top it ran under the ⋯ button). This is only on My Garden, so Explore and the Public Profile cards are unchanged.
+
+**Why this way**
+- **`flex: 1; min-height: 0`** on the body: in a flex column, a child will not shrink below its content unless `min-height: 0` is set. Without it the box would grow instead of scrolling.
+- **The fade is `position: sticky; bottom: …`** on a `::after` strip: it stays stuck to the bottom edge while the cards scroll under it. `pointer-events: none` lets clicks pass through.
+- **`tabindex="0"` + `role="region"` + a label** on the scrolling body, so a keyboard user can focus it and scroll with the arrow keys (a hidden scrollbar must not mean "mouse only").
+- **The box title is an `<h2>`** (the page's `<h1>` is My Garden, the card names are `<h3>`), so headings stay in order for screen readers.
+
+```css
+.garden-box { display: flex; flex-direction: column; height: 560px; overflow: hidden; }
+.garden-box-body { flex: 1; min-height: 0; }          /* takes the rest of the box and scrolls */
+.garden-box-body::after { position: sticky; bottom: -32px; height: 32px; margin-top: -32px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), var(--color-white)); pointer-events: none; }
+```
+
+**Problems and fixes**
+- **The ⋯ menu was cut off on small phone cards.** A card has `overflow: hidden` (it keeps the photo inside the rounded corners), and the 220 px menu is bigger than a half-width card. On phone cards the card now lets it out, and the photo is rounded itself. On a left-hand card the menu opens to the right, so it stays inside the box.
+- **The open menu was drawn under the neighbouring cards' ⋯ buttons.** Each button has `z-index: 1`, and later cards are painted on top. The open menu (`details[open]`) now gets `z-index: 5`.
+
+**Checked:** no PHP warnings on All plants, Living room, list view, a search with no results, a status filter and the new-member preview. Screenshots: desktop grid (two rows, the third peeks out under the fade), desktop list view (the header row stays visible while scrolling), phone with two cards per row, the phone menu opened on top, and the empty "No plants match" box on a tablet. Not yet tried by hand: mouse-wheel and touch scrolling, Tab into the box, and a real phone.
+
+> [!tip] What to remember
+> - Fixed-height scrolling area = `height` on the box + `flex: 1; min-height: 0` + `overflow-y: auto` on the body.
+> - A hidden scrollbar needs another hint (the fade) and keyboard access (`tabindex="0"`).
+> - `overflow: hidden` clips *everything* inside, dropdowns too. Check menus whenever you change a container's overflow.
+
+**Check yourself**
+1. What does `min-height: 0` do on the box body, and what happens without it?
+2. The scrollbar is hidden. How does a member know there are more plants, and how does a keyboard user scroll?
+3. Why could the ⋯ menu not open fully on a small phone card at first?
+
+> [!success]- Answers
+> 1. A flex child normally refuses to be smaller than its content. `min-height: 0` lets the body shrink to the space left in the 560 px box, so its overflow scrolls. Without it the body (and the box) would grow to fit every card.
+> 2. The next row of cards peeks out under a white fade at the bottom edge. The body has `tabindex="0"`, so Tab can focus it and the arrow keys scroll it. Tabbing to a card link inside also scrolls it into view.
+> 3. The card had `overflow: hidden`, which clips anything outside its edges, and the menu is wider and taller than a half-width card. On phone cards the card now uses `overflow: visible`, and the photo is rounded on its own.
+
+Lessons: [[02.02 Tabs, Modals, Toasts and Focus]] · [[01.99 Summary - Building Pages]]
+
+#### Follow-up — header buttons: one colour, bold on hover
+- 2026-11-05, commit `39631c8`. Ranshitha asked for **Choose plants** and **Delete collection** in the same colour, with no coloured box on hover, and bold text instead.
+- Both are now forest green at weight 500. On hover the background stays clear and the label becomes **600**, the boldest Poppins weight the site loads (`header.php` loads 400/500/600 only; adding 700 would mean an extra font file on every page).
+- **The trick against jumping:** bold letters are wider, so the button would grow on hover and push its neighbour. Each label is a `<span class="hover-bold" data-label="…">`, and its `::after` draws a hidden, zero-height bold copy (`content: attr(data-label)`). The span is always as wide as the bold text. Measured: Delete is 159 px before and during hover.
+- Delete is no longer red. It is still safe, because it always asks first in a popup that names the collection.
+
 ---
 
 ## Open points
-- **My Garden (P04):** the first card is Tommy, not Monty as on p11, because "Recently updated" sorts by the newest health log and Tommy had a Health Check yesterday. The chips say 7 + 6 + 5 = 18 plants while the mock data holds 8, so a collection shows fewer cards than its count until stage B. New collection (button and chip) and Delete do nothing yet. **Apply** is not on p11; it is needed until week 6 submits the lists on change. Lily, Pearl and their "Peace lily" / "Mexican snowball" common names are my additions from p11's pictures. *(Step 4.8, Week 04 close-out: two older bugs fixed. A hand-made address with a list where one word belongs, `garden.php?q[]=x` (warning) or `?sort[]=x` (fatal error), now falls back to the defaults: every value is read with `get_text()`, commit `aed2bbe`. The page no longer scrolls 17 px sideways at 375 px: `position: relative` on `.collection-tabs`, commit `a65c913`.)*
+- **My Garden (P04):** the first card is Tommy, not Monty as on p11, because "Recently updated" sorts by the newest health log and Tommy had a Health Check yesterday. The chips say 7 + 6 + 5 = 18 plants while the mock data holds 8, so a collection shows fewer cards than its count until stage B. New collection (button and chip) and Delete do nothing yet. **Apply** is not on p11; it is needed until week 6 submits the lists on change. Lily, Pearl and their "Peace lily" / "Mexican snowball" common names are my additions from p11's pictures. *(Step 4.8, Week 04 close-out: two older bugs fixed. A hand-made address with a list where one word belongs, `garden.php?q[]=x` (warning) or `?sort[]=x` (fatal error), now falls back to the defaults: every value is read with `get_text()`, commit `aed2bbe`. The page no longer scrolls 17 px sideways at 375 px: `position: relative` on `.collection-tabs`, commit `a65c913`.)* *(Step 3.13, 2026-11-05: New collection now opens a popup and keeps the new collection in the session, commit `6b64b0c`. Delete still does nothing.)* *(Step 3.14: the popup can add plants that are in no collection yet, commit `cb148cb`. New sample plants Penny and Heidi, so Nimali has 20 plants.)* *(Step 3.15: Delete collection built, commit `6b76d69`; its plants stay with no collection.)* *(Step 3.16: Add plants to an existing collection, commit `b4a4274`. Still missing: taking a plant out of a collection or moving it to another one.)*
 - **Plant Profile (P05):** the species columns `pet_safe`, `water_interval_days` and `fertilise_interval_days` are my names until DES-07/DES-13 fix them; the care texts and story notes are my samples. Every story entry shows its status badge (p12 shows it on the newest only). Monty's gallery shows the same placeholder drawing four times. **Log update**, **Mark watered** and **Like** do nothing yet (week 5 dialog, stage B saving). "Add" photo and "+ Add" reminder lead to the edit form, which is built next. The read-only view (CORE-21) was built now, not in week 7, because p12 includes it. Visitors see a "Pets" tile in place of the next watering, and no Reminders tab: my choices. *(Step 4.8, Week 04 close-out: `plant.php?id=42&tab[]=x` stopped with a fatal error; `tab` is now read with `get_text()` (commit `aed2bbe`). "Plant not found" now has an `<h1>` (commit `dcc1ccd`), and the breadcrumb links are 44 px tap targets (commit `a8e394a`). Found while measuring, left for the week 6 responsive pass: **Mark watered** is 32 px tall and the Reminders **Add** link 21 px, at every width.)*
 - **Add / Edit Plant (P06):** **Save plant** opens My Garden and **Save changes** opens the plant's profile (option A, step 3.10), but nothing is saved until stage B, so a new plant does not appear in My Garden yet. **Delete plant** does nothing until the week 5 confirmation. Health is not on the edit form (it goes through Log update): my choice, p13 does not say. The species field accepts any name (a `<datalist>`, not a fixed list): decide in stage B what happens with a species we have no guide for. `?ai` and `?ai=unsure` are preview switches until the ML service exists; the AI suggestion (ML-13) was built now, not in week 7. The phone bottom bar is hidden on this page (`$hide_bottom_bar`), as p23 says for inner pages; the other pages keep it until the week 6 responsive pass. *(Step 4.8, Week 04 close-out: because the bottom bar is hidden, the top bar also lost its member class, so on a tablet the logo text stayed and the page was 831 px wide in a 768 px window. The class now follows "is a member" (commit `e8bc521`). `ai` and `pick` are read with `get_text()` (commit `aed2bbe`).)*
 - **Settings (P15):** the three preference values `new_plants_public`, `show_listing_area` and `dashboard_reminders` are **proposed new `users` columns** for DES-07 (names are mine). Every Save shows its green message but **stores nothing** until stage B, so the old values come back on the next visit. Change photo, Remove and Delete account do nothing yet (uploads in stage B, the dialog in week 5). "Change email" opens a small form in place, which p22 does not draw. The phone layout is one long page with the menu as a list of jump links; p22's "separate screens on mobile" waits for the week 6 responsive pass. *(Step 4.7: Nimali now has a phone, +94 77 000 1234, shown on her listings to members who are interested; Settings has no field to enter or change it. To decide, see Week 04, Listing Detail (P11), mock data.)* *(Step 4.8, Week 04 close-out: `settings.php?saved[]=x` and a sent form with `form[]=x` stopped with fatal errors, and `new_password[]=x` printed "Array to string conversion". `saved` is read with `get_text()` and the form fields with `post_text()` (commit `aed2bbe`): no errors, and the password rules answer as for any wrong value.)*
