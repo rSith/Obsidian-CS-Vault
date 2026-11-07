@@ -28,7 +28,7 @@
               "type": "markdown",
               "state": {
                 "file": "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.05 Records, Blocking and File Allocation.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
@@ -98,7 +98,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844
+    "width": 423.8999938964844,
+    "collapsed": true
   },
   "right": {
     "id": "c7e9b299c8696c4f",
