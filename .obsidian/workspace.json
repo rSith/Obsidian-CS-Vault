@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/02. Indexing Structures/02.07 B-Trees.md",
+                "file": "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/03. Query Processing and Relational Algebra/03.01 Stages of Query Processing.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "02.07 B-Trees"
+              "title": "03.01 Stages of Query Processing"
             }
           }
         ]
@@ -83,8 +83,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844,
-    "collapsed": true
+    "width": 423.8999938964844
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -203,6 +202,8 @@
   },
   "active": "4a0e5bf8d9e244df",
   "lastOpenFiles": [
+    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/03. Query Processing and Relational Algebra/03.00 Query Processing and Relational Algebra.md",
+    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/02. Indexing Structures/02.07 B-Trees.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/02. Indexing Structures/02.06 Multilevel Indexes.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/02. Indexing Structures/02.02 Primary Indexes.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/02. Indexing Structures/02.01 What Is an Index.md",
@@ -233,8 +234,6 @@
     "03. Self-Study/DLAI Short Courses/B5.2 LLMOps & MLOps/B5.2 LLMOps & MLOps.md",
     "03. Self-Study/DLAI Short Courses/B5.1 Inference Efficiency/B5.1 Inference Efficiency.md",
     "03. Self-Study/DLAI Short Courses/B4 Model Training & Alignment/B4 Model Training & Alignment.md",
-    "03. Self-Study/DLAI Short Courses/B3 AI-Assisted Software Engineering/B3 AI-Assisted Software Engineering.md",
-    "03. Self-Study/DLAI Short Courses/B2.2 Document & Multimodal Pipelines/B2.2 Document & Multimodal Pipelines.md",
     "03. Self-Study/DLAI Short Courses/C Optional & Overlapping/18 Large Language Models with Semantic Search",
     "03. Self-Study/DLAI Short Courses/C Optional & Overlapping/17 Understanding and Applying Text Embeddings",
     "03. Self-Study/DLAI Short Courses/C Optional & Overlapping/16 Quality and Safety for LLM Applications",
