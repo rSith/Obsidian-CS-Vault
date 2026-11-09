@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.02 Magnetic Disk Structure.md",
+                "file": "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.03 Disk Access Time and Performance.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "01.02 Magnetic Disk Structure"
+              "title": "01.03 Disk Access Time and Performance"
             }
           }
         ]
@@ -203,6 +203,7 @@
   },
   "active": "4a0e5bf8d9e244df",
   "lastOpenFiles": [
+    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.02 Magnetic Disk Structure.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.01 Types of Storage and Memory Hierarchy.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.00 Data Storage and File Organization.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.05 Records, Blocking and File Allocation.md",
@@ -210,7 +211,6 @@
     "02. University/CMIS 3153 - Advanced Database Systems/Claude outputs",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.04 Buffering of Blocks.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.03 Disk Access Time and Performance.md",
-    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.02 Magnetic Disk Structure.md",
     "03. Self-Study/00. Learning Tracker.md",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/01 ChatGPT Prompt Engineering for Developers/ChatGPT Prompt Engineering for Developers.md",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/A1 LLMs & Prompting.md",
