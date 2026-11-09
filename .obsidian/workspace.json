@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.05 Records, Blocking and File Allocation.md",
+                "file": "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.06 File Operations and Access Methods.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "01.05 Records, Blocking and File Allocation"
+              "title": "01.06 File Operations and Access Methods"
             }
           }
         ]
@@ -203,8 +203,8 @@
   },
   "active": "4a0e5bf8d9e244df",
   "lastOpenFiles": [
-    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.04 Buffering of Blocks.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.05 Records, Blocking and File Allocation.md",
+    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.04 Buffering of Blocks.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.03 Disk Access Time and Performance.md",
     "02. University/CMIS 3153 - Advanced Database Systems/Claude outputs/CMIS3153_Mid_Lesson5_Distributed_Databases.pdf",
     "02. University/CMIS 3153 - Advanced Database Systems/Claude outputs/CMIS3153_Mid_Lesson4_Query_Optimization.pdf",
