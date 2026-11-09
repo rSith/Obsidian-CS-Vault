@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.06 File Operations and Access Methods.md",
+                "file": "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.09 Dynamic Hashing.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "01.06 File Operations and Access Methods"
+              "title": "01.09 Dynamic Hashing"
             }
           }
         ]
@@ -83,8 +83,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844,
-    "collapsed": true
+    "width": 423.8999938964844
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -203,6 +202,9 @@
   },
   "active": "4a0e5bf8d9e244df",
   "lastOpenFiles": [
+    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.08 Hash Files and Collision Handling.md",
+    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.07 Heap and Sorted Files.md",
+    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.06 File Operations and Access Methods.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.05 Records, Blocking and File Allocation.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.04 Buffering of Blocks.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.03 Disk Access Time and Performance.md",
@@ -232,8 +234,6 @@
     "03. Self-Study/DLAI Short Courses/B1.4 Specialised Agents/B1.4 Specialised Agents.md",
     "03. Self-Study/DLAI Short Courses/B1.3 Agent Reliability & Governance/B1.3 Agent Reliability & Governance.md",
     "03. Self-Study/DLAI Short Courses/B1.2 Agent Memory/B1.2 Agent Memory.md",
-    "03. Self-Study/DLAI Short Courses/B1.1 Multi-Agent & Protocols/B1.1 Multi-Agent & Protocols.md",
-    "03. Self-Study/DLAI Short Courses/A6 Open Models & Fine-tuning/A6 Open Models & Fine-tuning.md",
     "03. Self-Study/DLAI Short Courses/C Optional & Overlapping/18 Large Language Models with Semantic Search",
     "03. Self-Study/DLAI Short Courses/C Optional & Overlapping/17 Understanding and Applying Text Embeddings",
     "03. Self-Study/DLAI Short Courses/C Optional & Overlapping/16 Quality and Safety for LLM Applications",
