@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.09 Dynamic Hashing.md",
+                "file": "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/02. Indexing Structures/02.07 B-Trees.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "01.09 Dynamic Hashing"
+              "title": "02.07 B-Trees"
             }
           }
         ]
@@ -83,7 +83,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844
+    "width": 423.8999938964844,
+    "collapsed": true
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -202,6 +203,10 @@
   },
   "active": "4a0e5bf8d9e244df",
   "lastOpenFiles": [
+    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/02. Indexing Structures/02.06 Multilevel Indexes.md",
+    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/02. Indexing Structures/02.02 Primary Indexes.md",
+    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/02. Indexing Structures/02.01 What Is an Index.md",
+    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.09 Dynamic Hashing.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.08 Hash Files and Collision Handling.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.07 Heap and Sorted Files.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.06 File Operations and Access Methods.md",
@@ -230,10 +235,6 @@
     "03. Self-Study/DLAI Short Courses/B4 Model Training & Alignment/B4 Model Training & Alignment.md",
     "03. Self-Study/DLAI Short Courses/B3 AI-Assisted Software Engineering/B3 AI-Assisted Software Engineering.md",
     "03. Self-Study/DLAI Short Courses/B2.2 Document & Multimodal Pipelines/B2.2 Document & Multimodal Pipelines.md",
-    "03. Self-Study/DLAI Short Courses/B2.1 Advanced Retrieval & KGs/B2.1 Advanced Retrieval & KGs.md",
-    "03. Self-Study/DLAI Short Courses/B1.4 Specialised Agents/B1.4 Specialised Agents.md",
-    "03. Self-Study/DLAI Short Courses/B1.3 Agent Reliability & Governance/B1.3 Agent Reliability & Governance.md",
-    "03. Self-Study/DLAI Short Courses/B1.2 Agent Memory/B1.2 Agent Memory.md",
     "03. Self-Study/DLAI Short Courses/C Optional & Overlapping/18 Large Language Models with Semantic Search",
     "03. Self-Study/DLAI Short Courses/C Optional & Overlapping/17 Understanding and Applying Text Embeddings",
     "03. Self-Study/DLAI Short Courses/C Optional & Overlapping/16 Quality and Safety for LLM Applications",
