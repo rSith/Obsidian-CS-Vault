@@ -153,7 +153,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844
+    "width": 423.8999938964844,
+    "collapsed": true
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -272,6 +273,7 @@
   },
   "active": "4a0e5bf8d9e244df",
   "lastOpenFiles": [
+    "05. Projects/plantfolio/02. Progress/PlantFolio Week 16 - Delivery.md.tmp.28020.5a4f78760591",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.6 - Reference Models, TCP and UDP.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.5 - Protocols, Layering and Services.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.4 - Classification and Topologies.md",
@@ -301,7 +303,6 @@
     "02. University/CMIS 3153 - Advanced Database Systems/Claude outputs/CMIS3153_Mid_Lesson4_Query_Optimization.pdf",
     "02. University/CMIS 3153 - Advanced Database Systems/Claude outputs/CMIS3153_Mid_Lesson3_Query_Processing_RA.pdf",
     "02. University/CMIS 3153 - Advanced Database Systems/Claude outputs/CMIS3153_Mid_Lesson2_Indexing.pdf",
-    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.02 Magnetic Disk Structure.md",
     "02. University/CMIS 3153 - Advanced Database Systems/Claude outputs/CMIS3153_Mid_Lesson1_Data_Storage.pdf",
     "02. University/CMIS 3153 - Advanced Database Systems/Claude outputs",
     "03. Self-Study/DLAI Short Courses/C Optional & Overlapping/18 Large Language Models with Semantic Search",
