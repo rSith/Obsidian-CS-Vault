@@ -117,3 +117,5 @@ flask --app app run --debug         # http://127.0.0.1:5000
 > 1. In Phase 6 the data comes from an API route. Only the template's `data_url` changes; the JavaScript stays the same.
 > 2. It copied past years' values for those weeks and ignored that 2026 is running far higher, so it predicted an instant fall. The seasonal ratio keeps this year's level and applies only the usual seasonal change.
 > 3. The map cannot be used with a keyboard or a screen reader. The table buttons and the drop-down give everyone the same way to choose a district.
+
+**Update (2026-11-13, later): data refreshed.** The Dengue Control Unit fallback ([[Phase 01 - Data Collection]], Step 1.4, Part 3) filled the 12 missing weeks and added weeks 34–44. After `python -m src.export_dashboard` the page shows data up to 26 Oct–1 Nov 2026 with no gaps: **8 Warning, 4 Watch, 13 Normal** (was 19, 2, 4). The new weeks show the June–July 2026 epidemic, so the old "high" week 33 was its tail, not a rise. The Sources note now names the Dengue Control Unit and says its district counts are not yet adjusted to the WER history.

@@ -13,26 +13,26 @@ tags: [project, ml]
 
 ## Steps
 - [x] Find the case data: which sources, which format (PDF, web table, file), how far back (done 2026-10-11, Step 1.1)
-- [ ] Write the case collector `src/collect_cases.py` → [[01.03 Web Scraping with BeautifulSoup and read_html]] · [[01.04 PDF Table Extraction with pdfplumber]] (in progress, Step 1.4: `denguedatahub` part done 2026-10-28; WER parser and downloader written 2026-10-29, download waiting on the site)
+- [x] Write the case collector `src/collect_cases.py` → [[01.03 Web Scraping with BeautifulSoup and read_html]] · [[01.04 PDF Table Extraction with pdfplumber]] (done 2026-11-13, Step 1.4: `denguedatahub` 2026-10-28, WER 2026-10-29, Dengue Control Unit fallback 2026-11-13)
 - [x] Write the weather collector `src/collect_weather.py` (done 2026-10-23, Step 1.3) → [[01.01 HTTP Requests and REST APIs in Python]] · [[01.02 Parsing JSON into Tables]]
 - [x] Collect population per district → [[01.08 Population Denominators and Incidence Rates]] · [[01.04 PDF Table Extraction with pdfplumber]] (done 2026-11-13, Step 1.5: `population.csv`, 525 rows)
-- [ ] Write the data dictionary in `docs/data.md`
-- [ ] Cache every download and wait between requests
+- [x] Write the data dictionary in `docs/data.md` (2026-11-13: every file in `data/reference`, `data/raw` and `data/processed` has its rows)
+- [x] Cache every download and wait between requests (2026-11-13: all four collectors skip saved files and wait 1–2 s between downloads; a second case run downloaded nothing)
 
 > [!warning] Carried over from the Phase 0 data check
 > These are not in the roadmap. They came out of checking the real sources, and they affect Phase 3.
-> - [ ] Measure how late each case source publishes → [[01.06 Reporting Delay and Data Availability]]
+> - [x] Measure how late each case source publishes → [[01.06 Reporting Delay and Data Availability]] (2026-11-13: Dengue Control Unit median 7 days after the week ends, from upload times; WER 8 weeks and `denguedatahub` 21 weeks, from Step 1.1. See Step 1.4, Part 3.)
 > - [x] Choose the source that will feed the live system (decided 2026-10-11: Dengue Control Unit update, WER as fallback)
 > - [x] Decide whether to collect all districts now (decided 2026-10-11: yes, all 26 units)
 > - [x] Decide how the 26 reporting units map to 25 districts (decided 2026-10-11: keep 26 in the raw file, add Kalmunai to Ampara in Phase 2)
-> - [ ] Confirm the week definition used in the reports → [[01.05 Dates and Epidemiological Weeks]] (2026-10-28: `denguedatahub` agrees with the WER PDFs: Saturday starts up to 2025, Monday starts from 2025-12-29. See Step 1.4.)
+> - [x] Confirm the week definition used in the reports → [[01.05 Dates and Epidemiological Weeks]] (2026-10-28: `denguedatahub` agrees with the WER PDFs: Saturday starts up to 2025, Monday starts from 2025-12-29. See Step 1.4.) (2026-11-13: all 44 Dengue Control Unit titles are ISO weeks; that source numbers 2025 one week differently from the WER. See Step 1.4, Part 3.)
 
 ## Done when
-- [ ] `cases_raw.csv` covers the chosen districts for 8 or more years
+- [x] `cases_raw.csv` covers the chosen districts for 8 or more years (2026-11-13: 26 units, 23 Dec 2006 to 1 Nov 2026)
 - [x] Daily weather is downloaded for the same districts and years (2026-10-23: 26 units, 2006-01-01 to 2026-10-22)
 - [x] The population table is saved (2026-11-13: `data/processed/population.csv`, 25 districts × 2006–2026)
 - [ ] Both collector scripts re-run from scratch with no manual steps
-- [ ] The data dictionary is written
+- [x] The data dictionary is written (2026-11-13)
 
 ---
 ## Work log
@@ -217,7 +217,7 @@ python -m src.collect_weather           # from the project root, with .venv acti
 > 3. The files for past years already exist, so the script did not ask the server again. The saved files hold the old list of variables. Delete `data/raw/weather/` and download again.
 
 ---
-## Step 1.4 — Case collector (in progress)
+## Step 1.4 — Case collector
 > [!important] Goal
 > A script that downloads the weekly case counts and saves them as one table, `cases_raw.csv`, with the columns `unit, year, week, week_start, week_end, cases`. Part 1 covers the `denguedatahub` file (Dec 2006 to May 2026). Part 2, still to do, parses WER PDFs for 2026 weeks 21 onwards.
 
@@ -355,6 +355,102 @@ HEADERS = {"User-Agent": "dengue-early-warning/0.1 (+https://github.com/rSith/de
 > 1. File names change style across years and some have no volume number at all, while every card shows its date in the same format.
 > 2. The issue dated 18–24 May reports 11–17 May, the week `denguedatahub` already has. It is dropped from the table, but it lets you check that the two sources agree.
 > 3. The PDFs already saved are still valid. Building from them gives a table that is at most a little out of date, which matters for the weekly pipeline later.
+
+
+### Part 3 — Dengue Control Unit fallback (2026-11-13)
+> [!important] Goal
+> The WER site was still down after two weeks (500), so fill 2026 from week 21 onwards from the National Dengue Control Unit's Weekly Dengue Update, and measure how far its counts agree with `denguedatahub` before joining them.
+
+**What was done (2026-11-13)**
+- **Found every issue.** The site has no archive page, but it runs WordPress, whose public media list names every uploaded file: `/wp-json/wp/v2/media?search=Weekly-Dengue-Update`. It lists **2026 weeks 1–44, none missing**. The 11 Oct search had found only weeks 19–37 without 20, 22, 23 and 31; weeks 1–17 and 19 were uploaded on 3 June and weeks 18 and 20 on 24 August.
+- **`list_ndcu_issues()` and `download_ndcu()`** keep PDFs only (some uploads are `.webp` images), take the newest upload when a week was uploaded twice (21, 30, 38, 39), and save each once as `data/raw/ndcu/ndcu_<year>_w<week>.pdf`. 44 files.
+- **`parse_ndcu()`** reads Table 1. Each unit row has six numbers: 2025 previous week, 2025 this week, 2026 previous week, 2026 this week, 2025 to date, 2026 to date. The text mixes the table with the report's paragraphs, so one regex per unit looks for the name followed by exactly six numbers on the same line.
+- **Compared the overlap** with `denguedatahub` before joining (tables below), then:
+  - `cases_raw.csv` gets a **`source`** column. After the last `denguedatahub` week, each week comes from the WER if a WER PDF is saved, otherwise from the Dengue Control Unit, using the **revised** figure printed in the next issue.
+  - **Every** parsed figure (first prints, revisions, 2025 comparison weeks) is saved to `data/processed/cases_ndcu.csv` for Phase 2.
+- **Rebuilt the dashboard data** with the new weeks ([[Phase 07 - Dashboard]], Step 7.1): data now up to 1 Nov 2026 with no gap; 8 Warning, 4 Watch, 13 Normal.
+
+**Checked (2026-11-13)**
+
+| Check | Result |
+|---|---|
+| Issues parsed | 44 of 44 |
+| Title dates | Every issue's end date equals its ISO week (Monday start) |
+| Units vs Total row | 2026 columns within 2 %; small gaps printed as warnings (see Problems) |
+| `cases_raw.csv` | 26,935 rows, 23 Dec 2006 to 1 Nov 2026: `datahub` 26,311, `ndcu` 598, `wer` 26 (week 33) |
+| New weeks | 18 May to 1 Nov 2026, 24 weeks, all 26 units, no gap |
+| Old rows | All 26,337 rows from before are unchanged |
+| Re-run | Downloads nothing new; the WER failure is still printed and skipped |
+
+**How the two systems compare** (63 weeks matched by date: 2025 weeks 1–44 from the comparison columns, and 2026 weeks 1–20)
+
+| | 2025 | 2026 |
+|---|---|---|
+| National NDCU ÷ WER | 1.01 | 1.03 |
+| Weekly correlation, national | 0.97 | 0.88 |
+
+| Districts | NDCU ÷ WER | Weekly correlation |
+|---|---|---|
+| Colombo, Puttalam, Gampaha | 1.13, 1.12, 1.08 | 0.71–0.89 |
+| Most others (Kandy, Galle, Matara, Ratnapura, Kalutara …) | 0.92–1.06 | 0.7–0.95 |
+| Kilinochchi, Mullaitivu, Vavuniya, Nuwara Eliya | 0.43, 0.46, 0.57, 0.61 | 0.01–0.45 |
+
+The national counts agree, but the districts do not. The two systems seem to place cases differently (possibly by the reporting hospital rather than where the patient lives), and in small districts the weekly patterns barely match. **So the source change on 18 May 2026 is a break in each district's series.** It stays in the raw file, marked by `source`; Phase 2 must correct it per district from the overlap. It also matters for Phase 8: the live system was planned to read this source, while the model learns from the WER history.
+
+**Publication delay** (upload time minus week end, weeks 24–44): **median 7 days**, 3 to 10 for regular uploads. Weeks 38 and 39 show 29 and 18 days because only their re-uploads are listed. The "4 weeks" from Step 1.1 was a backlog: on 11 Oct the newest issue was week 37, and weeks 38–41 appeared on 15–19 Oct.
+
+**Why this way**
+- **Ask the site what it has.** The media list gives the real URL of every file, including the upload month in the path, which cannot be guessed. Same idea as reading the WER cards instead of guessing file names.
+- **Compare before joining.** Two sources that agree nationally can still disagree by district; joining blindly would have hidden a break in the training data.
+- **Prefer the WER week when there is one.** It is the same reporting system as the 19 years of history. The Dengue Control Unit fills only what is missing, and `source` says which is which.
+- **Revised figure over first print.** The next issue adds late hospital reports. The change is small overall (−0.2 %), but the revised figure is the better count.
+- **Keep everything in `cases_ndcu.csv`.** Phase 2 needs the overlap weeks to estimate the correction, and they are not in `cases_raw.csv`.
+- **Dates from the ISO calendar, checked against the title.** The previous-week and 2025 columns have no dates printed; the issue title confirms the calendar is ISO.
+
+```python
+# One unit row: the name, then exactly six numbers, all on one line
+NDCU_NUMBER = r"(?:\d+|Nil|Ni)\*?"          # "Ni" is a typo for "Nil" in four issues
+pattern = rf"(?<![A-Za-z]){re.escape(unit)}\*?[ ]+((?:{NDCU_NUMBER}[ ]+){{5}}{NDCU_NUMBER})(?!\S)"
+```
+
+```python
+# Which source after the last denguedatahub week
+ndcu = ndcu_final(ndcu_all, after=last)                     # revised figure where printed
+ndcu = ndcu[~ndcu["week_start"].isin(wer["week_start"])]    # a WER week wins
+```
+
+**Problems and fixes**
+
+| Problem | What was tried | Fix |
+|---|---|---|
+| 16 of 44 issues failed at first | — | Four causes, below |
+| Weeks 26 and 31: a row found twice | — | `\s+` let the pattern cross line breaks, joining "Batticaloa 1" in another table to numbers on the next lines. Now `[ ]+`: a table row is on one line |
+| Weeks 27, 28, 39, 40: Vavuniya or Mullaitivu not found | — | The bulletin prints `Ni` for `Nil`. Accepted as 0 |
+| Week 23: no Total row | — | The PDF prints only 5 of the 6 totals. The sum check is skipped for that issue, with a warning |
+| Totals a few cases out: weeks 6 (+1), 9 (−6), 27–28 (a 2025 column: 1,086 vs 1,059), 35–36 (±1), 37–38 (617 vs 606) | Compared each 2025 figure with the next issue's copy: never different. Compared week 27 with `denguedatahub`: no single unit explains it | The bulletin's own Total is off, not the parser (the same unit values are printed twice). The check now stops only on a gap over 2 % in the 2026 columns and prints the rest |
+| 2025 matched best shifted by one week (0.97 shifted, 0.89 not) | Checked both calendars | `denguedatahub` 2025 week 1 is 21–27 Dec 2024; the Dengue Control Unit uses ISO weeks, week 1 = 30 Dec 2024. **WER week N+1 = NDCU week N.** Matched on dates, not week numbers |
+
+**Found for Phase 2**
+- The missing Puttalam week (2026 week 7, 9–15 Feb) is **21** in the Dengue Control Unit bulletins (same in both issues).
+- 2026 week 14 (30 Mar–5 Apr), where `denguedatahub` has Colombo 9 and Gampaha 10: compare with the Dengue Control Unit figures in `cases_ndcu.csv`.
+- **A large epidemic in June–July 2026**: national weekly cases rose from about 1,500 in May to 7,891 in the week of 29 Jun, then fell to about 1,200 by September. The WER week 33 (2,682) that the first dashboard started from was the tail of it.
+
+> [!tip] What to remember
+> - A WordPress site with no archive page still lists its files at `/wp-json/wp/v2/media`. Look for an API before guessing URLs.
+> - Two sources that agree on the total can disagree on every part. Compare at the level you will model (district), not only nationally.
+> - Never join weeks on week numbers across sources; the same number can mean different dates. Join on `week_start`.
+> - When a check fails on published data, find out whether the mistake is yours or the publisher's before loosening the check, and then loosen it only where the data is not used.
+> - In a regex, `\s` includes newlines. Use `[ ]+` when a match must stay on one line.
+
+**Check yourself**
+1. Why does `cases_raw.csv` take the WER figure for week 33 when the Dengue Control Unit also has it?
+2. Is 2025 week 10 in `denguedatahub` the same week as 2025 week 10 in the bulletins?
+3. Why is the Total-row check strict for the 2026 columns but only a warning for the 2025 columns?
+
+> [!success]- Answers
+> 1. The WER comes from the same reporting system as `denguedatahub`, so it continues the 19-year history without a change of source. The Dengue Control Unit counts districts differently.
+> 2. No. `denguedatahub` 2025 week 1 is 21–27 Dec 2024 and the bulletins use ISO weeks (week 1 = 30 Dec 2024), so WER week 11 matches NDCU week 10. Always join on dates.
+> 3. The 2026 columns go into `cases_raw.csv`, so a parser mistake there must stop the run. The 2025 columns are only used for the comparison, and their published totals are sometimes a few cases out (the same unit values are printed twice with the same wrong total).
 
 ---
 ## Step 1.5 — Population per district
