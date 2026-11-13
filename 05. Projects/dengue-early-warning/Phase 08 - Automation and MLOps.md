@@ -17,7 +17,7 @@ tags: [project, ml]
 - [x] Monitor the model (done 2026-11-13, Step 8.2): weekly error of past forecasts, input drift, a retraining flag → [[08.05 Model Monitoring - Data Drift and Concept Drift]]
 - [x] Version each model and store the version with every prediction; write the retraining plan (done 2026-11-13, Step 8.3) → [[08.06 Model Versioning and Retraining]]
 - [x] Package the app and MySQL (done 2026-11-13, Step 8.5: both containers healthy) → [[08.03 Docker and Docker Compose]]
-- [ ] Deploy and confirm `/api/health` responds (2026-11-13, Step 8.5: Render + Aiven PostgreSQL prepared; waits for the user's accounts) → [[08.04 Cloud Deployment Basics]]
+- [x] Deploy and confirm `/api/health` responds (done 2026-11-13, Step 8.6: https://dengue-early-warning.vercel.app, Aiven PostgreSQL) → [[08.04 Cloud Deployment Basics]]
 - [x] Scale to all 25 districts and check that results hold up (all 25 since Phase 1; tested in Phase 5)
 
 > [!warning] This phase holds more work than two weeks
@@ -26,7 +26,7 @@ tags: [project, ml]
 ## Done when
 - [x] The pipeline runs end to end with one command (2026-11-13: `python -m src.pipeline`, 2 min 46 s)
 - [ ] A scheduled run has completed successfully at least twice (2026-11-13: one test start via Task Scheduler, result 0; first timed run Tue 17 Nov)
-- [ ] The app and database run in Docker and are deployed online
+- [x] The app and database run in Docker and are deployed online (2026-11-13: Docker locally, both healthy; online on Vercel + Aiven PostgreSQL)
 - [x] All 25 districts are included
 - [x] The monitoring table records weekly error and a retraining flag (2026-11-13: `monitoring_error`)
 
@@ -184,3 +184,49 @@ with $e_i$ and $a_i$ the shares of training and recent values in each decile of 
 > [!success]- Answers
 > 1. A plain list does not expand `${PORT}`; the shell does. `exec` then replaces the shell with gunicorn, so gunicorn is process 1 and gets the stop signal directly.
 > 2. Free hosted MySQL was retired (Aiven, 6 Nov 2026); free PostgreSQL remains. The code uses SQLAlchemy Core, so only the driver (`psycopg`) and the URL change.
+
+---
+## Step 8.6 — Online: Aiven PostgreSQL and Vercel
+> [!important] Goal
+> Put the dashboard and API online for free, fed every week by the local pipeline.
+
+**What was done (2026-11-13)**
+- **Aiven PostgreSQL 18.7**, free plan (1 CPU, 1 GB RAM, 1 GB storage, Asia Pacific). Measured first: the whole MySQL database is **8.2 MB** (predictions 3.0, weather 3.0, cases 2.0) and grows about 30 KB a week, so 1 GB lasts for decades.
+- `get_engine()` now accepts the URI exactly as hosts show it (`postgres://...`) and turns it into `postgresql+psycopg://...`.
+- `python -m src.publish --backfill` loaded the online database in 2 min 53 s. **Checked: identical to the local MySQL** (11,625 forecasts, same alerts, largest difference 0.0; same weekly cases). The real API run against it: health, alerts, district lookup (case-insensitive `lower()` works in PostgreSQL), 404, dashboard.
+- The Docker image Render would build was run locally on `PORT=10000` against Aiven: health ok, same alerts.
+- **Render dropped**: its "Free" plan asked for a card to verify the account. **Vercel Hobby** (no card): `vercel_entry.py` (`app = create_app()`), `pyproject.toml` (only the web app's packages; `[tool.vercel] entrypoint = "vercel_entry:app"`; a build step copying `app/static` to `public/static`), `vercel.json` (keeps data, models, notebooks and tests out of the function bundle). The user imported the GitHub repository and set `DATABASE_URL`.
+- **Live: https://dengue-early-warning.vercel.app**
+
+**Checked online (2026-11-13)**
+
+| Check | Result |
+|---|---|
+| `/api/health` | ok; 5.1 s on a cold start, 1.4–2.5 s after |
+| `/api/alerts/latest` | 6 Warning, 14 Watch, 5 Normal (same as local) |
+| `/api/predictions?district=Atlantis` | 404 |
+| Dashboard in Chrome | header "2 – 8 Nov 2026 / week of 9 Nov 2026", 25 districts on the map, 25 table rows, Kandy's Warning sentence, chart drawn, no error |
+
+**Problems and fixes**
+
+| Problem | What was tried | Fix |
+|---|---|---|
+| Free MySQL hosting gone (Aiven retired it on 6 Nov 2026) | — | PostgreSQL online; SQLAlchemy Core made it a driver and URL change |
+| Hidden paste into the script failed (`getpass` on Windows takes Ctrl+V as a control character) | Read the clipboard instead; the copy button had not copied | Accept the URI as Aiven shows it; it was saved to `.env` |
+| Render asked for a card for the free plan | — | Vercel Hobby instead |
+| On the first Vercel deploy `/static/*` returned 404 | The build step's `public/` copy was not served | Stopped excluding `app/static` from the function bundle, so Flask serves the files; 200 after the automatic redeploy |
+| Secrets in the chat (database URI with password; a payment card in a screenshot) | — | Card: not written to any file or commit, screenshot copy deleted, user advised to block it with the bank. Database: user to reset the Aiven password and update `.env` and Vercel |
+
+> [!tip] What to remember
+> - Measure the data before worrying about a free tier's size.
+> - "Free plan" can still mean "card required"; check before building around a host.
+> - A serverless host serves static files differently; test every asset URL after the first deploy, not only the API.
+> - Never paste passwords or card details into chats or screenshots; if it happens, rotate them.
+
+**Check yourself**
+1. Why can the online app be so small and cheap to run?
+2. What did the first live check miss if it had tested only `/api/health`?
+
+> [!success]- Answers
+> 1. It only reads: the downloads, model and forecasts run on the local PC, and `src/publish.py` copies the results online once a week. The app needs Flask, SQLAlchemy and a database driver, and the database is 8 MB.
+> 2. The dashboard's CSS, JavaScript and map file returned 404, so the page would have loaded without its map and chart.
