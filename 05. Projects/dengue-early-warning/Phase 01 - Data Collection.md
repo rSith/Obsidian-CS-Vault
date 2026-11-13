@@ -395,6 +395,9 @@ HEADERS = {"User-Agent": "dengue-early-warning/0.1 (+https://github.com/rSith/de
 | Most others (Kandy, Galle, Matara, Ratnapura, Kalutara …) | 0.92–1.06 | 0.7–0.95 |
 | Kilinochchi, Mullaitivu, Vavuniya, Nuwara Eliya | 0.43, 0.46, 0.57, 0.61 | 0.01–0.45 |
 
+> [!warning] Correction (2026-11-13, later)
+> The district figures above include 2026 week 14, which turned out to be scrambled in `denguedatahub` (values in the wrong units; found in [[Phase 02 - Cleaning and EDA]], Step 2.2). Without that week the gap is smaller: NDCU ÷ WER is Kilinochchi **0.78** (correlation 0.53, not 0.01), Nuwara Eliya **0.76**, Vavuniya **0.71**, Mullaitivu 0.46, Colombo **1.11**, Puttalam 1.13. The conclusion holds (agreement nationally, a per-district break that Phase 2 corrects), but the small districts differ by 20–30 %, not by half.
+
 The national counts agree, but the districts do not. The two systems seem to place cases differently (possibly by the reporting hospital rather than where the patient lives), and in small districts the weekly patterns barely match. **So the source change on 18 May 2026 is a break in each district's series.** It stays in the raw file, marked by `source`; Phase 2 must correct it per district from the overlap. It also matters for Phase 8: the live system was planned to read this source, while the model learns from the WER history.
 
 **Publication delay** (upload time minus week end, weeks 24–44): **median 7 days**, 3 to 10 for regular uploads. Weeks 38 and 39 show 29 and 18 days because only their re-uploads are listed. The "4 weeks" from Step 1.1 was a backlog: on 11 Oct the newest issue was week 37, and weeks 38–41 appeared on 15–19 Oct.
