@@ -18,7 +18,7 @@ tags: [project, ml, web]
 ## Plan
 Each line links the progress note, then the lesson to study for it.
 - [ ] **Phase 0** — Setup and domain knowledge → [[Phase 00 - Setup and Domain Knowledge]] · study [[00.00 Setup and Domain Knowledge]]
-- [ ] **Phase 1** — Data collection → [[Phase 01 - Data Collection]] · study [[01.00 Data Collection]]
+- [x] **Phase 1** — Data collection → [[Phase 01 - Data Collection]] · study [[01.00 Data Collection]]
 - [ ] **Phase 2** — Data cleaning and exploratory analysis → [[Phase 02 - Cleaning and EDA]] · study [[02.00 Cleaning and EDA]]
 - [ ] **Phase 3** — Feature engineering → [[Phase 03 - Feature Engineering]] · study [[03.00 Feature Engineering]]
 - [ ] **Phase 4** — Modelling → [[Phase 04 - Modelling]] · study [[04.00 Modelling]]
@@ -57,3 +57,4 @@ General concepts are explained once, in `04. Concepts`. The project notes link t
 - 2026-11-13: dashboard prototype built ahead of order (Phase 07, Step 7.1): Flask page with Leaflet map, Chart.js detail chart and sortable table, fed by `src/export_dashboard.py` → `dashboard.json`. Real case history and endemic-channel thresholds, demo seasonal-ratio forecast. Current data gives 19 Warning, 2 Watch, 4 Normal. Phase 1 population and WER fallback still open; WER site still 500.
 - 2026-11-13: population step finished (Phase 01, Step 1.5): `population.csv` saved, 525 rows. Found the census adjustment made the national total rise 2024→2025 while the published figures fall; fixed by stepping back from 2025 at the 2025→2026 growth instead of the pre-COVID rate. New `check_series()` tested against three deliberate mistakes; columns added to `docs/data.md`.
 - 2026-11-13: case collector finished with the Dengue Control Unit fallback (Phase 01, Step 1.4, Part 3): the site's WordPress media list gave all 44 weekly bulletins of 2026, so `cases_raw.csv` now runs to 1 Nov 2026 with no gap and a `source` column. The two systems agree nationally (within 3 %) but not by district (Kilinochchi ×0.43, Colombo ×1.13), and number 2025 weeks one apart; Phase 2 must correct the break. Bulletins appear about 7 days after the week ends. Phase 1 now needs only the from-scratch re-run.
+- 2026-11-13: **Phase 1 done** (two days before its target). All processed files deleted and rebuilt by the three collectors with no manual step; old rows identical (Phase 01, Step 1.6). The rebuild also picked up the new week 45 bulletin by itself.

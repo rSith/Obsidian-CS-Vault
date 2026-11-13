@@ -1,7 +1,7 @@
 ---
 type: project-note
 project: Dengue Early-Warning
-status: draft
+status: done
 tags: [project, ml]
 ---
 # Phase 01 — Data Collection
@@ -31,7 +31,7 @@ tags: [project, ml]
 - [x] `cases_raw.csv` covers the chosen districts for 8 or more years (2026-11-13: 26 units, 23 Dec 2006 to 1 Nov 2026)
 - [x] Daily weather is downloaded for the same districts and years (2026-10-23: 26 units, 2006-01-01 to 2026-10-22)
 - [x] The population table is saved (2026-11-13: `data/processed/population.csv`, 25 districts × 2006–2026)
-- [ ] Both collector scripts re-run from scratch with no manual steps
+- [x] Both collector scripts re-run from scratch with no manual steps (2026-11-13, Step 1.6: all processed files deleted and rebuilt, old rows identical)
 - [x] The data dictionary is written (2026-11-13)
 
 ---
@@ -707,3 +707,48 @@ Saved: `data/processed/population.csv`. Mullaitivu now reads 91,885 (2006) → 9
 > 2. The base changed from the 2001 census to the 2012 census, which counted the North and East properly. Mixing the two series would make every district's incidence jump in 2012 for no real reason, and a model could learn that jump.
 > 3. No. It is the switch from 2012-census estimates to the 2024 census. The `census_base` column marks each row as 2012 or 2024, so the jump can be seen and explained.
 > 4. The 2014–2019 rate is about 1 %, but growth since COVID is near zero, so stepping back from 2025 at 1 % put 2024 about 1 % too low and made the country appear to grow when it was shrinking. The 2025→2026 rate is recent and on the same census base.
+
+---
+## Step 1.6 — Rebuild everything from scratch
+> [!important] Goal
+> Prove the last "Done when" item: delete every processed file, run the collectors, and get the same tables back with no manual step.
+
+**What was done (2026-11-13)**
+- Copied `data/processed/*.csv` to a scratch folder for comparison, then deleted them (`data/raw/` kept, so nothing old was downloaded again).
+- Ran the three collectors in order; each finished with exit code 0 and no manual step:
+
+```powershell
+python -m src.collect_weather
+python -m src.collect_cases
+python -m src.collect_population
+```
+
+- Compared every rebuilt file with its copy, matching rows on their keys (unit and date or week).
+- Rebuilt the dashboard data afterwards (`python -m src.export_dashboard`).
+
+**Checked (2026-11-13)**
+
+| File | Before | After | Difference |
+|---|---|---|---|
+| `weather_daily.csv` | 197,600 rows to 22 Oct | 198,146 rows to 12 Nov | All old rows identical; 546 new rows = 26 units × 21 days; no missing values or repeats |
+| `cases_raw.csv` | 26,935 rows to 1 Nov | 26,961 rows to 8 Nov | All old rows present; 26 new rows (week 45); week 44 revised in 8 units, −1 case in total |
+| `cases_ndcu.csv` | 4,524 rows | 4,628 rows | No old row changed; 104 new rows from the week 45 issue |
+| `population.csv` | 525 rows | 525 rows | Identical |
+
+**Why this way**
+- **A rebuild is the only real test of "no manual steps".** Running on top of existing files can hide a step that was once done by hand.
+- **Keep a copy and compare row by row.** "It ran" is not enough; the output must also be the same. Matching on keys shows exactly which rows are new or changed.
+- **Expected changes are a good sign.** The Dengue Control Unit had published week 45 since the morning: the script found it, downloaded it, added the week and took the revised week 44 from it. That is what the weekly pipeline in Phase 8 will do.
+
+> [!tip] What to remember
+> - Test a pipeline by deleting its outputs, not by running it again on top of them.
+> - Compare the rebuilt files with the old ones; explain every difference before accepting it.
+> - Raw downloads are the expensive part, so they stay cached; processed files are cheap and should always be rebuildable.
+
+**Check yourself**
+1. Why delete `data/processed/` but keep `data/raw/` for this test?
+2. `cases_raw.csv` changed in week 44 after the rebuild. Is that a problem?
+
+> [!success]- Answers
+> 1. The test is about the processing steps: every processed file must come from code. Raw files are kept because downloading 1,000+ files again proves nothing extra and loads the sources' servers; the download code is already tested by the earlier runs.
+> 2. No. The week 45 bulletin had been published since the last build, and each bulletin revises the week before it. The script took the revised figure, as designed.
