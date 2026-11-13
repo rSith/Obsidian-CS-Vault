@@ -15,15 +15,15 @@ tags: [project, ml, web]
 - [ ] Sketch the layout on paper: map on the left, detail panel on the right, "last updated" in the header
 - [x] Serve the page from a Flask template (done 2026-11-13, Step 7.1, prototype) → [[07.06 Flask Templates with Jinja2]]
 - [x] Lay out the page so it works on a phone (done 2026-11-13, Step 7.1, checked at 375 px) → [[07.01 CSS Layout with Flexbox and Grid]]
-- [ ] Fetch `/api/alerts/latest` and log it to the console (2026-11-13: the page fetches `static/data/dashboard.json`, the same shape the API will return; switch the URL in Phase 6) → [[07.02 JavaScript fetch and Promises]]
+- [x] Fetch `/api/alerts/latest` and log it to the console (done 2026-11-13, Step 7.2: the page now reads `/api/alerts/latest` and `/api/predictions`; the demo JSON is gone) → [[07.02 JavaScript fetch and Promises]]
 - [x] Map: district boundaries coloured by alert level, with predicted cases in a tooltip (done 2026-11-13, Step 7.1, demo forecast) → [[07.04 Leaflet and GeoJSON]]
 - [x] Detail chart: actual against predicted, with the uncertainty band and threshold lines (done 2026-11-13, Step 7.1, demo forecast and band) → [[07.05 Chart.js]]
 - [x] Alert table that responds to clicks (done 2026-11-13, Step 7.1) → [[07.03 DOM Manipulation and Events]]
 - [x] Add "How to read this", the data sources, and the note that this is decision support (done 2026-11-13, Step 7.1)
-- [ ] Check colour-blind readability, keyboard use and contrast; test with one non-technical person (2026-11-13: colours ordered light to dark with text labels, table and drop-down usable by keyboard; contrast not measured, nobody has tested it yet) → [[07.07 Dashboard UX and Accessibility]]
+- [ ] Check colour-blind readability, keyboard use and contrast; test with one non-technical person (2026-11-13, Step 7.2: contrast **measured** with the WCAG formula and fixed, all text 5.3:1 or more, map levels 3.1:1 or more from each other; keyboard via table buttons and drop-downs. **Still open: the test with a non-technical person**) → [[07.07 Dashboard UX and Accessibility]]
 
 ## Done when
-- [x] The map shows every district coloured by alert level (2026-11-13, prototype with demo forecast)
+- [x] The map shows every district coloured by alert level (2026-11-13; real forecasts from the API since Step 7.2)
 - [x] Clicking a district shows its chart with thresholds (2026-11-13, map, table and drop-down checked)
 - [x] "How to read this" and the data-source notes are visible (2026-11-13)
 - [x] The page works on a phone screen (2026-11-13, 375 px frame: one column, no sideways page scroll)
@@ -119,3 +119,73 @@ flask --app app run --debug         # http://127.0.0.1:5000
 > 3. The map cannot be used with a keyboard or a screen reader. The table buttons and the drop-down give everyone the same way to choose a district.
 
 **Update (2026-11-13, later): data refreshed.** The Dengue Control Unit fallback ([[Phase 01 - Data Collection]], Step 1.4, Part 3) filled the 12 missing weeks and added weeks 34–44. After `python -m src.export_dashboard` the page shows data up to 26 Oct–1 Nov 2026 with no gaps: **8 Warning, 4 Watch, 13 Normal** (was 19, 2, 4). The new weeks show the June–July 2026 epidemic, so the old "high" week 33 was its tail, not a rise. The Sources note now names the Dengue Control Unit and says its district counts are not yet adjusted to the WER history.
+
+---
+## Step 7.2 — The dashboard reads the API
+> [!important] Goal
+> Replace the demo forecast with the real one: the page reads the Phase 6 API, shows this week's forecasts, intervals and alerts from MySQL, and passes a measured accessibility check.
+
+**What was done (2026-11-13)**
+- **Data from the API**, not a file:
+  - `GET /api/alerts/latest` for the header, map, summary and table (one request);
+  - `GET /api/predictions?district=&horizon=&weeks=78` for the chart, fetched when a district is first chosen and kept in a cache, so going back is instant.
+  - The template puts both URLs on `<body>` with `url_for`, so the JavaScript never hard-codes a path.
+- **One API addition**: each district in `/api/alerts/latest` now carries `latest_cases`, so the table needs no 25 extra requests (test updated).
+- **Page changes**: header "Case data up to" and "Forecast made"; a **horizon drop-down** (4, 6 or 8 weeks); the detail sentence names the week, the forecast, the line it crosses, and every horizon at that level; stats show this week's forecast and its 80 % range; the chart draws actual cases, the backfilled forecasts since 2024 (dashed), the live forecast (a large dot), the 80 % band and the Watch and Warning lines; the table shows the latest count, the 4- and 8-week forecasts and the change. The "Prototype / demo" banner became a plain decision-support notice, and "How to read this" now states the real method and its tested performance.
+- **Removed** `src/export_dashboard.py` and its demo forecast; the map outlines now come from `src/export_boundaries.py`.
+- A newer request wins: each chart request gets a number, and an answer that arrives after a newer choice is ignored.
+- New test: the page carries the two API URLs. **18 tests pass.**
+
+**Checked in Chrome (2026-11-13)**
+
+| Check | Result |
+|---|---|
+| Header | Case data up to 2 – 8 Nov 2026; forecast made week of 9 Nov 2026 |
+| Map and summary | 6 Warning, 14 Watch, 5 Normal (from MySQL) |
+| Kandy (first, Warning) | "forecast for the week of 7 Dec 2026 (4 weeks ahead) is about 213 cases … Warning line 172. Warning at 4, 6, 8 weeks ahead"; range 107 – 821 |
+| Colombo from the table | Watch; 329 for 7 Dec; range 166 – 1,266 |
+| Horizon 8 | "Forecast, week of 4 Jan": 358 |
+| Sort by 4-week forecast | Colombo 329, Gampaha 261, Kandy 213 |
+| Phone, 375 px | One column, no sideways page scroll; both drop-downs fit; the 6-column table scrolls in its own box |
+| Console | No errors from the page |
+
+**Contrast, measured** (WCAG: text 4.5:1, shapes 3:1)
+
+| Pair | Before | After |
+|---|---|---|
+| All text (body, muted, notice, badges, links, ▲▼) | 5.3 – 16:1 | unchanged, all pass |
+| Map: Watch next to Normal | **1.52:1** | **3.12:1** |
+| Map: Warning next to Watch | 3.41:1 | 3.18:1 |
+| Map: Normal against the district border | **1.32:1** (white border) | **5.95:1** (dark grey border) |
+
+Fix: the map, legend and chart lines got their own darker colours (`--watch-fill` #b86a00, `--warning-fill` #650916, border #4a5450). The badges keep the lighter amber, since they always show the word and dark text on the deep amber would fail; the Warning badge now uses the maroon fill, so badge, legend and map agree. Lightness now falls by a clear step from Normal to Watch to Warning, which is what colour-blind readers rely on.
+
+**Problems and fixes**
+
+| Problem | What was tried | Fix |
+|---|---|---|
+| The browser showed the old prototype page after the change | Checked the files on disk: they were new | The Flask server started at 12:07 that morning was still running on port 5000, and Windows sent the requests to it. Stopped it (process 37408); stop test servers when done |
+| "Case data up to 2 Nov – **7** Nov" | — | The week end was built with `toISOString()`, which converts to UTC; in Sri Lanka (UTC+5:30) local midnight is the previous day in UTC. Now formatted in local time: 2 – 8 Nov |
+| "not yet reported" cut off at the chart's right edge | — | Drawn only when it fits |
+| No colour set passed every contrast check at once | Searched combinations | Two of the rules pull opposite ways (Watch must be dark against Normal, light under dark badge text), so map colours and badge colours were separated |
+
+**Why this way**
+- **One request for the overview, one per district for detail.** The first screen needs all 25 districts but only this week's numbers; the chart needs 78 weeks for one district.
+- **Measure contrast, do not judge it by eye.** The two failing pairs looked "fine" on a good screen.
+- **The table is the text alternative to the map** (named in the map's `aria-label`), so keyboard and screen-reader users get the same information.
+
+> [!tip] What to remember
+> - Before trusting a browser test, make sure only one server is listening on the port.
+> - `toISOString()` is UTC: east of Greenwich it can move a local date back by a day.
+> - Contrast rules: text 4.5:1, shapes and lines 3:1. Colours that carry a word can be lighter than colours that carry the meaning alone.
+> - Ignore stale responses: number each request and draw only the newest.
+
+**Check yourself**
+1. Why does the page fetch the chart data only when a district is chosen?
+2. Why did "2 Nov – 7 Nov" appear, and why only in some time zones?
+3. Why can the Watch badge stay light amber when the map's Watch colour had to become darker?
+
+> [!success]- Answers
+> 1. The first screen needs only this week's numbers for all districts, which one request gives. 78 weeks of history and forecasts for 25 districts would make the first load slow; one district at a time, cached, is enough.
+> 2. `toISOString()` gives the UTC date. Local midnight on 8 Nov in Sri Lanka is 18:30 on 7 Nov in UTC, so the date moved back a day. West of UTC (or at UTC) it would not show.
+> 3. The badge always shows the word "Watch", so its colour only supports the text, and its text contrast passes (6.2:1). On the map, colour is the only signal, so neighbouring levels need 3:1 between them.
