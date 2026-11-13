@@ -22,6 +22,18 @@
             }
           },
           {
+            "id": "2d6a5cf51b1e06aa",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.15.1"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.15.1"
+            }
+          },
+          {
             "id": "ae9d2aab1202344c",
             "type": "leaf",
             "state": {
@@ -91,7 +103,8 @@
               "title": "PP 01.6 - Reference Models, TCP and UDP"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -271,7 +284,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4a0e5bf8d9e244df",
+  "active": "2d6a5cf51b1e06aa",
   "lastOpenFiles": [
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 16 - Delivery.md.tmp.28020.5a4f78760591",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.6 - Reference Models, TCP and UDP.md",

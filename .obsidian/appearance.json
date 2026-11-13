@@ -2,5 +2,6 @@
   "theme": "obsidian",
   "accentColor": "",
   "cssTheme": "Black",
-  "baseFontSizeAction": true
+  "baseFontSizeAction": true,
+  "showRibbon": true
 }
