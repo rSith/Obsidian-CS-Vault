@@ -189,3 +189,22 @@ Fix: the map, legend and chart lines got their own darker colours (`--watch-fill
 > 1. The first screen needs only this week's numbers for all districts, which one request gives. 78 weeks of history and forecasts for 25 districts would make the first load slow; one district at a time, cached, is enough.
 > 2. `toISOString()` gives the UTC date. Local midnight on 8 Nov in Sri Lanka is 18:30 on 7 Nov in UTC, so the date moved back a day. West of UTC (or at UTC) it would not show.
 > 3. The badge always shows the word "Watch", so its colour only supports the text, and its text contrast passes (6.2:1). On the map, colour is the only signal, so neighbouring levels need 3:1 between them.
+
+---
+## Step 7.3 — District names above the colours
+> [!important] Goal
+> Make place names readable on the map: the coloured fills covered the base map's own town names (feedback from the user, 2026-11-13).
+
+**What was done (2026-11-13)**
+- Each district's name is drawn at its **main town**, using the coordinates from `/api/districts` (the page now fetches it with the alerts and the outlines).
+- The names are Leaflet markers with a text-only `divIcon`, so they sit in the **marker pane, above the coloured shapes** (the overlay pane).
+- Dark text with a white outline (`text-shadow`), so it reads on pale green, amber and maroon alike.
+- `pointer-events: none` and `interactive: false`: a click on a name still reaches the district underneath.
+- Three crowded towns are drawn to one side: Kurunegala and Nuwara Eliya end at their town, Badulla starts at its town.
+
+**Checked**: 25 names on the map; the element under the "Kandy" name is the district shape (so clicks pass through); measuring every pair of label boxes found **no overlaps** (before the nudge: Kurunegala/Matale and Nuwara Eliya/Badulla overlapped). Live after Vercel's automatic redeploy.
+
+> [!tip] What to remember
+> - Leaflet draws in panes: tiles, then shapes (overlay pane), then markers. Put text that must stay readable in a higher pane.
+> - Labels on a map should not catch clicks meant for the shapes beneath them.
+> - Check label collisions by measuring boxes, not only by eye.

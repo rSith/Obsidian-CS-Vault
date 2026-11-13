@@ -97,16 +97,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "05. Projects/dengue-early-warning/Phase 08 - Automation and MLOps.md",
+                "file": "05. Projects/dengue-early-warning/Phase 03 - Feature Engineering.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Phase 08 - Automation and MLOps"
+              "title": "Phase 03 - Feature Engineering"
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -168,7 +168,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844
+    "width": 423.8999938964844,
+    "collapsed": true
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -285,8 +286,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a6262881f590d810",
+  "active": "ae9d2aab1202344c",
   "lastOpenFiles": [
+    "05. Projects/dengue-early-warning/Phase 03 - Feature Engineering.md",
+    "05. Projects/dengue-early-warning/Phase 05 - Evaluation and Alerts.md",
+    "05. Projects/dengue-early-warning/Phase 09 - Documentation and Portfolio.md",
+    "05. Projects/dengue-early-warning/Phase 08 - Automation and MLOps.md",
     "05. Projects/dengue-early-warning/Dengue Early-Warning - Session Review 2026-11-13.md",
     "05. Projects/dengue-early-warning/00. Dengue Early-Warning Overview.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.2 - Mobile Computing, IoT and Wireless.md",
@@ -319,10 +324,6 @@
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/02. Indexing Structures/02.01 What Is an Index.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.09 Dynamic Hashing.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.08 Hash Files and Collision Handling.md",
-    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.07 Heap and Sorted Files.md",
-    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.06 File Operations and Access Methods.md",
-    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.05 Records, Blocking and File Allocation.md",
-    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.04 Buffering of Blocks.md",
     "03. Self-Study/ML Specialization/_assets/c1w1_supervised_vs_unsupervised.png",
     "03. Self-Study/ML Specialization/_assets/c1w1_linear_regression_model.png",
     "03. Self-Study/ML Specialization/_assets/c1w1_learning_rate.png",
