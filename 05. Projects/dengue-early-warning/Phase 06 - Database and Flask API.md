@@ -1,7 +1,7 @@
 ---
 type: project-note
 project: Dengue Early-Warning
-status: draft
+status: done
 tags: [project, ml, web]
 ---
 # Phase 06 — Database and Flask API
@@ -14,7 +14,7 @@ tags: [project, ml, web]
 ## Steps
 - [x] Draw the ER diagram, then create the tables (done 2026-11-13, Step 6.1; also `district_population` and `weeks`): `districts`, `weekly_cases`, `weekly_weather`, `predictions` → [[06.01 Relational Schema Design and Normalisation]]
 - [x] Keep the database password in `.env` (done 2026-11-13, Step 6.1: read with python-dotenv; SQLite fallback until MySQL is set up) → [[06.06 Environment Variables and Configuration]]
-- [ ] Load the CSV data into MySQL (2026-11-13: loader done and run on SQLite; MySQL waits on the user's setup, Step 6.1) → [[06.03 SQLAlchemy]]
+- [x] Load the CSV data into MySQL (done 2026-11-13, Step 6.4: MySQL 8 on port 3307) → [[06.03 SQLAlchemy]]
 - [x] Write `src/predict.py` (done 2026-11-13, Step 6.2): load the model, build features for the latest week, predict, apply thresholds, write rows to `predictions`
 - [x] Write the queries the endpoints need (done 2026-11-13, Step 6.3) → [[06.02 SQL Joins, Aggregation and Indexes]]
 - [x] Build the four endpoints (done 2026-11-13, Step 6.3): `/api/districts`, `/api/predictions`, `/api/alerts/latest`, `/api/health` → [[06.04 Flask Routing and JSON APIs]]
@@ -23,7 +23,7 @@ tags: [project, ml, web]
 
 ## Done when
 - [x] The schema is created and the ER diagram is saved in `docs/` (2026-11-13: `docs/er_diagram.md`)
-- [ ] Historical data is loaded into MySQL
+- [x] Historical data is loaded into MySQL (2026-11-13: MySQL 8.0.44, identical to the SQLite copy)
 - [x] `predict.py` writes a week of predictions and alerts (2026-11-13: 75 live rows, plus the backfill)
 - [x] All 4 endpoints return correct JSON and handle errors (2026-11-13: 11 API tests pass)
 - [x] The API is documented in the README (2026-11-13)
@@ -122,7 +122,7 @@ if found is None:
     raise ApiError(404, f"unknown district '{name}'; see /api/districts")
 ```
 
-**Still to do for the "Done when" list**: load into **MySQL** itself (the user's steps in the README), then rerun `load_db` and `predict --backfill` against it.
+**Still to do for the "Done when" list**: load into **MySQL** itself (the user's steps in the README), then rerun `load_db` and `predict --backfill` against it. Done 2026-11-13, see Step 6.4.
 
 > [!tip] What to remember
 > - Write database code that does not care which database it talks to; switch with one setting.
@@ -139,3 +139,61 @@ if found is None:
 > 1. It changes every year. One column could hold only one year; a row per year in `districts` would repeat the name and coordinates 21 times.
 > 2. That is the week the forecast is run in, after the newest bulletin. The delay rule says the newest case week that is always available is two weeks before the origin, because in some weeks the bulletin appears 10 days late; the model was trained and tested that way, so it must run that way.
 > 3. 404 with `{"error": "unknown district 'Atlantis'; see /api/districts", "status": 404}`: the request is well formed but asks for something that does not exist. A missing district parameter would be 400.
+
+---
+## Step 6.4 — Moving to MySQL 8
+> [!important] Goal
+> Run the database on MySQL 8 as the roadmap asks, without disturbing the XAMPP MySQL server the user needs for another project, and prove MySQL holds exactly the same data as SQLite.
+
+**What was done (2026-11-13)**
+- **First attempt failed.** `Start-Service MySQL80` gave "Failed to start service". MySQL 8's own error log needs administrator rights, so the cause was found from the outside: the Windows Application log showed `c:\xampp\mysql\bin\mysqld.exe` (MariaDB 10.4, XAMPP) listening on **port 3306**, the port MySQL 8 also wanted.
+- **Choice:** XAMPP's MariaDB was needed for a web project, so both servers had to run together. Compared:
+
+| | MySQL 8 on port 3307 (chosen) | XAMPP MariaDB on 3306 |
+|---|---|---|
+| Phase 8 automation | Windows service, starts with the computer | Runs only when XAMPP is opened |
+| Separation | Own server | Shared with the web project |
+| Version | Current (8.0.44) | MariaDB 10.4, support ended 2024, a crashed system table |
+
+- **Set-up by the user** (needs the MySQL root password, so not done by Claude): `port=3307` in `C:\ProgramData\MySQL\MySQL Server 8.0\my.ini` (both lines, edited as administrator), `Restart-Service MySQL80`, `Set-Service MySQL80 -StartupType Automatic`, database `dengue` and user `dengue_app` with rights on `dengue.*` only, and `.env` with `DATABASE_URL=mysql+pymysql://dengue_app:…@localhost:3307/dengue`.
+- Loaded: `python -m src.load_db` (6 s), `python -m src.predict --backfill` (8 s).
+
+**Checked (2026-11-13)**
+
+| Check | Result |
+|---|---|
+| Connection | MySQL 8.0.44, port 3307, database `dengue`, user `dengue_app@localhost`; `.env` ignored by Git |
+| Rows | Same as SQLite: 25 / 525 / 1,037 / 25,925 / 25,925 / 11,625 |
+| **MySQL = SQLite, value by value** | Cases, weather and all predictions: largest difference **0.0** (after the fix below) |
+| Keys | InnoDB; 6 foreign keys; unique key `one_forecast_per_model` |
+| Foreign key enforced | Inserting a case row for district 999 is refused (MySQL error 1452) |
+| Re-running `predict.py` | Still 11,625 rows: it replaces, never duplicates |
+| Backfill vs Phase 5 test forecasts | 3,700 rows, largest difference 0.005 (rounding) |
+| API on MySQL | All four endpoints 200; unknown district 404 |
+| Tests | 17 pass |
+
+**Problems and fixes**
+
+| Problem | What was tried | Fix |
+|---|---|---|
+| MySQL 8 would not start | — | XAMPP's MariaDB held port 3306; MySQL 8 moved to 3307 |
+| The port edit did not take at first: `my.ini` still said 3306, and MySQL 8 started on 3306 because XAMPP had been stopped | — | The file must be saved with administrator rights (Notepad "Run as administrator", or VS Code "Retry as Admin") |
+| `.env` was missing, so the code quietly used SQLite | Looked for `.env.txt` and other names | Created with `Copy-Item .env.example .env` |
+| **54 of 11,625 forecasts differed by 0.01 between MySQL and SQLite** | Compared the tables column by column | SQLAlchemy `Float` becomes MySQL `FLOAT`, **single precision** (about 7 digits): cases and weather lost a little precision, features read back slightly differently, and a few forecasts rounded the other way. Changed every column to `Double` (`DOUBLE` in MySQL, `REAL` in SQLite); added `python -m src.load_db --rebuild`, because `create_all` does not change existing columns. After the rebuild: difference 0.0 |
+
+> [!tip] What to remember
+> - "Failed to start service" hides the reason. Look for what holds the port (`Get-NetTCPConnection -LocalPort 3306`) and read the event log.
+> - Two database servers can live on one computer if each has its own port.
+> - In MySQL, `FLOAT` is single precision. Use `DOUBLE` for measurements unless storage really matters.
+> - A silent fallback (SQLite when `.env` is missing) is convenient but can hide a missing file: print which database is in use, as `load_db` does.
+> - Compare a new database with the old one value by value, not only by row counts; the row counts were identical while 54 values differed.
+
+**Check yourself**
+1. Why did MySQL 8 refuse to start, and why was moving it the better fix than stopping XAMPP?
+2. Why did 54 forecasts differ by 0.01 between MySQL and SQLite, when the code was the same?
+3. Why is `--rebuild` needed after changing a column type in `src/db.py`?
+
+> [!success]- Answers
+> 1. XAMPP's MariaDB already listened on port 3306. The web project needs XAMPP, so stopping it would break that project; on 3307 both run at once, and MySQL 8 can start with Windows for the weekly pipeline.
+> 2. `Float` became single-precision `FLOAT` in MySQL, so stored cases and weather were rounded to about 7 significant digits. The features read back were very slightly different, and a few forecasts crossed a rounding boundary at the second decimal.
+> 3. `metadata.create_all()` only creates tables that do not exist; it never alters an existing column. The tables must be dropped and created again, then refilled.

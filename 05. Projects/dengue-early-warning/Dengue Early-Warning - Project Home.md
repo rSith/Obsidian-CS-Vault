@@ -23,7 +23,7 @@ Each line links the progress note, then the lesson to study for it.
 - [x] **Phase 3** — Feature engineering → [[Phase 03 - Feature Engineering]] · study [[03.00 Feature Engineering]]
 - [x] **Phase 4** — Modelling → [[Phase 04 - Modelling]] · study [[04.00 Modelling]]
 - [x] **Phase 5** — Evaluation and alert thresholds → [[Phase 05 - Evaluation and Alerts]] · study [[05.00 Evaluation and Alerts]]
-- [ ] **Phase 6** — Database and Flask API → [[Phase 06 - Database and Flask API]] · study [[06.00 Database and Flask API]]
+- [x] **Phase 6** — Database and Flask API → [[Phase 06 - Database and Flask API]] · study [[06.00 Database and Flask API]]
 - [ ] **Phase 7** — Dashboard → [[Phase 07 - Dashboard]] · study [[07.00 Dashboard]]
 - [ ] **Phase 8** — Automation, deployment and MLOps monitoring → [[Phase 08 - Automation and MLOps]] · study [[08.00 Automation and MLOps]]
 - [ ] **Phase 9** — Documentation, report and portfolio → [[Phase 09 - Documentation and Portfolio]] · study [[09.00 Documentation and Portfolio]]
@@ -66,3 +66,4 @@ General concepts are explained once, in `04. Concepts`. The project notes link t
 - 2026-11-13: **Phase 4 done** (Phase 04, Steps 4.1–4.3): Ridge on log cases beats the seasonal baseline by 27.4 % at 4 weeks (MAE 22.6 vs 31.2) and persistence by 11 %; random forest, boosting and Poisson models are no better; tuning and weather barely matter; every model fails in the 2017 epidemic. Saved `ridge_h4/h6/h8`; test period 2024 onwards still untouched.
 - 2026-11-13: **Phase 5 done** (Phase 05, Steps 5.1–5.3): endemic channel on log cases; forecast Warning at mu + 1.25 sd chosen on validation and committed before the test. Final test (2024 – Nov 2026, run once): MAE 26.3 vs 34.5 for the best baseline (−24 %); 35 of 52 outbreaks caught, 2.5 weeks ahead on average; the forecast lags in the fast June–July 2026 epidemic (data 6 weeks old).
 - 2026-11-13: Phase 6 nearly done (Phase 06, Steps 6.1–6.3): six-table schema with ER diagram, loader, `predict.py` (forecasts from the week of 9 Nov; backfill matches the Phase 5 test forecasts), four-endpoint Flask API with 11 tests and README docs. Runs on SQLite until MySQL is set up: the MySQL service is stopped and needs the user's root password.
+- 2026-11-13: **Phase 6 done** (Phase 06, Step 6.4): MySQL 8 moved to port 3307 because XAMPP's MariaDB (needed for a web project) holds 3306; data and forecasts loaded; found MySQL `FLOAT` is single precision (54 forecasts off by 0.01), switched to `DOUBLE`; MySQL now identical to SQLite, foreign keys enforced, API serves from MySQL.
