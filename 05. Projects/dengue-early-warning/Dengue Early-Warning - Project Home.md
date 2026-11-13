@@ -19,8 +19,8 @@ tags: [project, ml, web]
 Each line links the progress note, then the lesson to study for it.
 - [ ] **Phase 0** — Setup and domain knowledge → [[Phase 00 - Setup and Domain Knowledge]] · study [[00.00 Setup and Domain Knowledge]]
 - [x] **Phase 1** — Data collection → [[Phase 01 - Data Collection]] · study [[01.00 Data Collection]]
-- [ ] **Phase 2** — Data cleaning and exploratory analysis → [[Phase 02 - Cleaning and EDA]] · study [[02.00 Cleaning and EDA]]
-- [ ] **Phase 3** — Feature engineering → [[Phase 03 - Feature Engineering]] · study [[03.00 Feature Engineering]]
+- [x] **Phase 2** — Data cleaning and exploratory analysis → [[Phase 02 - Cleaning and EDA]] · study [[02.00 Cleaning and EDA]]
+- [x] **Phase 3** — Feature engineering → [[Phase 03 - Feature Engineering]] · study [[03.00 Feature Engineering]]
 - [ ] **Phase 4** — Modelling → [[Phase 04 - Modelling]] · study [[04.00 Modelling]]
 - [ ] **Phase 5** — Evaluation and alert thresholds → [[Phase 05 - Evaluation and Alerts]] · study [[05.00 Evaluation and Alerts]]
 - [ ] **Phase 6** — Database and Flask API → [[Phase 06 - Database and Flask API]] · study [[06.00 Database and Flask API]]
@@ -61,3 +61,5 @@ General concepts are explained once, in `04. Concepts`. The project notes link t
 - 2026-11-13: Phase 2 started (Phase 02, Step 2.1): Dengue Control Unit weeks turned into WER-equivalent counts with a shrunk per-district factor $(W+200)/(N+200)$, 0.89 (Colombo) to 1.47 (Kilinochchi). Tested on 2026 weeks it never saw: about 10 % less error in district totals; most of the rest is week-to-week noise.
 - 2026-11-13: `weekly.csv` built (Phase 02, Step 2.2): 25 districts × 1,037 weeks with WER-scale cases, weather on the case weeks and interpolated population. Found 2026 week 14 scrambled in `denguedatahub` (the only such week in 19 years), repaired from the Dengue Control Unit; without it the source factors are 0.90–1.21 and the correction cuts held-out error by 19 %. Found 12 incomplete weeks to flag next.
 - 2026-11-13: unusual weeks flagged in `weekly.csv` (Phase 02, Step 2.3): 12 incomplete weeks, 94 COVID weeks (Mar 2020 – Dec 2021, cases at 0.2–0.65 × normal), 134 epidemic weeks (over 3 × the usual for the time of year: 2017, 2019, 2023, 2026 and 2009–2012).
+- 2026-11-13: **Phase 2 done** (Phase 02, Step 2.4): EDA notebook with five findings. Two dengue seasons (January in the north and east, June–July and December in the west); Colombo and Gampaha 35 % of cases; autocorrelation 0.72 at 8 weeks; with season and trend removed, 8-week rain ending 5 weeks earlier and humidity 7–9 weeks earlier correlate about 0.16 with cases. A same-week temperature link turned out to be a shared trend.
+- 2026-11-13: **Phase 3 done** (Phase 03, Steps 3.1–3.2): `build_features()` with case delay 2 weeks (from the Dengue Control Unit's publication times), weather delay 1, horizon 4; 41 features; 6 pytest tests pass, including a leakage test shown to catch a one-week leak. Recent cases correlate 0.79 with the target, usual level 0.68, humidity 0.34, 8-week rain 0.31.

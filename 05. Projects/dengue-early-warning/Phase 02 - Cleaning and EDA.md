@@ -1,7 +1,7 @@
 ---
 type: project-note
 project: Dengue Early-Warning
-status: draft
+status: done
 tags: [project, ml]
 ---
 # Phase 02 — Cleaning and EDA
@@ -17,15 +17,15 @@ tags: [project, ml]
 - [x] Merge cases, weather and population into `data/processed/weekly.csv` (done 2026-11-13, Step 2.2) → [[02.01 Pandas Merge, GroupBy, Resample and Shift]]
 - [x] Check data quality: missing weeks, duplicates, name spellings, impossible values (done 2026-11-13, Step 2.2: one scrambled week repaired, one missing unit-week filled, 12 incomplete weeks found for flagging) → [[02.02 Data Quality Checks and Missing Data]]
 - [x] Flag unusual periods (2017, 2020–21) with a column (done 2026-11-13, Step 2.3: incomplete, COVID and epidemic weeks)
-- [ ] Explore in `notebooks/02_eda.ipynb`: cases over time, the seasonal shape → [[02.03 Time-Series Basics - Trend, Seasonality and Autocorrelation]]
-- [ ] Correlate cases with rainfall, temperature and humidity at lags 0 to 16 weeks, per district → [[02.04 Cross-Correlation and Lag Analysis]]
-- [ ] Write 3 to 5 findings in plain language at the end of the notebook
+- [x] Explore in `notebooks/02_eda.ipynb`: cases over time, the seasonal shape (done 2026-11-13, Step 2.4) → [[02.03 Time-Series Basics - Trend, Seasonality and Autocorrelation]]
+- [x] Correlate cases with rainfall, temperature and humidity at lags 0 to 16 weeks, per district (done 2026-11-13, Step 2.4: raw, anomaly and detrended) → [[02.04 Cross-Correlation and Lag Analysis]]
+- [x] Write 3 to 5 findings in plain language at the end of the notebook (done 2026-11-13, Step 2.4: five findings)
 
 ## Done when
 - [x] `weekly.csv` has no duplicate rows, and its missing values are documented (2026-11-13: none missing; repaired rows marked in `fix`)
 - [x] Unusual periods are flagged (2026-11-13: three flag columns in `weekly.csv`)
-- [ ] Lag-correlation plots exist for rainfall, temperature and humidity
-- [ ] Findings are written in the notebook
+- [x] Lag-correlation plots exist for rainfall, temperature and humidity (2026-11-13: `reports/figures/02_lag_*.png`)
+- [x] Findings are written in the notebook (2026-11-13)
 
 ---
 ## Work log
@@ -246,3 +246,75 @@ flag_epidemic = incidence > 3.0 * usual
 > 1. From 2022 the case level is mixed (0.44–1.09 × normal) rather than steadily low, so a fixed end on 31 Dec 2021 matches the data better. 2022 stays visible for the EDA.
 > 2. So the flag for a week depends only on what was known by then. It can run on live data, and an epidemic year cannot raise its own baseline.
 > 3. No. It compares the week with the one after it, which is not known when the forecast is made.
+
+## Step 2.4 — Exploration notebook and findings
+> [!important] Goal
+> Explore `weekly.csv` in `notebooks/02_eda.ipynb`: the trend, who carries the burden, the seasonal shape, autocorrelation, and at which lags rain, temperature and humidity relate to cases. End with 3 to 5 findings in plain words.
+
+**What was done (2026-11-13)**
+- Uncommented `statsmodels` in `requirements.txt` and installed it (0.15.0), for the ACF plot.
+- Wrote the notebook in six sections; it saves nine figures to `reports/figures/02_*.png`. It runs from the project root in VS Code and also with `jupyter nbconvert --execute` (the first cell changes to the root if started in `notebooks/`).
+- Lag correlations: for each district and lag 0–16 weeks, the correlation of log cases with the weather that many weeks earlier, leaving out incomplete and COVID weeks. Done on raw values, then on **anomalies** (each district's median for that week of the year removed), then on anomalies with the **trend** removed as well (a centred 52-week rolling mean per district).
+
+**Results (2026-11-13)**
+
+| Question | Answer |
+|---|---|
+| Biggest years | 2017: 175,000 cases; 2026: 105,000 by early November; a normal year 20,000–50,000 |
+| Who carries the burden | Colombo 21.8 % and Gampaha 12.8 % of all cases (2007–2025). Per person: Jaffna 399, Colombo 390, Batticaloa 305 per 100,000 a year; Nuwara Eliya 37 |
+| Seasons | North and east peak in weeks 2–6 (January); west, south and hills in weeks 23–29 (late June–July); Colombo also in December |
+| Autocorrelation, national log cases | 0.95 at 1 week, 0.87 at 4, 0.72 at 8, 0.41 at 52 |
+
+Mean correlation over districts at the best lag:
+
+| Weather | Raw | Anomaly | Anomaly, trend removed |
+|---|---|---|---|
+| Rain, 1 week | 0.12 at 9 | 0.05 at 9 | 0.085 at 9 |
+| Rain, 4-week total | — | — | 0.13 at 7 |
+| **Rain, 8-week total** | — | — | **0.16 at 5** (rain 5–12 weeks earlier) |
+| Humidity | 0.15 at 7 | −0.07 at 16 | **0.16 at 7–9** |
+| Temperature | 0.12 at 16 | **0.15 at 0** (flat at every lag) | 0.01 at 0; **−0.13 at 6–8** |
+
+**The five findings** (written at the end of the notebook)
+1. **Two dengue seasons, by region:** January in the north and east, after the north-east monsoon; late June–July in the west, south and hills, after the south-west monsoon, with a second December peak in Colombo. Each district needs its own season.
+2. **The burden is concentrated:** Colombo and Gampaha have 35 % of cases; per person Jaffna and Colombo are highest, Nuwara Eliya lowest.
+3. **This week's count is the best guide to the next weeks** (autocorrelation 0.72 even at 8 weeks). Recent cases and the usual seasonal level will be the strongest features; Phase 4 must beat a persistence and a seasonal baseline.
+4. **Weather 5–12 weeks earlier matters, but weakly** (0.16 for 8-week rain ending 5 weeks earlier, and for humidity 7–9 weeks earlier). These lags fit a 4–8 week forecast.
+5. **Remove season and trend before reading a lag.** The same-week temperature link was the shared upward trend; without it, warm spells 6–8 weeks earlier go with slightly fewer cases.
+
+**Why this way**
+- **Log cases.** Counts range from 0 to 2,600 a week; on the log scale an epidemic does not swamp every other week, and correlations are not driven by a few huge values.
+- **Anomalies, then detrending.** Raw correlations mix the effect of weather with "both rise in June" and "both rose since 2007" → [[02.04 Cross-Correlation and Lag Analysis]] · [[02.03 Time-Series Basics - Trend, Seasonality and Autocorrelation]].
+- **Rain totals over several weeks.** Breeding sites fill over weeks, so a total over the past month or two is a better measure than one week. This becomes a rolling-window feature in Phase 3 → [[03.02 Lag and Rolling-Window Features]].
+- **Leave out incomplete and COVID weeks** from the correlations, because their case counts reflect reporting, not dengue.
+
+```python
+anomaly  = d[col] - d.groupby(["district", "season_week"])[col].transform("median")
+trend    = anomaly.groupby(d["district"]).transform(lambda s: s.rolling(52, center=True, min_periods=26).mean())
+detr     = anomaly - trend
+r = g["log_cases_detr"].corr(g["rain8_detr"].shift(lag))      # one district, one lag
+```
+
+**Problems and fixes**
+
+| Problem | What was tried | Fix |
+|---|---|---|
+| Temperature looked linked to cases in the **same** week (0.15), which biology does not allow | Checked the shape: nearly flat over all 17 lags | A flat curve means a shared trend (mean temperature 25.9 °C in 2007, 26.5 °C in 2024; cases rose too). Removing a 52-week rolling mean takes the same-week link to 0.01. Added as section 6 |
+| Finding 1 first said Colombo peaks only in June–July | Looked at the saved seasonal figure | Colombo has a December peak almost as high (13.5 vs 13.7 per 100,000); finding corrected |
+| `nbconvert` runs the notebook from `notebooks/`, so `data/...` paths failed in principle | — | First cell moves to the project root if the folder is `notebooks` |
+
+> [!tip] What to remember
+> - A lag curve that is flat across all lags is a trend or a shared season, not an effect. A real effect rises and falls.
+> - Remove season **and** trend before reading a cross-correlation.
+> - Look at every saved figure before writing a finding: the numbers printed (one peak week) missed Colombo's second peak.
+> - Weak weekly correlations (0.1–0.2) are normal for weather and disease; they can still help a model that already knows recent cases.
+
+**Check yourself**
+1. Why did temperature first seem linked to cases in the same week, and how was that shown to be wrong?
+2. Why does 8-week rain ending 5 weeks earlier fit a 4–8 week forecast so well?
+3. What two simple forecasts must the Phase 4 model beat, and which finding says so?
+
+> [!success]- Answers
+> 1. Temperature and dengue both rose from 2007 to 2026, so their anomalies correlate a little at every lag, including 0. The curve was flat across lags; after removing a 52-week rolling mean the same-week correlation fell to 0.01.
+> 2. That rain falls 5–12 weeks before the cases. When forecasting 4–8 weeks ahead, most of it has already fallen at forecast time, so it can be used as an input without guessing future weather.
+> 3. "Same as recent weeks" (persistence) and "same as this time of year" (seasonal), from finding 3: autocorrelation is 0.72 at 8 weeks and 0.41 at 52.
