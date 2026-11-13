@@ -13,11 +13,11 @@ tags: [project, ml]
 
 ## Steps
 - [x] One pipeline script `src/pipeline.py` (done 2026-11-13, Step 8.1): collect weather → collect cases → build features → predict → write alerts → log metrics → [[08.01 Pipeline Scripts and Logging]]
-- [ ] Schedule it weekly (2026-11-13, Step 8.4: Task Scheduler scripts written and tested; registering waits for the user) → [[08.02 Scheduling with cron and GitHub Actions]]
+- [x] Schedule it weekly (done 2026-11-13, Step 8.5: Tuesday 07:00, first run 17 Nov) → [[08.02 Scheduling with cron and GitHub Actions]]
 - [x] Monitor the model (done 2026-11-13, Step 8.2): weekly error of past forecasts, input drift, a retraining flag → [[08.05 Model Monitoring - Data Drift and Concept Drift]]
 - [x] Version each model and store the version with every prediction; write the retraining plan (done 2026-11-13, Step 8.3) → [[08.06 Model Versioning and Retraining]]
-- [ ] Package the app and MySQL (2026-11-13, Step 8.4: Dockerfile and compose written and validated; building waits for the user) → [[08.03 Docker and Docker Compose]]
-- [ ] Deploy and confirm `/api/health` responds → [[08.04 Cloud Deployment Basics]]
+- [x] Package the app and MySQL (done 2026-11-13, Step 8.5: both containers healthy) → [[08.03 Docker and Docker Compose]]
+- [ ] Deploy and confirm `/api/health` responds (2026-11-13, Step 8.5: Render + Aiven PostgreSQL prepared; waits for the user's accounts) → [[08.04 Cloud Deployment Basics]]
 - [x] Scale to all 25 districts and check that results hold up (all 25 since Phase 1; tested in Phase 5)
 
 > [!warning] This phase holds more work than two weeks
@@ -25,7 +25,7 @@ tags: [project, ml]
 
 ## Done when
 - [x] The pipeline runs end to end with one command (2026-11-13: `python -m src.pipeline`, 2 min 46 s)
-- [ ] A scheduled run has completed successfully at least twice
+- [ ] A scheduled run has completed successfully at least twice (2026-11-13: one test start via Task Scheduler, result 0; first timed run Tue 17 Nov)
 - [ ] The app and database run in Docker and are deployed online
 - [x] All 25 districts are included
 - [x] The monitoring table records weekly error and a retraining flag (2026-11-13: `monitoring_error`)
@@ -132,3 +132,55 @@ with $e_i$ and $a_i$ the shares of training and recent values in each decile of 
 > 1. The first MySQL load ran on an empty database, so deleting districts broke nothing; once `predictions` held rows that pointed to them, MySQL refused. The tests used SQLite, which ignores foreign keys unless `PRAGMA foreign_keys = ON` is set.
 > 2. Not just because of the flag: any model's error rises in an epidemic, and this flag cleared when the epidemic ended. The plan says to look at why first; here the stronger reasons to retrain are the major drift in case level and that the models stop at 2023.
 > 3. Inputs are seasonal: rain and cases in October are not like the yearly average. Comparing with all weeks would report drift every season; comparing with the same weeks shows only real change.
+
+---
+## Step 8.5 — Task registered, Docker running, ready to go online
+> [!important] Goal
+> Turn on the weekly schedule, run the app and database in containers, and prepare everything for an online host that only the user can sign up to.
+
+**What was done (2026-11-13)** — the user approved all three: register the task, build the images, put it online.
+
+**1. Weekly task.** `scripts/register_task.ps1` created **"Dengue Early Warning - weekly pipeline"**: every **Tuesday 07:00** (`DaysOfWeek` 4 = Tuesday), start as soon as possible if missed, runs as the user while logged on (no password stored). First scheduled run: **Tuesday 17 Nov 2026**. Started once through Task Scheduler to test the task itself: ran 19:21, **Last Run Result 0**.
+
+**2. Docker.**
+- Docker Desktop was installed but not running (`dockerDesktopLinuxEngine` pipe missing); started it.
+- The container database needs `DB_PASSWORD` and `DB_ROOT_PASSWORD`; generated 24-character random values straight into `.env` (never shown, never committed).
+- `docker compose up -d --build`: images `mysql:8.0` (1.1 GB unpacked) and the app (268 MB). Loaded the container database from the host on port 3308: 25,925 weekly rows, 11,625 forecasts.
+
+| Check | Result |
+|---|---|
+| Containers | `db` healthy, `app` healthy (its own health check calls `/api/health`) |
+| `/api/health`, `/api/alerts/latest` | ok; 6 Warning, 14 Watch, 5 Normal (same as MySQL 8) |
+| Dashboard page and map file | 200, 200 |
+| Process | gunicorn, 2 workers, user `appuser` (not root) |
+| Empty database (before loading) | 503 "database unavailable" and `unhealthy`: the error path works too |
+| Port from the host | with `PORT=10000` the app answers on 10000 (what Render does) |
+
+**3. Online: prepared.**
+- **Hosts checked (2026-11-13):** Render's free web service runs a Dockerfile from GitHub (512 MB, sleeps after 15 idle minutes, about a minute to wake). **Aiven retired its free MySQL tier on 6 Nov 2026**; its free **PostgreSQL** has no time limit and no card. Render's own free Postgres expires after about 30 days. Chosen: **Render (app) + Aiven PostgreSQL (database)**.
+- SQLAlchemy Core makes the database swap one setting: added the PostgreSQL driver `psycopg[binary]` 3.2.13 (both requirement files). The local system stays on MySQL 8.
+- `src/publish.py` loads the online database from the same CSVs and writes the same forecasts; the weekly pipeline now ends with a **publish online** step that does nothing unless `ONLINE_DATABASE_URL` is in `.env`. The PC does the work; the online app only reads.
+- The Dockerfile takes the port from `$PORT`; `districts.geojson` is now committed (Render builds from GitHub, and the file was ignored).
+- **Waiting for the user:** create the Aiven PostgreSQL service and the Render web service (accounts and passwords are the user's).
+
+**Problems and fixes**
+
+| Problem | What was tried | Fix |
+|---|---|---|
+| Docker: "failed to connect to the docker API" | — | The engine runs inside Docker Desktop, which was closed; started it and waited for `docker info` |
+| `load_dotenv()` failed with `AssertionError` in a script read from standard input | — | It looks for `.env` by walking up from the calling file, and stdin has none; pass the path, `load_dotenv(".env")` |
+| Free MySQL hosting gone | Looked for current free tiers | PostgreSQL online; the code was already database-neutral |
+
+> [!tip] What to remember
+> - A container health check that calls the real API endpoint shows a broken database at once (`unhealthy`).
+> - Hosts give the port in `$PORT`; a shell-form `CMD` with `exec` reads it and still lets gunicorn receive stop signals.
+> - Database-neutral code (SQLAlchemy Core) turned "free MySQL disappeared" into a one-line change.
+> - Keep the heavy work where the data is; let the online app only read.
+
+**Check yourself**
+1. Why does the Dockerfile's `CMD` use `sh -c "exec gunicorn ..."` instead of a plain list?
+2. Why does the online system use PostgreSQL when the local one is MySQL, and what had to change in the code?
+
+> [!success]- Answers
+> 1. A plain list does not expand `${PORT}`; the shell does. `exec` then replaces the shell with gunicorn, so gunicorn is process 1 and gets the stop signal directly.
+> 2. Free hosted MySQL was retired (Aiven, 6 Nov 2026); free PostgreSQL remains. The code uses SQLAlchemy Core, so only the driver (`psycopg`) and the URL change.
