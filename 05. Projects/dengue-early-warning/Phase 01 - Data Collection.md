@@ -15,7 +15,7 @@ tags: [project, ml]
 - [x] Find the case data: which sources, which format (PDF, web table, file), how far back (done 2026-10-11, Step 1.1)
 - [ ] Write the case collector `src/collect_cases.py` → [[01.03 Web Scraping with BeautifulSoup and read_html]] · [[01.04 PDF Table Extraction with pdfplumber]] (in progress, Step 1.4: `denguedatahub` part done 2026-10-28; WER parser and downloader written 2026-10-29, download waiting on the site)
 - [x] Write the weather collector `src/collect_weather.py` (done 2026-10-23, Step 1.3) → [[01.01 HTTP Requests and REST APIs in Python]] · [[01.02 Parsing JSON into Tables]]
-- [ ] Collect population per district → [[01.08 Population Denominators and Incidence Rates]] · [[01.04 PDF Table Extraction with pdfplumber]] (in progress, Step 1.5: sources found and `src/collect_population.py` downloads and parses both tables, 2026-10-29)
+- [x] Collect population per district → [[01.08 Population Denominators and Incidence Rates]] · [[01.04 PDF Table Extraction with pdfplumber]] (done 2026-11-13, Step 1.5: `population.csv`, 525 rows)
 - [ ] Write the data dictionary in `docs/data.md`
 - [ ] Cache every download and wait between requests
 
@@ -30,7 +30,7 @@ tags: [project, ml]
 ## Done when
 - [ ] `cases_raw.csv` covers the chosen districts for 8 or more years
 - [x] Daily weather is downloaded for the same districts and years (2026-10-23: 26 units, 2006-01-01 to 2026-10-22)
-- [ ] The population table is saved
+- [x] The population table is saved (2026-11-13: `data/processed/population.csv`, 25 districts × 2006–2026)
 - [ ] Both collector scripts re-run from scratch with no manual steps
 - [ ] The data dictionary is written
 
@@ -357,7 +357,7 @@ HEADERS = {"User-Agent": "dengue-early-warning/0.1 (+https://github.com/rSith/de
 > 3. The PDFs already saved are still valid. Building from them gives a table that is at most a little out of date, which matters for the weekly pipeline later.
 
 ---
-## Step 1.5 — Population per district (in progress)
+## Step 1.5 — Population per district
 > [!important] Goal
 > A script, `src/collect_population.py`, that downloads the official mid-year population tables and saves `data/processed/population.csv` with one row per district per year, 2006 to 2026, and the columns `district, year, population, provisional, estimated, census_base`. Phase 2 divides cases by it to get cases per 100,000 people → [[01.08 Population Denominators and Incidence Rates]].
 
@@ -367,10 +367,10 @@ The step is done in six small parts:
 |---|---|---|
 | 1 | Download the two PDFs | Done, checked 2026-10-29 |
 | 2 | Parse a PDF into rows | Done, checked 2026-10-29 |
-| 3 | Check names and totals | Code written, not yet run |
-| 4 | Join the two tables, mark the census base, fill 2006–2013 | To do |
-| 5 | Check the final table (525 rows, no gaps) | To do |
-| 6 | Data dictionary, notes, progress log | To do |
+| 3 | Check names and totals | Done, tested 2026-10-29 |
+| 4 | Join the two tables, mark the census base, fill 2006–2013 | Done 2026-10-29, revised 2026-11-13 |
+| 5 | Check the final table (525 rows, no gaps) | Done, tested 2026-11-13 |
+| 6 | Data dictionary, notes, progress log | Done 2026-11-13 |
 
 **What was done (2026-10-29)**
 
@@ -537,6 +537,46 @@ population = wide[year] * (1 + (factor - 1) * weight)
 
 `estimated` turned out True for every year up to 2024, because every 2013–2024 figure is adjusted a little. Only 2025–2026 are untouched official numbers. That is the honest answer, not a bug.
 
+**Part 4 revised: the step back from 2025 uses recent growth (2026-11-13).** Before saving, the national total of the adjusted series was checked, and it went the wrong way: **21.55 million in 2024 → 21.76 million in 2025 (+1.0 %)**, while the published figures fall 0.7 % (21.92 → 21.76 million).
+
+*Why.* The factor steps 2025 back one year at $r$, the 2014–2019 growth (about 1 % a year). Since COVID, growth has been near zero because of emigration, so the step back overshoots and sets 2024 about 1 % too low in almost every district.
+
+*Fix.* Step back at the new series' own growth, 2025 → 2026, which is on the same census base and recent:
+
+$$r_{\text{recent}} = \frac{P_{2026}}{P_{2025}} - 1 \qquad \text{factor} = \frac{P_{2025} / (1 + r_{\text{recent}})}{P_{2024}}$$
+
+The back-fill for 2006–2013 keeps $r$ from 2014–2019, which is closer to those years.
+
+```python
+recent = wide[NEW_CENSUS + 2] / wide[NEW_CENSUS + 1] - 1
+factor = (wide[NEW_CENSUS + 1] / (1 + recent)) / wide[NEW_CENSUS]
+```
+
+| | Old step ($r$ 2014–2019) | New step (2025 → 2026) |
+|---|---|---|
+| Growth used | 0.42 % to 1.80 % | −0.18 % (Galle) to 1.16 % (Vavuniya) |
+| National 2024, adjusted | 21.55 million | **21.73 million** (the 2024 census counted about 21.76 million) |
+| National 2024 → 2025 | +1.0 % | **+0.1 %** |
+| Factor range | 0.868 to 1.225 | 0.868 to 1.230 |
+
+*Trade-off.* The PDFs round to thousands, so in small districts the one-year growth is coarse: Mullaitivu is 123 → 123 thousand, so its recent growth reads as exactly 0 %. That costs under 1 %, smaller than the 1–2 % bias of the old step.
+
+**Part 5: final checks (2026-11-13).** `check_series(series, published)` runs before the file is saved and stops on:
+- a row count other than 25 × 21, a repeated district-year, or a missing value;
+- a row marked `estimated=False` that differs from the PDF;
+- any district changing by more than 5 % in one year (the census break was +23 %; real change here is under 4 %).
+
+| Test | Expected | Result |
+|---|---|---|
+| Real data | Pass | Passed: 525 rows, largest yearly change 3.3 % (Mannar) |
+| Mullaitivu 2024 set back to the unadjusted 100,000 | Stop | Stopped: `Yearly change over 5%` |
+| One row dropped | Stop | Stopped: `Expected 25 x 21 unique rows, got 524` |
+| Colombo 2026 changed by 1,000 | Stop | Stopped: `A row marked estimated=False differs from the PDF` |
+
+Saved: `data/processed/population.csv`. Mullaitivu now reads 91,885 (2006) → 94,212 (2012) → 123,000 (2024) → 123,000 (2025); Colombo 2,208,609 → 2,316,040 → 2,373,002 → 2,371,000.
+
+**Part 6 (2026-11-13).** Columns, method and the Northern-districts caveat added to `docs/data.md`; `docs/progress.md` updated.
+
 **Why this way**
 - **Download and parse are separate**, as in the other collectors: the parser can be fixed and re-run without the network.
 - **Short local file names, URLs kept in the code.** Easy to type, and the code still records where each file came from.
@@ -548,22 +588,26 @@ population = wide[year] * (1 + (factor - 1) * weight)
 **Still to do in this step**
 - ~~Run Part 3 and the deliberate-failure test.~~ Done 2026-10-29 (see above).
 - ~~Part 4: combine the two tables, add `census_base` (2012 or 2024) and `estimated`, back-fill 2006–2013.~~ Done 2026-10-29 with option C (see above).
-- Part 5: check 25 districts × 21 years = 525 rows, no gaps, no duplicates.
-- Part 6: population columns in `docs/data.md` (note the Mullaitivu and Kilinochchi caveat for 2006–2009), `docs/progress.md`, commit.
+- ~~Part 5: check 25 districts × 21 years = 525 rows, no gaps, no duplicates.~~ Done 2026-11-13 (see above).
+- ~~Part 6: population columns in `docs/data.md` (note the Mullaitivu and Kilinochchi caveat for 2006–2009), `docs/progress.md`, commit.~~ Done 2026-11-13.
 
 > [!tip] What to remember
 > - When `extract_text()` gives broken numbers, try `extract_table()` before fighting with tolerances. If the PDF has cell borders, the table reader is more reliable.
 > - A national total row is a built-in test. Use it, then drop it.
 > - Run every check against a deliberate mistake before trusting it. A check that has never failed may not be able to fail: the district-sum check passed a whole-column error because the total row shifted with it.
 > - Before mixing two official series, check whether they share a base. A census changes the base, and a sudden jump in the year it changes is an artefact, not a real event.
+> - Check a series against its national total, not only district by district. Every district looked smooth while the country as a whole rose when the published figures fell.
+> - Use a growth rate from the period you are stepping across. Pre-COVID growth was the wrong rate for 2024.
 > - Population changes about 1 % a year, cases change ten-fold within a year. A small error in the denominator barely moves the incidence rate, except where people really moved, such as the Northern districts during the war (2006–2009).
 
 **Check yourself**
 1. Why was `extract_table()` used and not `extract_text()` for the population PDFs?
 2. Official national figures show 20.9 million in 2011 and 20.3 million in 2012. What happened, and why does it matter for the project?
 3. The Mullaitivu population goes from 100,000 in 2024 to 123,000 in 2025. Is that real growth? How will the table show it?
+4. Why does the step back from 2025 to 2024 use the 2025→2026 growth and not the 2014–2019 growth?
 
 > [!success]- Answers
 > 1. In the 2025–2026 file, `extract_text()` puts spaces inside numbers (`1 ,302`, `6 29`), so splitting a line on spaces gives too many pieces. `extract_table()` follows the drawn cell borders and keeps each number in one cell, so removing spaces and commas gives the right value.
 > 2. The base changed from the 2001 census to the 2012 census, which counted the North and East properly. Mixing the two series would make every district's incidence jump in 2012 for no real reason, and a model could learn that jump.
 > 3. No. It is the switch from 2012-census estimates to the 2024 census. The `census_base` column marks each row as 2012 or 2024, so the jump can be seen and explained.
+> 4. The 2014–2019 rate is about 1 %, but growth since COVID is near zero, so stepping back from 2025 at 1 % put 2024 about 1 % too low and made the country appear to grow when it was shrinking. The 2025→2026 rate is recent and on the same census base.
