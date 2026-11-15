@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/02 Building Systems with the ChatGPT API/Complete_Course_Study_Guide.md",
+                "file": "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/01 ChatGPT Prompt Engineering for Developers/Complete_Course_Study_Guide.md",
                 "mode": "preview",
                 "source": false
               },
@@ -163,7 +163,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844
+    "width": 423.8999938964844,
+    "collapsed": true
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -282,11 +283,11 @@
   },
   "active": "4a0e5bf8d9e244df",
   "lastOpenFiles": [
-    "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/01 ChatGPT Prompt Engineering for Developers/Complete_Course_Study_Guide.md",
+    "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/A1 LLMs & Prompting.md",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/02 Building Systems with the ChatGPT API/Complete_Course_Study_Guide.md",
+    "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/01 ChatGPT Prompt Engineering for Developers/Complete_Course_Study_Guide.md",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/02 Building Systems with the ChatGPT API/Unconfirmed 205986.crdownload",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/01 ChatGPT Prompt Engineering for Developers/ChatGPT Prompt Engineering for Developers.md",
-    "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/A1 LLMs & Prompting.md",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/02 Building Systems with the ChatGPT API/Building Systems with the ChatGPT API.md",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/01 ChatGPT Prompt Engineering for Developers/Unconfirmed 593502.crdownload",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/04 Attention in Transformers - Concepts and Code in PyTorch/Attention in Transformers - Concepts and Code in PyTorch.md",
