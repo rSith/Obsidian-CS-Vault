@@ -37,12 +37,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.3 - Social and Technical Essays.md",
+                "file": "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.2 - Mobile Computing, IoT and Wireless.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "PP 01.3 - Social and Technical Essays"
+              "title": "PP 01.2 - Mobile Computing, IoT and Wireless"
             }
           },
           {
@@ -101,7 +101,8 @@
               "title": "Phase 03 - Feature Engineering"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -281,11 +282,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4a0e5bf8d9e244df",
+  "active": "8ad06f4c92700b4d",
   "lastOpenFiles": [
+    "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.3 - Social and Technical Essays.md",
+    "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.4 - Classification and Topologies.md",
+    "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/01 ChatGPT Prompt Engineering for Developers/Complete_Course_Study_Guide.md",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/A1 LLMs & Prompting.md",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/02 Building Systems with the ChatGPT API/Complete_Course_Study_Guide.md",
-    "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/01 ChatGPT Prompt Engineering for Developers/Complete_Course_Study_Guide.md",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/02 Building Systems with the ChatGPT API/Unconfirmed 205986.crdownload",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/01 ChatGPT Prompt Engineering for Developers/ChatGPT Prompt Engineering for Developers.md",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/02 Building Systems with the ChatGPT API/Building Systems with the ChatGPT API.md",
@@ -312,8 +315,6 @@
     "05. Projects/dengue-early-warning/sedKVbhx1",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.6 - Reference Models, TCP and UDP.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.5 - Protocols, Layering and Services.md",
-    "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.4 - Classification and Topologies.md",
-    "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.3 - Social and Technical Essays.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Exam Prep/3114 Topic Map & Past Papers.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Exam Prep/3114 Ch01 Past Paper Q&A.md",
     "05. Projects/plantfolio/01. Lessons/02. Interactivity and Responsive Design/02.06 Mobile Patterns - Bottom Bar, Sheets and Stacked Tables.md",
