@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/01 ChatGPT Prompt Engineering for Developers/Complete_Course_Study_Guide.md",
+                "file": "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/02 Building Systems with the ChatGPT API/Complete_Course_Study_Guide.md",
                 "mode": "preview",
                 "source": false
               },
@@ -163,8 +163,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844,
-    "collapsed": true
+    "width": 423.8999938964844
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -283,10 +282,12 @@
   },
   "active": "4a0e5bf8d9e244df",
   "lastOpenFiles": [
+    "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/01 ChatGPT Prompt Engineering for Developers/Complete_Course_Study_Guide.md",
+    "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/02 Building Systems with the ChatGPT API/Complete_Course_Study_Guide.md",
+    "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/02 Building Systems with the ChatGPT API/Unconfirmed 205986.crdownload",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/01 ChatGPT Prompt Engineering for Developers/ChatGPT Prompt Engineering for Developers.md",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/A1 LLMs & Prompting.md",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/02 Building Systems with the ChatGPT API/Building Systems with the ChatGPT API.md",
-    "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/01 ChatGPT Prompt Engineering for Developers/Complete_Course_Study_Guide.md",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/01 ChatGPT Prompt Engineering for Developers/Unconfirmed 593502.crdownload",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/04 Attention in Transformers - Concepts and Code in PyTorch/Attention in Transformers - Concepts and Code in PyTorch.md",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/03 How Transformer LLMs Work/How Transformer LLMs Work.md",
@@ -308,7 +309,6 @@
     "05. Projects/dengue-early-warning/sed4XBGvP",
     "05. Projects/dengue-early-warning/sedMMNMvy",
     "05. Projects/dengue-early-warning/sedKVbhx1",
-    "05. Projects/dengue-early-warning/sedjhvBO5",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.6 - Reference Models, TCP and UDP.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.5 - Protocols, Layering and Services.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.4 - Classification and Topologies.md",
@@ -318,7 +318,6 @@
     "05. Projects/plantfolio/01. Lessons/02. Interactivity and Responsive Design/02.06 Mobile Patterns - Bottom Bar, Sheets and Stacked Tables.md",
     "05. Projects/plantfolio/01. Lessons/01. Building Pages/01.01 Page Skeleton - Header, Footer and Navigation.md",
     "05. Projects/plantfolio/02. Progress/PlantFolio Week 03 - Pages B My Plants.md",
-    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/03. Query Processing and Relational Algebra/03.02 Relational Algebra Basic Operations.md",
     "03. Self-Study/ML Specialization/_assets/c1w1_supervised_vs_unsupervised.png",
     "03. Self-Study/ML Specialization/_assets/c1w1_linear_regression_model.png",
     "03. Self-Study/ML Specialization/_assets/c1w1_learning_rate.png",
