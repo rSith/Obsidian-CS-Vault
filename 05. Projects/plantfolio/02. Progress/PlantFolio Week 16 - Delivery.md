@@ -86,3 +86,112 @@ On the host, `config/config.php` changes only `app_env` → `'production'`, `bas
 > 1. It is listed in `.gitignore`, so git never tracks it, and `git archive` packs only tracked files.
 > 2. `app_env` (production, to hide errors), `base_url` (the online address), and the four database values from the host's MySQL page. Only `public/` is the website; the root `.htaccess` forwards the site's address to `/public/`, and `url()` builds every link from `base_url`.
 > 3. Free hosting runs PHP only: there is no Python for the Flask service and no Ollama. PHP's cURL call fails within the 3-second connect time-out, and the page shows "We couldn't reach…" with the manual way. Saved care guides from the demo data still show.
+
+### Step 16.2 — UI polish: motion, landing page glow-up, phone fixes
+
+> [!important] Goal
+> **UI polish (no Task Sheet ID yet).** Make the site more attractive and nicer to use without changing the design system: motion, a livelier landing page, and the phone problems left over from the 23 Oct Dashboard audit. My choice on 16 Nov: steps 1–3 now, real photos next.
+
+**What was done** (16 Nov 2026, branch `feature/ui-polish` from `feature/release-cleanup`, commits `e883266`, `7787b77`, `76037cc`)
+- **Motion foundation** (`e883266`): motion tokens in `variables.css` (`--ease-out`, `--duration-reveal` …). Buttons shrink a little when pressed; filled buttons rise with a shadow on hover. Card hover lift now only for a mouse. Listing and Community photos zoom slowly on hover. Cards in the main grids (Garden, Community, landing, public profile) fade up as they scroll into view, a few milliseconds apart.
+- **Landing page** (`7787b77`): soft sage and terracotta colour pools and two faint outline leaves behind the hero; the hero text rises in line by line on arrival and the collage chips float slowly. New **stats strip** with four real counts (members, public plants, open listings, story entries of public plants). Steps show "Step 1" and a leaf-green icon tile. A forest-green **closing panel** ("Every plant has a story. Start writing yours.") before the footer.
+- **Phone fixes** (`76037cc`): a focused field can no longer hide behind the bottom bar; links inside the page glide (smooth scroll); no grey flash or zoom delay on taps; a round **Back to top** button after 1.5 screens of scrolling.
+- Checked: headless Edge screenshots at 1366 and 500 px, no console errors, no PHP warnings. Not yet: a real phone, and seeing the animations myself.
+
+**Why this way**
+- **Only parts below the screen are hidden** before they reveal. What a visitor sees on arrival is never hidden and shown again, so nothing blinks, and no inline script in `<head>` was needed.
+- **Everything is optional.** Without JavaScript, or when the system says "reduce motion", the page is simply all there. Movement makes some people feel unwell; `prefers-reduced-motion` is how the operating system tells the page.
+- **`@media (hover: hover) and (pointer: fine)`** = "this device has a mouse". On a phone `:hover` sticks after a tap, so a tapped card would stay lifted.
+- **`translate` instead of `transform`** for the collage animation: the cards are already tilted with `transform: rotate()`, and animating `transform` would have wiped the tilt.
+- Photos zoom only on cards **without the ⋯ menu**: the zoom needs `overflow: hidden` on the photo frame, which would have cut off the menu's dropdown on My Garden.
+- Stats are **real numbers, public rows only**: small on a demo site, but never a false claim.
+
+**The lines that matter**
+```js
+// app.js: hide only what is still below the screen, then let IntersectionObserver say when it arrives
+const prepare = (part) => {
+  if (part.getBoundingClientRect().top > window.innerHeight) {
+    part.classList.add('reveal');      // opacity 0, 16px lower
+    observer.observe(part);            // the callback adds .is-visible → CSS transition fades it up
+  }
+};
+```
+```css
+/* components.css: hover effects only for a mouse */
+@media (hover: hover) and (pointer: fine) {
+  .plant-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card); }
+}
+```
+```css
+/* layout.css: room for the phone bar when the browser scrolls a focused field into view */
+html:has(body.has-bottom-bar) {
+  scroll-padding-bottom: calc(var(--bottom-bar-height) + 28px + var(--space-16));
+}
+```
+
+**Problems and fixes**
+- The Back to top button first moved focus to the skip link, but that link shows itself on `:focus`, so it would pop up after a mouse click. Focus goes to the logo instead.
+- The closing heading left "yours." alone on its last line: `text-wrap: balance` evens the lines.
+
+> [!tip] What to remember
+> - Motion is decoration: the page must work and look complete without it (no JS, reduced motion).
+> - `IntersectionObserver` tells you when an element enters the screen, without checking on every scroll event.
+> - Gate hover effects with `(hover: hover)`; touch screens have no real hover.
+
+**Check yourself**
+1. Why does the scroll reveal hide only the cards that start below the screen?
+2. What does `prefers-reduced-motion` do, and what happens to the reveal and the floating chips when it is on?
+3. Why do the collage cards animate `translate` and not `transform`?
+
+> [!success]- Answers
+> 1. `app.js` runs after the page is first drawn (`defer`). Hiding what is already on screen would make it disappear and come back: a blink. Cards below the screen were never seen, so hiding them is invisible.
+> 2. It is the operating system's "reduce motion" setting, readable in CSS and JS. `app.js` then never adds `.reveal`, and the landing animations sit inside `@media (prefers-reduced-motion: no-preference)`, so nothing moves: everything is just there.
+> 3. The cards are tilted with `transform: rotate()`. An animation of `transform` would replace the rotation while it runs; `translate` is a separate property that adds to it.
+
+### Step 16.3 — Real photos in the landing collage, floating cards
+
+> [!important] Goal
+> **UI polish (no Task Sheet ID yet).** My request: real plant photos for the two landing cards (Goldie and Monty) instead of the cartoon drawings, and a floating animation for the cards.
+
+**What was done** (16 Nov 2026, branch `feature/ui-polish`, commit `2ae9cf6`)
+- Two free-licence photos from **Wikimedia Commons**: a golden pothos in a pot (Slyronit, CC BY-SA 4.0) for Goldie, a Monstera leaf (Princesleaf, CC BY-SA 3.0) for Monty. Cropped to 4:3 with Python (Pillow) and saved at 960 px as `public/assets/img/mock/goldie.jpg` and `monty.jpg` (96 KB and 135 KB).
+- Database: plants 42 and 43 and Monty's newest gallery photo (`plant_photos` 204) point at the new files; the same change in `database/seed.sql`, so a fresh install has them too. Every page that shows Monty or Goldie now shows the photo.
+- **Photo credits** on `about.php` (#about): title, author, link and licence for each photo.
+- The two collage cards **float**: up 10 px with a 0.75° sway, 8 s and 9 s per cycle, starting at different times, so the cards and chips never move together. Off with reduced motion.
+
+**Why this way**
+- **CC BY-SA** lets anyone reuse a photo if they credit the author, link the licence and say what was changed ("cropped"). That is why the credits line exists; without it, using the photo breaks the licence.
+- Different durations (8 s, 9 s, 6 s for the chips) keep the pieces drifting in and out of step, which looks natural instead of mechanical.
+- `rotate` and `translate` are separate CSS properties that add to `transform: rotate(-2deg)`, so the card keeps its tilt while it sways.
+
+**The lines that matter**
+```css
+@keyframes landing-float-card {
+  50% { translate: 0 -10px; rotate: 0.75deg; }
+}
+.collage-card {
+  animation: landing-rise var(--duration-reveal) var(--ease-out) 200ms both,   /* arrive */
+             landing-float-card 8s ease-in-out 1s infinite;                     /* then float for ever */
+}
+```
+
+**Problems and fixes**
+- Monty's gallery shows the **newest** photo first (`ORDER BY created_at DESC`). I first changed the oldest row (201), saw the order, and moved the photo to row 204.
+
+> [!tip] What to remember
+> - A free photo is not free of rules: CC BY-SA needs a credit with author, source, licence and changes.
+> - On the live site, upload the two `.jpg` files and `about.php`, and run the same `UPDATE` lines in phpMyAdmin.
+
+**Check yourself**
+1. What four things does the CC BY-SA credit need?
+2. Why do the two cards use different animation durations?
+
+> [!success]- Answers
+> 1. The title or a link to the work, the author, the licence (with a link), and what was changed (here: cropped).
+> 2. So they drift in and out of step with each other and the chips; the same timing would make the whole collage bob as one block.
+
+**Addendum: leafy side margins** (commit `0e393be`)
+- My two leaf-pattern images fill the empty left and right margins of the landing page on screens 1200 px and wider: `public/assets/img/landing-leaves-left.jpg` and `-right.jpg`, converted from PNG (about 125 KB each).
+- How: two empty `<div class="landing-margin">` placed `absolute` against `<body>`, as tall as the page. `background-size: cover` makes the picture as tall as the page, `background-position: left bottom` shows its leafy outer edge, and `mask-image: linear-gradient(...)` fades it out towards the content. The hero (`z-index: 2`) lies on top, so the leaves start below it.
+- Narrower screens hide the strips (`display: none`): the margins would be too thin to show leaves.
+- **Removed the same day** (revert `ab7fd31`): seen in the browser, I didn't like the look, so the strips, CSS and both images were taken out with `git revert`. The landing page is back to how it was after `2ae9cf6`. Lesson: `git revert` undoes a commit with a new commit, so the history still shows what was tried.
