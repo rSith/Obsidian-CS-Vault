@@ -78,7 +78,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -258,8 +258,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "6fd6678043af0b02",
+  "active": "fc25d3e9c8521fb1",
   "lastOpenFiles": [
+    "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.5 - Protocols, Layering and Services.md",
     "02. University/CMIS 3153 - Advanced Database Systems/Claude outputs/CMIS3153_Past_Paper_QA_by_Lesson.pdf",
     "02. University/CMIS 3124 - Web Designing & E-Commerce/Exam Revision/CMIS3124_Past_Papers_and_Expected_Answers.pdf",
     "02. University/CMIS 3142 - Computational Methods/Exam Revision/CMIS3142_Past_Paper_Workbook.pdf",
@@ -274,7 +275,6 @@
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/02. Regular Expressions/PP 02 - Regular Expressions.md",
     "02. University/CMIS 3134 - Computer Architecture & Compiler Design/Past Papers/05. Moore and Mealy Machines/PP 05 - Moore and Mealy Machines.md",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/01 ChatGPT Prompt Engineering for Developers/Complete_Course_Study_Guide.md",
-    "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.5 - Protocols, Layering and Services.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.4 - Classification and Topologies.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.2 - Mobile Computing, IoT and Wireless.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.3 - Social and Technical Essays.md",
@@ -295,7 +295,6 @@
     "05. Projects/dengue-early-warning/sedTMAta7",
     "05. Projects/dengue-early-warning/sedWqBosV",
     "05. Projects/dengue-early-warning/sed9Wiz8h",
-    "05. Projects/dengue-early-warning/sed9fTn6h",
     "03. Self-Study/ML Specialization/_assets/c1w1_supervised_vs_unsupervised.png",
     "03. Self-Study/ML Specialization/_assets/c1w1_linear_regression_model.png",
     "03. Self-Study/ML Specialization/_assets/c1w1_learning_rate.png",
