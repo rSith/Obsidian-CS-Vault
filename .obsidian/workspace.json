@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "f3491ba5194ad55f",
+        "id": "c39a13773f10e5a2",
         "type": "tabs",
         "children": [
           {
-            "id": "249143a6d73aaf3b",
+            "id": "e8cfcb1b5effa4eb",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3153 - Advanced Database Systems/Past Papers/01. Data Storage and File Organization/PP 01.1 - Disk Hardware and Memory vs Disk.md",
-                "mode": "preview",
+                "file": "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.02 Magnetic Disk Structure.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "PP 01.1 - Disk Hardware and Memory vs Disk"
+              "title": "01.02 Magnetic Disk Structure"
             }
           }
         ]
@@ -55,7 +55,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "Cylinder number",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -79,8 +79,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -186,8 +185,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -201,11 +199,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "249143a6d73aaf3b",
+  "active": "e8cfcb1b5effa4eb",
   "lastOpenFiles": [
-    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.02 Magnetic Disk Structure.md",
-    "02. University/CMIS 3153 - Advanced Database Systems/Past Papers/01. Data Storage and File Organization/PP 01.1 - Disk Hardware and Memory vs Disk.md",
+    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.01 Types of Storage and Memory Hierarchy.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.00 Data Storage and File Organization.md",
+    "02. University/CMIS 3153 - Advanced Database Systems/Past Papers/01. Data Storage and File Organization/PP 01.1 - Disk Hardware and Memory vs Disk.md",
+    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.02 Magnetic Disk Structure.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.05 Records, Blocking and File Allocation.md",
     "02. University/CMIS 3153 - Advanced Database Systems/Past Papers/01. Data Storage and File Organization/PP 01.4 - Records and File Calculations.md",
     "02. University/CMIS 3153 - Advanced Database Systems/Past Papers/01. Data Storage and File Organization/PP 01 - Data Storage and File Organization.md",
@@ -233,7 +232,6 @@
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.4 - Classification and Topologies.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.2 - Mobile Computing, IoT and Wireless.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.3 - Social and Technical Essays.md",
-    "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/A1 LLMs & Prompting.md",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/02 Building Systems with the ChatGPT API/Unconfirmed 205986.crdownload",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/01 ChatGPT Prompt Engineering for Developers/Unconfirmed 593502.crdownload",
     "05. Projects/dengue-early-warning/sedTMAta7",
