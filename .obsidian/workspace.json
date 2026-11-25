@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.08 Hash Files and Collision Handling.md",
+                "file": "02. University/CMIS 3142 - Computational Methods/01. Lessons/mid/01. Floating Point Numbers/01.08 Java Programs for IEEE 754.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "01.08 Hash Files and Collision Handling"
+              "title": "01.08 Java Programs for IEEE 754"
             }
           }
         ]
@@ -83,7 +83,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 423.8999938964844
+    "width": 423.8999938964844,
+    "collapsed": true
   },
   "right": {
     "id": "c7e9b299c8696c4f",
@@ -202,6 +203,7 @@
   },
   "active": "e8cfcb1b5effa4eb",
   "lastOpenFiles": [
+    "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.08 Hash Files and Collision Handling.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.02 Magnetic Disk Structure.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.01 Types of Storage and Memory Hierarchy.md",
     "02. University/CMIS 3153 - Advanced Database Systems/01. Lessons/01. Data Storage and File Organization/01.00 Data Storage and File Organization.md",
@@ -232,7 +234,6 @@
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/01 ChatGPT Prompt Engineering for Developers/Complete_Course_Study_Guide.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.4 - Classification and Topologies.md",
     "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.2 - Mobile Computing, IoT and Wireless.md",
-    "02. University/CMIS 3114 - Data Communication & Computer Networks/Past Papers/01. Introduction/PP 01.3 - Social and Technical Essays.md",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/02 Building Systems with the ChatGPT API/Unconfirmed 205986.crdownload",
     "03. Self-Study/DLAI Short Courses/A1 LLMs & Prompting/01 ChatGPT Prompt Engineering for Developers/Unconfirmed 593502.crdownload",
     "05. Projects/dengue-early-warning/sedTMAta7",
